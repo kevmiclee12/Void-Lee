@@ -1,0 +1,161 @@
+.dialog-box-long {
+    left: -100%;
+    bottom: 2%;
+    position: absolute;
+    max-width: 98vw;
+    opacity: 0;
+    animation: slideInFadeIn 800ms ease-out forwards;
+    z-index: 1;
+}
+
+.dialog-avatar {
+    left: -3vw;
+    bottom: -100%;
+    position: absolute;
+    max-width: auto;
+    height: 35vw;
+    opacity: 0;
+    animation: slideUpFadeIn 800ms ease-out forwards;
+    z-index: 2;
+}
+
+.dialog-text {
+    z-index: 3;
+    font-size: 1.9vw;
+    font-weight: bold;
+    color: transparent;
+    text-shadow: 0.15vw 0.15vh #D7873D;
+    position: absolute;
+    left: -100%;
+    top: 38vw;
+    width: 64vw;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    white-space: normal;
+    line-height: 1.2;
+    opacity: 0;
+    animation: slideInFadeInText 800ms ease-out forwards, wobble 2.0s infinite;
+}
+
+.dialog-text-bounce {
+    z-index: 3;
+    font-size: 1.9vw;
+    /* font-weight: bold; */
+    color: black;
+    position: absolute;
+    left: -100%;
+    top: 38vw;
+    width: 64vw;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    white-space: normal;
+    line-height: 1.2;
+    opacity: 0;
+    animation: slideInFadeInText 800ms ease-out forwards, dialog-shift 3.5s infinite, wobble 2.0s infinite;
+}
+
+
+@keyframes dialog-shift {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translate(0.15vw, 0.15vh);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes wobble {
+    0% {
+        letter-spacing: normal;
+    }
+
+    50% {
+        letter-spacing: 0.005vw;
+    }
+
+    100% {
+        letter-spacing: normal;
+    }
+}
+
+
+.dialog-text span {
+    line-height: 1;
+    opacity: 0;
+    animation: fadeIn 3s forwards;
+}
+
+.dialog-text-bounce span {
+    line-height: 1;
+    opacity: 0;
+    animation: fadeIn 3s forwards;
+}
+
+
+@keyframes slideInFadeIn {
+    0% {
+        left: -100%;
+        opacity: 0;
+    }
+
+    50% {
+        left: -100%;
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 0.5;
+    }
+
+    100% {
+        left: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFadeInText {
+    0% {
+        left: -100%;
+        opacity: 0;
+    }
+
+    50% {
+        left: -100%;
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 0.5;
+    }
+
+    100% {
+        left: 30vw;
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpFadeIn {
+    0% {
+        bottom: -100%;
+        opacity: 0;
+    }
+
+    50% {
+        bottom: -100%;
+        opacity: 0;
+    }
+
+    75% {
+        opacity: 0.5;
+    }
+
+    100% {
+        bottom: 0;
+        opacity: 1;
+    }
+}

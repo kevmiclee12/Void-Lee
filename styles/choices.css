@@ -1,0 +1,27 @@
+.text {
+    z-index: 3;
+    font-size: 1.9vw;
+    font-weight: bold;
+    position: absolute;
+    left: 30vw;
+    bottom: 6vw;
+    word-wrap: normal;
+    overflow-wrap: normal;
+    white-space: normal;
+    line-height: 1.2;
+}
+
+.choice-button {
+    cursor: pointer;
+    font-size: 1.9vw;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    color: black;
+}
+
+.choice-button:hover {
+    color: #6D05FF;
+}

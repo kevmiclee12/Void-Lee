@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            // playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
+            // createDialogComponent(
+            //     'long',
+            //     'none',
+            //     "Light pours through the blinds of your front window and onto the ceiling in stripes. The view out the window shows an empty alleyway at full noon.",
+            // );
+            // playText(0.03, window.innerWidth * 0.64);
+        }
+
+        window.onbeforeunload = function () {
+            audioElement.pause();
+            audioElement.currentTime = 0;
+        };
+
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

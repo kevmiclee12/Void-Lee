@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div class="alert-overlay" id="customAlert" style="display: none;">
+        <div class="alert-box">
+            <p class="alert-message" id="alertMessage"></p>
+            <button class="alert-close-btn" onclick="closeCustomAlert(startGame())">Andiamo</button>
+        </div>
+    </div>
+    <div class="story" style="background-image: url(resources/images/backgrounds/Landing-Page.png);" id="story">
+        <p class="fade-text" style="font-size: 4vw; 
+        font-weight: bold; 
+        color: transparent; 
+        left: 25vw;
+        top: 5vw;
+        text-shadow: 4px 4px 2px #D7873D;
+        position: absolute;" data-text="Void Lee">
+        </p>
+        <p class="fade-text bounce" style="font-size: 4vw; 
+                    font-weight: bold; 
+                    color: #6D05FF; 
+                    left: 25vw;
+                    top: 5vw;
+                    position: absolute;" data-text="Void Lee">
+        </p>
+        <p class="fade" id="delayedMessage"
+            style="visibility:hidden; position: absolute; left: 10vw; top: 35vw; line-height: 1;">
+            <a class="text-button" onClick="redirect('pages/new-game.html')">
+                New game
+            </a>
+        </p>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        window.onload = function () {
+            showCustomAlert(`Welcome to <strong>Void Lee</strong>,
+            a game written in a collaborative manner.
+            I, Billy Halibut, am the chief compiler and weaver.
+            I am joined in creative breathing by Kevin, Wendall, Phillip and Craig Halibut.`);
+        }
+    </script>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/alert.css">
+    <link rel="stylesheet" href="styles/button.css">
+</body>
+
+</html>
