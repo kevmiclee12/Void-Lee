@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Void Lee</title>
@@ -11,11 +10,15 @@
 <body>
     <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
         <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-            <a class="choice-button" onClick="redirect('more-people.html')">Wish there were more people...</a>
+            <a class="choice-button" onClick="increaseStat('bluemagic', 1); redirect('blue-mage.html')">Heal the
+                human-faced dog's face back into a dog's face</a>
             </br>
-            <a class="choice-button" onClick="redirect('listen-to-the-park.html')">Listen to the park</a>
+            <a class="choice-button" onClick="increaseStat('will', 1); redirect('blue-mage.html')">Heal the human-faced
+                dog's body back into a human's body</a>
         </div>
     </div>
+
+    <!-- //TODO: Show the hand with the items in it dissolving -->
 
     <script src="../script.js"></script>
     <script>
@@ -24,7 +27,7 @@
             createDialogComponent(
                 'main',
                 'none',
-                "You see an empty park. In the distance in front, a childrens' play structure with a public pool behind it. Behind you, a soccer field, basketball court, and skatepark.",
+                "The dog submits to your touch, and leans against you. You find a collar with a locket wrapped around its neck. The locket is glowing faintly with a sigul of a crescent moon. The dog does not react to you touching the locket, and you think to open it. Inside the locket is a dried bit of plant matter that smells of vanilla, and a taped lock of hair.^^As you hold these items, they dissolve in your palm, and you feel an energy fill you with intention."
             );
             playText(0.03, window.innerWidth * 0.8, onEnd => {
                 const delayedMessage = document.getElementById('delayedMessage');

@@ -2,10 +2,11 @@
     left: -100%;
     bottom: 2%;
     position: absolute;
-    max-width: 98vw;
+    width: 98vw;
     opacity: 0;
     animation: slideInFadeIn 800ms ease-out forwards;
     z-index: 1;
+    cursor: pointer;
 }
 
 .dialog-avatar {
@@ -31,8 +32,9 @@
     width: 64vw;
     word-wrap: normal;
     overflow-wrap: normal;
-    white-space: normal;
+    white-space: nowrap;
     line-height: 1.2;
+    pointer-events: none;
     opacity: 0;
     animation: slideInFadeInText 800ms ease-out forwards, wobble 2.0s infinite;
 }
@@ -40,7 +42,6 @@
 .dialog-text-bounce {
     z-index: 3;
     font-size: 1.9vw;
-    /* font-weight: bold; */
     color: black;
     position: absolute;
     left: -100%;
@@ -48,8 +49,9 @@
     width: 64vw;
     word-wrap: normal;
     overflow-wrap: normal;
-    white-space: normal;
+    white-space: nowrap;
     line-height: 1.2;
+    pointer-events: none;
     opacity: 0;
     animation: slideInFadeInText 800ms ease-out forwards, dialog-shift 3.5s infinite, wobble 2.0s infinite;
 }
@@ -86,12 +88,14 @@
 
 .dialog-text span {
     line-height: 1;
+    pointer-events: none;
     opacity: 0;
     animation: fadeIn 3s forwards;
 }
 
 .dialog-text-bounce span {
     line-height: 1;
+    pointer-events: none;
     opacity: 0;
     animation: fadeIn 3s forwards;
 }
@@ -134,7 +138,7 @@
     }
 
     100% {
-        left: 30vw;
+        left: 28vw;
         opacity: 1;
     }
 }
@@ -157,5 +161,53 @@
     100% {
         bottom: 0;
         opacity: 1;
+    }
+}
+
+.movable {
+    transition: transform 0.3s ease-out;
+}
+
+.movable.clicked {
+    animation: bounceUp 0.5s ease-out forwards;
+}
+
+@keyframes bounceUp {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-50%);
+    }
+
+    100% {
+        transform: translateY(-45%);
+    }
+}
+
+.movable-text {
+    transition: transform 0.3s ease-out;
+}
+
+.movable-text.clicked {
+    opacity: 1;
+    left: 28vw;
+    animation: bounceUpText 0.5s ease-out forwards;
+}
+
+
+
+@keyframes bounceUpText {
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-28vw);
+    }
+
+    100% {
+        transform: translateY(-26vw);
     }
 }

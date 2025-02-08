@@ -5,101 +5,137 @@ const DIALOG_BOX_MAP = {
     'long': {
         'src': DIALOG_BOX_LONG,
         'class': 'dialog-box-long',
-    }
+    },
+    'none': {
+
+    },
+    'main': {
+
+    },
 }
 
 const AVATAR_MAP = {
     'mud_man': MUD_MAN
 }
 
-// document.addEventListener("DOMContentLoaded", (event) => {
-//     getBackgroundImage();
-// });
+const stats = {
+    athletics: 0,
+    shitheadedness: 0,
+    bluemagic: 0,
+    will: 0
+}
+
+function increaseStat(name, amount) {
+    const newStats = JSON.parse(localStorage.getItem("stats"));
+
+    console.log(`increase ${name} by ${amount}`)
+    newStats[name] += amount;
+
+    console.log(newStats)
+
+    localStorage.setItem("stats", JSON.stringify(newStats));
+}
+
+function setDrunkChoice(choice) {
+    localStorage.setItem("drunkChoide", choice)
+}
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    const newStats = JSON.parse(localStorage.getItem("stats"));
+
+    console.log(newStats)
+});
 
 /*
 Plays the fade in text effect at the specified speed.
 */
-window.playText = function (speed, maxWidth) {
-    const fadeTextElements = [...document.querySelectorAll(".fade-text"), ...document.querySelectorAll(".dialog-text"), ...document.querySelectorAll(".dialog-text-bounce")];
+window.playText = function (speed, maxWidth, onEnd, id) {
+    const fadeTextElements = document.querySelectorAll(`#${id}`)
 
-    console.log(fadeTextElements.length);
+    if (onEnd && fadeTextElements.length > 0) {
+        const text = fadeTextElements[0].dataset.text;
+        const textLength = text.length;
+        setTimeout(function () {
+            onEnd();
+        }, (speed * textLength) * 1000);
+    }
+
     fadeTextElements.forEach((element) => {
         const text = element.dataset.text;
-        const textLength = text.length;
+        if (text) {
+            let bold = false;
+            let italic = false;
+            let specialCharacters = ['`', '~']
+            element.innerHTML = text
+                .replace(/(<b>|<\/b>)/g, '~')
+                .replace(/(<i>|<\/i>)/g, '`')
+                .split("")
+                .map((char, index) => {
 
-        setTimeout(function () {
-            const delayedMessage = document.getElementById('delayedMessage');
-            if (delayedMessage) {
-                delayedMessage.style.visibility = 'visible';
-            }
+                    const animation = `animation-delay: ${index * speed}s;`;
 
-        }, (speed * textLength) * 1000);
-
-        let bold = false;
-        let italic = false;
-        let specialCharacters = ['`', '~', '#'];
-
-        element.innerHTML = text
-            .replace(/(<b>|<\/b>)/g, '~')
-            .replace(/(<i>|<\/i>)/g, '`')
-            .replace(/<br>/g, '#')
-            .split("")
-            .map((char, index) => {
-
-                const animation = `animation-delay: ${index * speed}s;`;
-
-                if (char == '~') {
-                    bold = !bold;
-                }
-
-                if (char == '`') {
-                    italic = !italic;
-                }
-
-                if (bold && italic && !specialCharacters.includes(char)) {
-                    return `<span style="animation-delay: ${index * speed}s; font-style: italic; font-weight: bold">${char}</span>`;
-                }
-
-                if (bold && !specialCharacters.includes(char)) {
-                    return `<span style="animation-delay: ${index * speed}s; font-weight: bold">${char}</span>`;
-                }
-
-                if (italic && !specialCharacters.includes(char)) {
-                    return `<span style="animation-delay: ${index * speed}s; font-style: italic">${char}</span>`;
-                }
-
-                if (char === " ") {
-                    return `<span style="${animation}">&nbsp;</span>`;
-                }
-
-                if (char === '#') {
-                    return `<br>`;
-                }
-
-                if (!specialCharacters.includes(char)) {
-                    return `<span style="${animation}">${char}</span>`;
-                }
-            })
-            .join("");
-
-        if (maxWidth) {
-            const spans = element.querySelectorAll('span');
-
-            let totalWidth = 0;
-
-            spans.forEach((span, index) => {
-                totalWidth += span.offsetWidth;
-                if (totalWidth > maxWidth && span.innerHTML == '&nbsp;') {
-                    for (let i = index - 1; i >= 0; i--) {
-                        if (spans[i].innerHTML === '&nbsp;') {
-                            const br = document.createElement('br');
-                            spans[i].insertAdjacentElement('afterend', br);
-                            break;
-                        }
+                    if (char == '~') {
+                        bold = !bold;
                     }
-                    totalWidth = 0;
+
+                    if (char == '`') {
+                        italic = !italic;
+                    }
+
+                    if (bold && italic && !specialCharacters.includes(char)) {
+                        return `<span style="animation-delay: ${index * speed}s; font-style: italic; font-weight: bold">${char}</span>`;
+                    }
+
+                    if (bold && !specialCharacters.includes(char)) {
+                        return `<span style="animation-delay: ${index * speed}s; font-weight: bold">${char}</span>`;
+                    }
+
+                    if (italic && !specialCharacters.includes(char)) {
+                        return `<span style="animation-delay: ${index * speed}s; font-style: italic">${char}</span>`;
+                    }
+
+                    if (char === " ") {
+                        return `<span style="${animation}">&nbsp;</span>`;
+                    }
+
+
+
+                    if (!specialCharacters.includes(char)) {
+                        return `<span style="${animation}">${char}</span>`;
+                    }
+                })
+                .join("");
+
+            if (maxWidth) {
+                const spans = element.querySelectorAll('span');
+
+                let lastSpaceIndex = -1;
+                let totalWidth = 0;
+
+                for (let index = 0; index < spans.length; index++) {
+                    const span = spans[index]
+                    totalWidth += span.offsetWidth;
+
+                    if (span.innerHTML == '^') {
+                        totalWidth = 0;
+                        lastSpaceIndex = -1
+                        const br = document.createElement('br');
+                        spans[index].insertAdjacentElement('beforebegin', br);
+                        spans[index].remove();
+                    }
+
+                    if (totalWidth > maxWidth && span.innerHTML == '&nbsp;') {
+                        const br = document.createElement('br');
+                        spans[lastSpaceIndex].insertAdjacentElement('afterend', br);
+                        totalWidth = 0;
+                        index = lastSpaceIndex - 1
+                        lastSpaceIndex = -1
+                    }
+                    if (span.innerHTML === '&nbsp;') {
+                        lastSpaceIndex = index
+                    }
                 }
-            });
+            }
         }
     })
 };
@@ -190,30 +226,62 @@ function redirect(url) {
 }
 
 
-window.createDialogComponent = function (dialogType, avatarType, dialogText, choicesHtml) {
+window.createDialogComponent = function (dialogType, avatarType, dialogText, onClick) {
+
+    const dialogBoxWrapper = document.createElement('div')
     const dialogBox = document.createElement('img');
-    const dialogData = DIALOG_BOX_MAP[dialogType];
-    dialogBox.src = dialogData.src
-    dialogBox.classList.add(dialogData.class);
+    const avatar = document.createElement('img');
+
 
     if (avatarType != 'none') {
-        const avatar = document.createElement('img');
         const avatarData = AVATAR_MAP[avatarType];
         avatar.src = avatarData;
+        avatar.id = 'avatar';
         avatar.classList.add('dialog-avatar');
     }
 
     const text = document.createElement('p');
+    text.id = dialogType;
     text.classList.add('dialog-text');
+    text.classList.add('movable-text');
     text.setAttribute('data-text', dialogText);
 
     const bounceText = document.createElement('p');
+    bounceText.id = dialogType;
     bounceText.classList.add('dialog-text-bounce');
+    bounceText.classList.add('movable-text');
     bounceText.setAttribute('data-text', dialogText);
 
     const story = document.getElementById('story');
 
-    story.appendChild(dialogBox);
+    if (dialogType != 'main') {
+        const dialogData = DIALOG_BOX_MAP[dialogType];
+        dialogBox.src = dialogData.src
+        dialogBox.classList.add(dialogData.class);
+        dialogBox.classList.add('movable');
+        dialogBoxWrapper.id = dialogType;
+        dialogBoxWrapper.style.curosor = 'pointer';
+        dialogBoxWrapper.style.display = 'inline-block';
+        dialogBoxWrapper.style.width = '100%'
+        dialogBoxWrapper.style.height = '100%'
+        dialogBoxWrapper.classList.add('movable');
+        dialogBoxWrapper.onclick = function () {
+            onClick();
+        };
+        dialogBoxWrapper.appendChild(dialogBox);
+        story.appendChild(dialogBoxWrapper);
+    } else {
+        text.style.animation = 'wobble 2.0s infinite';
+        text.style.opacity = 1;
+        text.style.left = '10vw';
+        text.style.top = `5vw`;
+        bounceText.style.animation = 'dialog-shift 3.5s infinite, wobble 2.0s infinite';
+        bounceText.style.opacity = 1;
+        bounceText.style.left = '10vw';
+        bounceText.style.top = `5vw`
+    }
+
+
     if (avatarType != 'none') {
         story.appendChild(avatar);
     }
@@ -221,7 +289,22 @@ window.createDialogComponent = function (dialogType, avatarType, dialogText, cho
     story.appendChild(bounceText);
 }
 
+window.dismissDialog = function (id, textOnly) {
+    const removeItems = [...document.querySelectorAll(`#${id}`), ...document.querySelectorAll(`#dialog`)];
 
+    if (!textOnly) {
+        removeItems.push(...document.querySelectorAll(`#avatar`))
+    }
+
+    removeItems.forEach(el => el.remove());
+}
+
+window.shiftDialog = function (id) {
+    document.querySelectorAll(`#${id}`).forEach(el => {
+        el.classList.add('clicked')
+    })
+
+}
 
 function showCustomAlert(message) {
     const alertBox = document.getElementById('customAlert');
@@ -237,6 +320,13 @@ function closeCustomAlert(callback) {
 }
 
 function startGame() {
-    playText(0.5, null);
+    localStorage.setItem("stats", JSON.stringify(stats))
+    playText(0.5, null, onEnd => {
+        const delayedMessage = document.getElementById('delayedMessage');
+        if (delayedMessage) {
+            delayedMessage.style.visibility = 'visible';
+        }
+    }, 'title');
     playAudio('resources/audio/intro.mp3', true, true, 0.3)
 }
+
