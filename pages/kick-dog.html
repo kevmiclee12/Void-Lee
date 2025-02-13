@@ -9,19 +9,23 @@
 </head>
 
 <body>
-    <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-        <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-            <span>Or was it because it was<a class="choice-button" style="font-style: italic;"
-                    onClick="redirect('blue-mage.html')">
-                    so scary
-                </a></span>
+    <div id="overlay" onClick="finishText()">
 
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <span>Or was it because it was<a class="choice-button" style="font-style: italic;"
+                        onClick="redirect('blue-mage.html')">
+                        so scary
+                    </a></span>
+
+            </div>
         </div>
     </div>
 
     <script src="../script.js"></script>
     <script>
         window.onload = function () {
+            fadeInOverlay();
             playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
             createDialogComponent(
                 'main',

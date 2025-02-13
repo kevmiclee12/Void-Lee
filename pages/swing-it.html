@@ -8,20 +8,25 @@
 </head>
 
 <body>
-    <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+    <div id="overlay" onClick="finishText()">
 
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
     </div>
 
     <script src="../script.js"></script>
     <script>
         window.onload = function () {
-            // playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            // createDialogComponent(
-            //     'long',
-            //     'none',
-            //     "Light pours through the blinds of your front window and onto the ceiling in stripes. The view out the window shows an empty alleyway at full noon.",
-            // );
-            // playText(0.03, window.innerWidth * 0.64);
+            fadeInOverlay();
+            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
+            createDialogComponent(
+                'main',
+                'none',
+                `You choose to swing an imaginary ax at a dream tree.`,
+            );
+            playText(0.03, window.innerWidth * 0.8, onEnd => {
+
+            }, 'main');
         }
 
         window.onbeforeunload = function () {

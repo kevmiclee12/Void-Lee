@@ -4,7 +4,7 @@
     font-weight: bold;
     position: absolute;
     left: 30vw;
-    bottom: 6vw;
+    bottom: 3vw;
     word-wrap: normal;
     overflow-wrap: normal;
     white-space: normal;
@@ -12,7 +12,8 @@
 }
 
 .choice-button {
-    cursor: pointer;
+    cursor: pointer !important;
+    pointer-events: auto !important;
     font-size: 1.9vw;
     font-weight: bold;
     text-decoration: none;

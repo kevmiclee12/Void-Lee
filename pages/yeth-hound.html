@@ -9,22 +9,29 @@
 </head>
 
 <body>
-    <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-        <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-            <a class="choice-button" onClick="redirect('blue-mage.html')">Close your eyes and kick out quickly where you
-                think its face is</a>
-            </br>
-            <a class="choice-button" onClick="redirect('kick-dog.html')">With malicious fury, wind your leg up to your
-                chest and perform a wanton one-footed stomp</a>
-            </br>
-            <a class="choice-button" onClick="increaseStat('athletics', 1); redirect('kick-dog.html')">Take a running
-                step toward it, and fly through the air feet-first in a two-legged drop kick</a>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="redirect('blue-mage.html')">Close your eyes and kick out quickly where
+                    you
+                    think its face is</a>
+                </br>
+                <a class="choice-button" onClick="redirect('kick-dog.html')">With malicious fury, wind your leg up to
+                    your
+                    chest and perform a wanton one-footed stomp</a>
+                </br>
+                <a class="choice-button" onClick="increaseStat('athletics', 1); redirect('kick-dog.html')">Take a
+                    running
+                    step toward it, and fly through the air feet-first in a two-legged drop kick</a>
+            </div>
         </div>
     </div>
 
     <script src="../script.js"></script>
     <script>
         window.onload = function () {
+            fadeInOverlay();
             playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
             createDialogComponent(
                 'main',

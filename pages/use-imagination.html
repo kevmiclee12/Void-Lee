@@ -9,40 +9,45 @@
 </head>
 
 <body>
-    <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-        <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-            <a class="choice-button" onClick="increaseStat('will', 1); redirect('middle-path.html')">"I'm sorry, I don't
-                live around here."</a>
-            </br>
-            <a class="choice-button"
-                onClick="increaseStat('shitheadedness', 1); setDrunkChoice('sun'); redirect('middle-path.html')">"It's
-                the Sun."</a>
-            </br>
-            <a class="choice-button"
-                onClick="increaseStat('shitheadedness', 1); setDrunkChoice('moon'); redirect('middle-path.html')">"It's
-                the Moon,
-                dipshits."</a>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="increaseStat('will', 1); redirect('middle-path.html')">"I'm sorry, I
+                    don't
+                    live around here."</a>
+                </br>
+                <a class="choice-button"
+                    onClick="increaseStat('shitheadedness', 1); setDrunkChoice('sun'); redirect('middle-path.html')">"It's
+                    the Sun."</a>
+                </br>
+                <a class="choice-button"
+                    onClick="increaseStat('shitheadedness', 1); setDrunkChoice('moon'); redirect('middle-path.html')">"It's
+                    the Moon,
+                    dipshits."</a>
+            </div>
         </div>
     </div>
 
     <script src="../script.js"></script>
     <script>
         window.onload = function () {
+            fadeInOverlay();
             playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
             createDialogComponent(
                 'main',
                 'none',
-                `The sun sets over the park. A few stars resist the city's lights. The playground and fences now set into silhouettes. As your eyes adjust, the park takes on a dark grey black clarity. The stars and a white crescent illuminate it with a soft glow devoid of color.^^You hear two drunks arguing as they walk along, looking up and pointing.`
+                `The sun sets over the park. A few stars resist the city's lights. The playground and fences now set into silhouettes. As your eyes adjust, the park takes on a dark grey black clarity. The stars and a white crescent illuminate it with a soft whiteness devoid of color.^^You hear two drunks arguing as they walk along, looking up and pointing.`
             );
             playText(0.03, window.innerWidth * 0.8, onEnd => {
-                createDialogComponent('long', 'mud_man', `~DRUNK #1~^^That's not the Moon! It's the Sun!`, onClick => {
+                createDialogComponent('long', 'drunk1', `~DRUNK #1~^^That's not the Moon! It's the Sun!`, onClick => {
                     dismissDialog('long');
-                    createDialogComponent('long', 'mud_man', `~DRUNK #2~^^That's not the Sun! It's the Moon!`, onClick => {
+                    createDialogComponent('long', 'drunk2', `~DRUNK #2~^^That's not the Sun! It's the Moon!`, onClick => {
                         dismissDialog('main');
                         dismissDialog('long');
-                        createDialogComponent('main', 'none', 'You approach them.^^The first drunk immediately seizes on the opportunity to accost you, his breath bequeathing hot sick.');
+                        createDialogComponent('main', 'none', 'You approach them.^^The first drunk immediately seizes on the opportunity to accost you, her breath bequeathing hot sick.');
                         playText(0.03, window.innerWidth * 0.90, onEnd => {
-                            createDialogComponent('long', 'mud_man', `~DRUNK #1~^^Hey, you look observant. Settle this for us... You see that thing up there in the sky? Is that the Sun or the Moon?`, onClick => {
+                            createDialogComponent('long', 'drunk1', `~DRUNK #1~^^Hey, you look observant. Settle this for us... You see that thing up there in the sky? Is that the Sun or the Moon?`, onClick => {
                                 dismissDialog('main', true);
                                 shiftDialog('long');
                                 const delayedMessage = document.getElementById('delayedMessage');

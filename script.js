@@ -1,5 +1,8 @@
 const DIALOG_BOX_LONG = "../resources/images/dialogs/dialog-box-long.png"
 const MUD_MAN = "../resources/images/avatars/mud-man.png"
+const DRUNK_1 = "../resources/images/avatars/drunk1.png"
+const DRUNK_2 = "../resources/images/avatars/drunk2.png"
+
 
 const DIALOG_BOX_MAP = {
     'long': {
@@ -15,7 +18,9 @@ const DIALOG_BOX_MAP = {
 }
 
 const AVATAR_MAP = {
-    'mud_man': MUD_MAN
+    'mud_man': MUD_MAN,
+    'drunk1': DRUNK_1,
+    'drunk2': DRUNK_2
 }
 
 const stats = {
@@ -49,15 +54,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 /*
 Plays the fade in text effect at the specified speed.
 */
+let timeoutIds = [];
+let timeoutFns = [];
 window.playText = function (speed, maxWidth, onEnd, id) {
     const fadeTextElements = document.querySelectorAll(`#${id}`)
 
     if (onEnd && fadeTextElements.length > 0) {
         const text = fadeTextElements[0].dataset.text;
         const textLength = text.length;
-        setTimeout(function () {
+        let timeoutId = setTimeout(function () {
+            timeoutIds = [];
+            timeoutFns = [];
             onEnd();
         }, (speed * textLength) * 1000);
+        timeoutIds.push(timeoutId);
+        timeoutFns.push(onEnd);
     }
 
     fadeTextElements.forEach((element) => {
@@ -81,6 +92,7 @@ window.playText = function (speed, maxWidth, onEnd, id) {
                     if (char == '`') {
                         italic = !italic;
                     }
+
 
                     if (bold && italic && !specialCharacters.includes(char)) {
                         return `<span style="animation-delay: ${index * speed}s; font-style: italic; font-weight: bold">${char}</span>`;
@@ -206,6 +218,8 @@ window.stopAudio = function () {
 
 function redirect(url) {
 
+    fadeOutOverlay();
+
     if (audio) {
         const fadeDuration = 1000;
         const interval = 50;
@@ -254,7 +268,7 @@ window.createDialogComponent = function (dialogType, avatarType, dialogText, onC
 
     const story = document.getElementById('story');
 
-    if (dialogType != 'main') {
+    if (!dialogType.includes('main')) {
         const dialogData = DIALOG_BOX_MAP[dialogType];
         dialogBox.src = dialogData.src
         dialogBox.classList.add(dialogData.class);
@@ -263,7 +277,6 @@ window.createDialogComponent = function (dialogType, avatarType, dialogText, onC
         dialogBoxWrapper.style.curosor = 'pointer';
         dialogBoxWrapper.style.display = 'inline-block';
         dialogBoxWrapper.style.width = '100%'
-        dialogBoxWrapper.style.height = '100%'
         dialogBoxWrapper.classList.add('movable');
         dialogBoxWrapper.onclick = function () {
             onClick();
@@ -303,7 +316,11 @@ window.shiftDialog = function (id) {
     document.querySelectorAll(`#${id}`).forEach(el => {
         el.classList.add('clicked')
     })
+}
 
+window.addChoice = function (html, id) {
+    const dialog = document.getElementById(id);
+    dialog.insertAdjacentHTML('beforeend', html)
 }
 
 function showCustomAlert(message) {
@@ -320,6 +337,7 @@ function closeCustomAlert(callback) {
 }
 
 function startGame() {
+    fadeInOverlay();
     localStorage.setItem("stats", JSON.stringify(stats))
     playText(0.5, null, onEnd => {
         const delayedMessage = document.getElementById('delayedMessage');
@@ -330,3 +348,31 @@ function startGame() {
     playAudio('resources/audio/intro.mp3', true, true, 0.3)
 }
 
+function fadeInOverlay() {
+    const overlay = document.getElementById("overlay");
+    overlay.classList.remove("hide");
+    overlay.classList.add("show");
+}
+
+function fadeOutOverlay() {
+    const overlay = document.getElementById("overlay");
+    overlay.classList.remove("show");
+    overlay.classList.add("hide");
+}
+
+
+function finishText() {
+    const elements = document.querySelectorAll('span');
+    elements.forEach(span => {
+        span.style.animationDelay = '0s'
+    })
+    console.log(timeoutIds)
+    timeoutIds.forEach(id => {
+        clearTimeout(id);
+    })
+    timeoutFns.forEach(fn => {
+        fn();
+    })
+    timeoutIds = [];
+    timeoutFns = [];
+}

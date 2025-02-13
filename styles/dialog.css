@@ -169,6 +169,7 @@
 }
 
 .movable.clicked {
+    height: 100%;
     animation: bounceUp 0.5s ease-out forwards;
 }
 
