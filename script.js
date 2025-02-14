@@ -254,6 +254,8 @@ window.createDialogComponent = function (dialogType, avatarType, dialogText, onC
         avatar.classList.add('dialog-avatar');
     }
 
+    console.log(dialogType)
+
     const text = document.createElement('p');
     text.id = dialogType;
     text.classList.add('dialog-text');
