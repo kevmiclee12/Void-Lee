@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Void Lee</title>
@@ -11,26 +10,25 @@
 <body>
     <div id="overlay" onClick="finishText()">
 
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('wish2.html')">That dog was much different than I had
-                    assumed</a>
+                <a class="choice-button" onClick="redirect('climb3.html')">Push yourself even harder</a>
+                </br>
+                <a class="choice-button" onClick="redirect('give-up.html')">Give up</a>
             </div>
         </div>
     </div>
+
 
     <script src="../script.js"></script>
     <script>
         window.onload = function () {
             fadeInOverlay();
-
             createNarrative(
-                "It runs away across the field."
+                `Atta boy. Quitters never win! Your brow is wet with dream sweat. Your hands and arms have many small cuts from the rough climbing. You feel sappy bits on your clothes and face. The squirrel comes a little closer to you.^^Your muscles start to tremble. The squirrel gets up in your grill and shouts, "Putoat! Putoat!" Because you're dreaming, you understand that the squirrel is taunting you with a chant to make you fall.^^In a last ditch effort, your hand darts out to {snatch the furball}.`
             );
             playText(onEnd => {
-                showBottomChoices();
-            });
+            }, `skillRoll('athletics', () => redirect('climb3-success.html'), () => redirect('climb3-fail.html'))`);
         }
 
     </script>
@@ -38,6 +36,8 @@
     <link rel="stylesheet" href="../styles/button.css">
     <link rel="stylesheet" href="../styles/dialog.css">
     <link rel="stylesheet" href="../styles/choices.css">
+    <link rel="stylesheet" href="../styles/alert.css">
+
 </body>
 
 </html>

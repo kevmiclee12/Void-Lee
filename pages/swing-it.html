@@ -18,22 +18,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
+
+            createNarrative(
                 `You choose to swing an imaginary ax at a dream tree.`,
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
+            playText(onEnd => {
 
-            }, 'main');
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

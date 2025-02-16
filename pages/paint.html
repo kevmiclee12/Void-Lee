@@ -12,8 +12,9 @@
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <span>Wait, no... <a class="choice-button" onClick="redirect('paint1.html')">This doesn't feel
-                        right.</a></span>
+                <span>Nah, nevermind, <a class="choice-button" onClick="redirect('sleep1.html?fromPaint=true')">I'm
+                        going to
+                        sleep</a></span>
             </div>
         </div>
     </div>
@@ -22,42 +23,27 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main1',
-                'none',
-                `You sit down at the desk and open to a fresh page of the pad. You look down onto the off-white paper. A void to fill. Dimensionless. The desire to form and create something in that void. It pulls you, amuses you, scares you. You feel like proving yourself brave, resisting the urge to make marks. `,
+
+            createNarrative(
+                `You sit down at the desk and open to a fresh page of the pad. You look down onto the off-white paper. A void to fill. Dimensionless. The desire to form and create something in that void. It pulls you, amuses you, scares you. You feel like proving yourself brave, resisting the urge to make marks. {Go into the Void}.`,
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                addChoice(`<span style="color: black; font-weight: normal">Go <a class="choice-button" onClick="redirect('into-the-void.html')">into the void.</a></span>`, 'main1');
-                createDialogComponent(
-                    'main2',
-                    'none',
-                    `^^^^^^You want to practice the skill of representation. Of translating your experience to others. "Practice communicating the simplest idea first," your imaginary friend tells you. `,
+            playText(onEnd => {
+                createNarrative(
+                    `^^^^^^You want to practice the skill of representation. Of translating your experience to others. "Practice communicating the simplest idea first," your imaginary friend tells you. {Make a Comic}.`,
                 );
-                playText(0.03, window.innerWidth * 0.8, onEnd => {
-                    addChoice(`<a class="choice-button" onClick="redirect('comic.html')">Make a comic.</a>`, 'main2');
-                    createDialogComponent(
-                        'main3',
-                        'none',
-                        `^^^^^^^^^^You can feel the spirit rising in you, and the thrill of channeling that spirit! Feelings with no where to go are like idle hands...they animate. Or, no, do they become animate hands!? Nonononono, please no! You pick up the paintbrush, smoosh some acrylic paint into the palette and `,
+                playText(onEnd => {
+                    createNarrative(
+                        `^^^^^^^^^^You can feel the spirit rising in you, and the thrill of channeling that spirit! Feelings with no where to go are like idle hands...they animate. Or, no, do they become animate hands!? Nonononono, please no! You pick up the paintbrush, smoosh some acrylic paint into the palette and {Paint with your Heart}.`,
                     );
-                    playText(0.03, window.innerWidth * 0.8, onEnd => {
-                        addChoice(`<a class="choice-button" onClick="redirect('paint-with-your-heart.html')">paint with your heart.</a>`, 'main3');
-                        const delayedMessage = document.getElementById('delayedMessage');
-                        if (delayedMessage) {
-                            delayedMessage.style.visibility = 'visible';
-                        }
-                    }, 'main3');
-                }, 'main2');
-            }, 'main1');
+                    playText(onEnd => {
+                        showBottomChoices();
+                    }, `redirect('paint-with-your-heart.html')`,
+                    );
+                }, `redirect('comic.html')`,
+                );
+            }, `redirect('into-the-void.html')`,
+            );
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

@@ -23,12 +23,20 @@ const AVATAR_MAP = {
     'drunk2': DRUNK_2
 }
 
+/*
+-------------------------
+        VARIABLES
+-------------------------
+*/
+
 const stats = {
     athletics: 0,
     shitheadedness: 0,
     bluemagic: 0,
     will: 0
 }
+
+const items = {};
 
 function increaseStat(name, amount) {
     const newStats = JSON.parse(localStorage.getItem("stats"));
@@ -47,24 +55,98 @@ function setDrunkChoice(choice) {
 
 document.addEventListener("DOMContentLoaded", (event) => {
     const newStats = JSON.parse(localStorage.getItem("stats"));
+    const newItems = JSON.parse(localStorage.getItem("items"));
+    const history = JSON.parse(localStorage.getItem("history"));
+
 
     console.log(newStats)
+    console.log(newItems)
+    console.log(history)
 });
 
+function addItem(name, overrideId) {
+    //TODO: add item sound
+    const newItems = JSON.parse(localStorage.getItem("items"));
+    const id = name.replace(/ /g, '');
+
+    newItems[id] = (newItems[id] || 0) + 1;
+
+    localStorage.setItem("items", JSON.stringify(newItems));
+
+
+    if (overrideId) {
+        const elements = document.querySelectorAll(`#${overrideId} a`);
+        elements.forEach(el => {
+            el.style.display = 'none';
+        })
+    } else {
+        const element = document.querySelector(`#delayedMessage a`);
+        element.style.display = "none";
+
+    }
+
+    console.log('ITEM: ', name)
+
+    showSnackbar(`You got +1 <strong>${name}</strong>`)
+}
+
+function trackHistory(url) {
+    let history = JSON.parse(localStorage.getItem("history")) || [];
+    history.push(url);
+    localStorage.setItem("history", JSON.stringify(history));
+}
+
+function startGame() {
+    fadeInOverlay();
+    localStorage.setItem("stats", JSON.stringify(stats));
+    localStorage.setItem("items", JSON.stringify(items));
+    localStorage.setItem("history", JSON.stringify([]));
+
+
+    playText(() => showBottomChoices(), null, 'title');
+    playAudio('resources/audio/intro.mp3', true, true, 0.3);
+}
+
+
 /*
-Plays the fade in text effect at the specified speed.
+------------------------------------
+        ANIMATED TEXT ELEMENTS
+------------------------------------
 */
+
 let timeoutIds = [];
 let timeoutFns = [];
-window.playText = function (speed, maxWidth, onEnd, id) {
-    const fadeTextElements = document.querySelectorAll(`#${id}`)
+
+function getPlayTextSpeed(id) {
+    if (id == 'title') {
+        return 0.5;
+    }
+    return 0.03;
+}
+
+function getPlayTextWidth(id) {
+    if (id == 'title') {
+        return null;
+    } else if (id.includes('long')) {
+        return window.innerWidth * 0.62;
+    }
+    return window.innerWidth * 0.8;
+}
+
+window.playText = function (onEnd, choice, overrideId) {
+    const id = overrideId ?? `main${narrativeCount}`;
+    console.log(id);
+    const fadeTextElements = document.querySelectorAll(`#${id}`);
+    const speed = getPlayTextSpeed(id);
+    const maxWidth = getPlayTextWidth(id);
+
 
     if (onEnd && fadeTextElements.length > 0) {
         const text = fadeTextElements[0].dataset.text;
         const textLength = text.length;
         let timeoutId = setTimeout(function () {
-            timeoutIds = [];
-            timeoutFns = [];
+            timeoutIds = timeoutIds.filter(e => e !== timeoutId);
+            timeoutFns = timeoutFns.filter(e => e !== onEnd);
             onEnd();
         }, (speed * textLength) * 1000);
         timeoutIds.push(timeoutId);
@@ -76,8 +158,10 @@ window.playText = function (speed, maxWidth, onEnd, id) {
         if (text) {
             let bold = false;
             let italic = false;
+            let skip = false;
             let specialCharacters = ['`', '~']
-            element.innerHTML = text
+            let choiceIndex;
+            let newHtml = text
                 .replace(/(<b>|<\/b>)/g, '~')
                 .replace(/(<i>|<\/i>)/g, '`')
                 .split("")
@@ -91,6 +175,19 @@ window.playText = function (speed, maxWidth, onEnd, id) {
 
                     if (char == '`') {
                         italic = !italic;
+                    }
+
+                    if (char == '{') {
+                        choiceIndex = index;
+                        skip = true
+                    }
+
+                    if (char == '}') {
+                        skip = false;
+                    }
+
+                    if (skip) {
+                        return char;
                     }
 
 
@@ -116,45 +213,186 @@ window.playText = function (speed, maxWidth, onEnd, id) {
                         return `<span style="${animation}">${char}</span>`;
                     }
                 })
-                .join("");
+                .join("")
+
+            if (choice) {
+                element.innerHTML = newHtml
+                    .replace(/{/g, `<span style="animation-delay: ${choiceIndex * speed}s;"><a class="choice-button" onClick="${choice}">`)
+                    .replace('}', '</a></span>');
+            } else {
+                element.innerHTML = newHtml
+            }
+
 
             if (maxWidth) {
-                const spans = element.querySelectorAll('span');
-
-                let lastSpaceIndex = -1;
-                let totalWidth = 0;
-
-                for (let index = 0; index < spans.length; index++) {
-                    const span = spans[index]
-                    totalWidth += span.offsetWidth;
-
-                    if (span.innerHTML == '^') {
-                        totalWidth = 0;
-                        lastSpaceIndex = -1
-                        const br = document.createElement('br');
-                        spans[index].insertAdjacentElement('beforebegin', br);
-                        spans[index].remove();
-                    }
-
-                    if (totalWidth > maxWidth && span.innerHTML == '&nbsp;') {
-                        const br = document.createElement('br');
-                        spans[lastSpaceIndex].insertAdjacentElement('afterend', br);
-                        totalWidth = 0;
-                        index = lastSpaceIndex - 1
-                        lastSpaceIndex = -1
-                    }
-                    if (span.innerHTML === '&nbsp;') {
-                        lastSpaceIndex = index
-                    }
-                }
+                insertLineBreaks(element, maxWidth);
             }
         }
-    })
+    });
+
+    if (!overrideId) {
+        narrativeCount += 1;
+    }
 };
 
+function insertLineBreaks(element, maxWidth) {
+    const spans = element.querySelectorAll('span');
+
+    let lastSpaceIndex = -1;
+    let totalWidth = 0;
+
+    for (let index = 0; index < spans.length; index++) {
+        const span = spans[index]
+        totalWidth += span.offsetWidth;
+
+        if (span.innerHTML == '^') {
+            totalWidth = 0;
+            lastSpaceIndex = -1
+            const br = document.createElement('br');
+            spans[index].insertAdjacentElement('beforebegin', br);
+            spans[index].remove();
+        }
+
+        if (totalWidth > maxWidth && span.innerHTML == '&nbsp;') {
+            const br = document.createElement('br');
+            spans[lastSpaceIndex].insertAdjacentElement('afterend', br);
+            totalWidth = 0;
+            index = lastSpaceIndex - 1
+            lastSpaceIndex = -1
+        }
+        if (span.innerHTML === '&nbsp;') {
+            lastSpaceIndex = index
+        }
+    }
+}
+
+function showBottomChoices() {
+    const delayedMessage = document.getElementById('delayedMessage');
+    if (delayedMessage) {
+        delayedMessage.style.visibility = 'visible';
+    }
+}
+
+let narrativeCount = 0;
+
+window.createNarrative = function (dialogText) {
+    const text = document.createElement('p');
+    text.id = `main${narrativeCount}`;
+    text.classList.add('dialog-text');
+    text.classList.add('movable-text');
+    dialogText = dialogText.replace(/\n/g, ' ');
+    text.setAttribute('data-text', dialogText);
+
+    const bounceText = document.createElement('p');
+    bounceText.id = `main${narrativeCount}`;
+    bounceText.classList.add('dialog-text-bounce');
+    bounceText.classList.add('movable-text');
+    bounceText.setAttribute('data-text', dialogText);
+
+    const story = document.getElementById('story');
+
+    text.style.animation = 'wobble 2.0s infinite';
+    text.style.opacity = 1;
+    text.style.left = '10vw';
+    text.style.top = `1vw`;
+    bounceText.style.animation = 'dialog-shift 3.5s infinite, wobble 2.0s infinite';
+    bounceText.style.opacity = 1;
+    bounceText.style.left = '10vw';
+    bounceText.style.top = `1vw`
+
+    story.appendChild(text);
+    story.appendChild(bounceText);
+}
+
+window.createDialog = function (dialogType, avatarType, dialogText, onClick) {
+
+    const dialogBoxWrapper = document.createElement('div')
+    const dialogBox = document.createElement('img');
+    const avatar = document.createElement('img');
+
+
+    if (avatarType != 'none') {
+        const avatarData = AVATAR_MAP[avatarType];
+        avatar.src = avatarData;
+        avatar.id = 'avatar';
+        avatar.classList.add('dialog-avatar');
+    }
+
+    const text = document.createElement('p');
+    text.id = dialogType;
+    text.classList.add('dialog-text');
+    text.classList.add('movable-text');
+    text.setAttribute('data-text', dialogText);
+
+    const bounceText = document.createElement('p');
+    bounceText.id = dialogType;
+    bounceText.classList.add('dialog-text-bounce');
+    bounceText.classList.add('movable-text');
+    bounceText.setAttribute('data-text', dialogText);
+
+    const story = document.getElementById('story');
+
+
+    const dialogData = DIALOG_BOX_MAP[dialogType];
+    dialogBox.src = dialogData.src
+    dialogBox.classList.add(dialogData.class);
+    dialogBox.classList.add('movable');
+    dialogBoxWrapper.id = dialogType;
+    dialogBoxWrapper.style.curosor = 'pointer';
+    dialogBoxWrapper.style.display = 'inline-block';
+    dialogBoxWrapper.style.width = '100%'
+    dialogBoxWrapper.classList.add('movable');
+    dialogBoxWrapper.onclick = function () {
+        onClick();
+    };
+    dialogBoxWrapper.appendChild(dialogBox);
+    story.appendChild(dialogBoxWrapper);
+
+
+
+    if (avatarType != 'none') {
+        story.appendChild(avatar);
+    }
+    story.appendChild(text);
+    story.appendChild(bounceText);
+}
+
+window.dismissDialog = function (id, textOnly) {
+    console.log(`dismiss ${id ?? `main${narrativeCount - 1}`}`)
+    const removeItems = [...document.querySelectorAll(`#${id ?? `main${narrativeCount - 1}`}`), ...document.querySelectorAll(`#dialog`)];
+
+    console.log(textOnly)
+    if (!textOnly) {
+        console.log(document.querySelectorAll(`#avatar`));
+        removeItems.push(...document.querySelectorAll(`#avatar`))
+    }
+
+    removeItems.forEach(el => el.remove());
+}
+
+window.shiftDialog = function (id) {
+    document.querySelectorAll(`#${id}`).forEach(el => {
+        el.classList.add('clicked')
+    })
+}
+
+function checkItemHistory(item, page) {
+    const checkItems = JSON.parse(localStorage.getItem("items"));
+    const history = JSON.parse(localStorage.getItem("history"));
+
+    console.log(checkItems[item]);
+    console.log(`EXISTS? ${history.some(e => e.includes(page))}`);
+
+    if (checkItems[item] && history.some(e => e.includes(page))) {
+        const element = document.querySelector("#delayedMessage a");
+        element.style.display = "none";
+    }
+}
+
 /*
-Plays audio from the specified url.
-Options for infinte loop and fade in effect.
+------------------------
+        AUDIO
+------------------------
 */
 const activeAudios = [];
 let audio;
@@ -216,6 +454,58 @@ window.stopAudio = function () {
     audio.pause();
 }
 
+window.onbeforeunload = function () {
+    console.log('checking audio');
+    if (audioElement) {
+        audioElement.pause();
+        audioElement.currentTime = 0;
+    }
+};
+
+/*
+------------------------
+        ALERTS
+------------------------
+*/
+
+function showCustomAlert(message) {
+    const alertBox = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+    alertMessage.innerHTML = message;
+    alertBox.style.display = 'flex';
+}
+
+function closeCustomAlert(callback) {
+    const alertBox = document.getElementById('customAlert');
+    alertBox.style.display = 'none';
+    callback();
+}
+
+function showSnackbar(message, duration = 4000) {
+    console.log('SHOW ', message)
+    const alertBox = document.getElementById("custom-alert");
+    const messageBox = document.getElementById("alert-message");
+    messageBox.innerHTML = message;
+
+    console.log(alertBox)
+
+    alertBox.classList.add("show");
+
+    setTimeout(() => {
+        alertBox.classList.add("hide");
+
+        setTimeout(() => {
+            alertBox.classList.remove("show", "hide");
+        }, 500);
+    }, duration);
+}
+
+/*
+----------------------------
+        PAGE ACTIONS
+----------------------------
+*/
+
 function redirect(url) {
 
     fadeOutOverlay();
@@ -237,117 +527,8 @@ function redirect(url) {
     } else {
         window.location.href = url
     }
-}
 
-
-window.createDialogComponent = function (dialogType, avatarType, dialogText, onClick) {
-
-    const dialogBoxWrapper = document.createElement('div')
-    const dialogBox = document.createElement('img');
-    const avatar = document.createElement('img');
-
-
-    if (avatarType != 'none') {
-        const avatarData = AVATAR_MAP[avatarType];
-        avatar.src = avatarData;
-        avatar.id = 'avatar';
-        avatar.classList.add('dialog-avatar');
-    }
-
-    console.log(dialogType)
-
-    const text = document.createElement('p');
-    text.id = dialogType;
-    text.classList.add('dialog-text');
-    text.classList.add('movable-text');
-    text.setAttribute('data-text', dialogText);
-
-    const bounceText = document.createElement('p');
-    bounceText.id = dialogType;
-    bounceText.classList.add('dialog-text-bounce');
-    bounceText.classList.add('movable-text');
-    bounceText.setAttribute('data-text', dialogText);
-
-    const story = document.getElementById('story');
-
-    if (!dialogType.includes('main')) {
-        const dialogData = DIALOG_BOX_MAP[dialogType];
-        dialogBox.src = dialogData.src
-        dialogBox.classList.add(dialogData.class);
-        dialogBox.classList.add('movable');
-        dialogBoxWrapper.id = dialogType;
-        dialogBoxWrapper.style.curosor = 'pointer';
-        dialogBoxWrapper.style.display = 'inline-block';
-        dialogBoxWrapper.style.width = '100%'
-        dialogBoxWrapper.classList.add('movable');
-        dialogBoxWrapper.onclick = function () {
-            onClick();
-        };
-        dialogBoxWrapper.appendChild(dialogBox);
-        story.appendChild(dialogBoxWrapper);
-    } else {
-        text.style.animation = 'wobble 2.0s infinite';
-        text.style.opacity = 1;
-        text.style.left = '10vw';
-        text.style.top = `5vw`;
-        bounceText.style.animation = 'dialog-shift 3.5s infinite, wobble 2.0s infinite';
-        bounceText.style.opacity = 1;
-        bounceText.style.left = '10vw';
-        bounceText.style.top = `5vw`
-    }
-
-
-    if (avatarType != 'none') {
-        story.appendChild(avatar);
-    }
-    story.appendChild(text);
-    story.appendChild(bounceText);
-}
-
-window.dismissDialog = function (id, textOnly) {
-    const removeItems = [...document.querySelectorAll(`#${id}`), ...document.querySelectorAll(`#dialog`)];
-
-    if (!textOnly) {
-        removeItems.push(...document.querySelectorAll(`#avatar`))
-    }
-
-    removeItems.forEach(el => el.remove());
-}
-
-window.shiftDialog = function (id) {
-    document.querySelectorAll(`#${id}`).forEach(el => {
-        el.classList.add('clicked')
-    })
-}
-
-window.addChoice = function (html, id) {
-    const dialog = document.getElementById(id);
-    dialog.insertAdjacentHTML('beforeend', html)
-}
-
-function showCustomAlert(message) {
-    const alertBox = document.getElementById('customAlert');
-    const alertMessage = document.getElementById('alertMessage');
-    alertMessage.innerHTML = message;
-    alertBox.style.display = 'flex';
-}
-
-function closeCustomAlert(callback) {
-    const alertBox = document.getElementById('customAlert');
-    alertBox.style.display = 'none';
-    callback();
-}
-
-function startGame() {
-    fadeInOverlay();
-    localStorage.setItem("stats", JSON.stringify(stats))
-    playText(0.5, null, onEnd => {
-        const delayedMessage = document.getElementById('delayedMessage');
-        if (delayedMessage) {
-            delayedMessage.style.visibility = 'visible';
-        }
-    }, 'title');
-    playAudio('resources/audio/intro.mp3', true, true, 0.3)
+    trackHistory(url)
 }
 
 function fadeInOverlay() {
@@ -362,19 +543,45 @@ function fadeOutOverlay() {
     overlay.classList.add("hide");
 }
 
-
 function finishText() {
-    const elements = document.querySelectorAll('span');
-    elements.forEach(span => {
-        span.style.animationDelay = '0s'
-    })
-    console.log(timeoutIds)
-    timeoutIds.forEach(id => {
-        clearTimeout(id);
-    })
-    timeoutFns.forEach(fn => {
-        fn();
-    })
-    timeoutIds = [];
-    timeoutFns = [];
+    console.log('try finish text')
+    if (timeoutIds.length > 0 || timeoutFns.length > 0) {
+        console.log('run finsihed text');
+        const elements = [...document.querySelectorAll('span'), ...document.querySelectorAll('a')];
+        elements.forEach(span => {
+            span.style.animationDelay = '0s'
+        })
+        console.log(`ONTIMEOUT FNS:`, timeoutFns);
+        console.log(`TIMEOUTIDS: ${timeoutIds}`);
+        for (let i = 0; i < timeoutIds.length; i++) {
+            clearTimeout(timeoutIds[i]);
+            timeoutIds.splice(i, 1);
+        }
+
+        for (let i = 0; i < timeoutFns.length; i++) {
+            timeoutFns[i]();
+            timeoutFns.splice(i, 1);
+        }
+    }
 }
+
+function skillRoll(stat, onSuccess, onFailure) {
+    const statValue = JSON.parse(localStorage.getItem("stats"))[stat];
+    // baseline + (stat * multipler)
+    const successRate = 0.1 + (statValue * 0.3);
+    const roll = Math.random();
+    console.log(roll);
+    console.log(successRate);
+    if (successRate > 1 || roll < successRate) {
+        onSuccess();
+    } else {
+        onFailure();
+    }
+
+    //TODO: succeed with style?
+    //TODO: Catastrophic failure?
+}
+
+
+
+

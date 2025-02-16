@@ -24,25 +24,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
+
+            createNarrative(
                 "They continue on.^^As they recede into the distance, the far-off lights of the highway across the field pull your attention, like moving stars.^^Below the stars, you notice that a burly form is hunched across the field from you. Like a black star, you can't make out its features. "
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                const delayedMessage = document.getElementById('delayedMessage');
-                if (delayedMessage) {
-                    delayedMessage.style.visibility = 'visible';
-                }
-            }, 'main');
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

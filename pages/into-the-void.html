@@ -25,25 +25,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
-                `Misery is okay! It loves. It loves company.^The void cannot have company, even when it does, it isn't really there. It is Mu, the no-thing-ness of all things. When inspected closely, nearly nothing has anything to it. Get closer and closer with your microscope and there are voids between even the building blocks of life. There are useless things, introns and vestigial appendages. There are inert third eyes and the Deadlights, hovering there, freezing you with endless immortality of nonsense and death.^The only immortality offered us is death, and the void. They are close, but not the same. One is still an idea, a presence, a place in the minds through rememberance. The absense is still more than the void. The void is nothing. Dead is something, it means 'stalked this earth' or whatever.^Whatever is still not the Void. Whatever is anything, anywhere, anyhow...I think there might be Misery in the Void. Misery may love company, but is it not \`alone\`? The Void...*is the Void alone*?`,
+
+            createNarrative(
+                `Misery is okay! It loves. It loves company.^The void cannot have company, even when it does, it isn't really there. It is Mu, the no-thing-ness of all things. When inspected closely, nearly nothing has anything to it. Get closer and closer with your microscope and there are voids between even the building blocks of life. There are useless things, introns and vestigial appendages. There are inert third eyes and the Deadlights, hovering there, freezing you with endless immortality of nonsense and death.^The only immortality offered us is death, and the void. They are close, but not the same. One is still an idea, a presence, a place in the mind through rememberance. The absence is still more than the void. The void is nothing. Dead is something, it means 'stalked this earth' or whatever.^Whatever is still not the Void. Whatever is anything, anywhere, anyhow...I think there might be Misery in the Void. Misery may love company, but is it not \`alone\`? The Void...*is the Void alone*?`,
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                const delayedMessage = document.getElementById('delayedMessage');
-                if (delayedMessage) {
-                    delayedMessage.style.visibility = 'visible';
-                }
-            }, 'main');
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

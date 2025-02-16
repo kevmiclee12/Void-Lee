@@ -11,6 +11,14 @@
     <div id="overlay" onClick="finishText()">
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <span>Wait... does this mean I will <a class="choice-button" onClick="redirect('hypno.html')">fall
+                        asleep
+                        forever</a>?</span>
+                <br>
+                <span>No, you don't believe it. <a class="choice-button" onClick="redirect('nohypno.html')">You try not
+                        to think about that</a></span>
+            </div>
         </div>
     </div>
 
@@ -18,14 +26,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
+
+            createNarrative(
+                `You fell asleep on some dream moss. Now you are dreaming twice.`,
+            );
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

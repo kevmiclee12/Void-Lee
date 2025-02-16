@@ -1,7 +1,7 @@
 .text {
     z-index: 3;
     font-size: 1.9vw;
-    font-weight: bold;
+    font-weight: 900;
     position: absolute;
     left: 30vw;
     bottom: 3vw;
@@ -15,12 +15,12 @@
     cursor: pointer !important;
     pointer-events: auto !important;
     font-size: 1.9vw;
-    font-weight: bold;
+    font-weight: 900;
     text-decoration: none;
     padding: 0;
     margin: 0;
     line-height: 1;
-    color: black;
+    color: blue;
 }
 
 .choice-button:hover {

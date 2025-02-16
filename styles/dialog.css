@@ -23,9 +23,9 @@
 .dialog-text {
     z-index: 3;
     font-size: 1.9vw;
-    font-weight: bold;
+    font-weight: 500;
     color: transparent;
-    text-shadow: 0.15vw 0.15vh #D7873D;
+    text-shadow: 0.15vw 0.15vh orange;
     position: absolute;
     left: -100%;
     top: 38vw;
@@ -41,6 +41,7 @@
 
 .dialog-text-bounce {
     z-index: 3;
+    font-weight: 600;
     font-size: 1.9vw;
     color: black;
     position: absolute;

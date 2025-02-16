@@ -11,15 +11,6 @@
     <div id="overlay" onClick="finishText()">
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="increaseStat('bluemagic', 1); redirect('paint.html')">Settle into the
-                    chair to
-                    Make Something</a>
-                </br>
-                <a class="choice-button" onClick="increaseStat('shitheadedness', 1); redirect('sleep.html')">Lay you
-                    down to
-                    sleep</a>
-            </div>
         </div>
     </div>
 
@@ -27,25 +18,24 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
-                "You trudge up the narrow, light green carpeted stairs to your room.^^To your left, a pad of paper sits at a desk, an inviting work chair next to it. Paintbrushes, pencils and all manner of creative tools rest on this desk. To your right, a half-made bed with rumpled blue sheets.",
+
+            createNarrative(
+                "You trudge up the light green carpeted narrow stairs to your room. Your room is festooned with posters, orderly piles of sorted odds and ends, and trinkets. Your bed may be a full, but its puffy yellow comforter looks inviting. {Lay you down to Sleep}.",
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                const delayedMessage = document.getElementById('delayedMessage');
-                if (delayedMessage) {
-                    delayedMessage.style.visibility = 'visible';
-                }
-            }, 'main');
+            playText(onEnd => {
+                createNarrative(
+                    `^^^^^A pad of paper sits at a desk, an inviting work chair next to it. Paintbrushes and pencils and all kind of nice tools of creation rest on this desk. Settle into a chair to {Make Something}.`
+                );
+                playText(onEnd => {
+                    createNarrative(
+                        `^^^^^^^^^The empty bed and the blank page remind you of fresh snow, a bright day, the smell of morning mud. Poets saunter. Plastic bags and paper boxes are blown around by the wind. Kids play: throwing and kicking, snorting and rolicking. Actually, you wish you could {Go to the Park}.`
+                    );
+                    playText(null, `increaseStat('athletics', 1); redirect('go-to-the-park.html')`);
+                }, `increaseStat('bluemagic', 1); redirect('paint.html')`,
+                );
+            }, `increaseStat('shitheadedness', 1); redirect('sleep.html')`,
+            );
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

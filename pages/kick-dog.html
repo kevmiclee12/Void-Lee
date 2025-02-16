@@ -26,25 +26,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
+
+            createNarrative(
                 `You animal abuser!! But...its face is human, you say. Does that make it okay?^^Do you hate the human-faced dog because it's pieces of you?^Did you kick the dog-bodied human because it's pieces of you?`
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                const delayedMessage = document.getElementById('delayedMessage');
-                if (delayedMessage) {
-                    delayedMessage.style.visibility = 'visible';
-                }
-            }, 'main');
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

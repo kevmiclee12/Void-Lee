@@ -21,25 +21,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
-                `You were worried that the void was alone. So sweet, so human. Look at you, all empathetic and virtuous, always helping out. Good on you, Voidlover! How Neitzsche. How niche. How nice.`,
+
+            createNarrative(
+                'void 1'
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                const delayedMessage = document.getElementById('delayedMessage');
-                if (delayedMessage) {
-                    delayedMessage.style.visibility = 'visible';
-                }
-            }, 'main');
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

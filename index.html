@@ -13,7 +13,7 @@
     <div class="alert-overlay" id="customAlert" style="display: none;">
         <div class="alert-box">
             <p class="alert-message" id="alertMessage"></p>
-            <button class="alert-close-btn" onclick="closeCustomAlert(startGame())">Andiamo</button>
+            <button class="alert-close-btn" onclick="closeCustomAlert(() => startGame())">Andiamo</button>
         </div>
     </div>
     <div id="overlay" onClick="finishText()">
@@ -46,10 +46,15 @@
     <script src="script.js"></script>
     <script>
         window.onload = function () {
-            showCustomAlert(`Welcome to <strong>Void Lee</strong>,
-            a game written in a collaborative manner.
-            I, Billy Halibut, am the chief compiler and weaver.
-            I am joined in creative breathing by Kevin, Wendall, Phillip and Craig Halibut.`);
+            showCustomAlert(`Welcome to codename:<strong>Void Lee</strong>,
+            an RPG text game.<br>
+            Created by Billy Halibut.<br>
+            Directed by Billy Halibut and Kevin Lee.<br>
+            Written by Billy Halibut and Kevin Lee.<br>
+            Illustrated by Billy Halibut.<br>
+            Developed with HTML and javascript by Kevin Lee.<br>
+            Special thanks to:
+            Wendall Carefare, Phillip van der Meer and Craig Halibut for their scene ideas. Big L Morris, Jeannette Berman, Mr. Carefare, and Garrett Smelcer for their laughs.`);
         }
     </script>
     <link rel="stylesheet" href="styles/styles.css">

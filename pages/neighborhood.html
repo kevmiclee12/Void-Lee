@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="redirect('go-to-the-park.html')">Return to the park</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            ;
+            createNarrative(
+                `"Those sideshows must be loaded to buy a house here," a fancy-looking coat is on the phone walking out of a house as you pass. A dog leading her by a leash. She gives you no notice. {Follow her}.`
+            );
+            playText(onEnd => {
+                createNarrative(
+                    `^^^^You pass houses, rather generic looking. One stands out, with a huge garden-filled side-yard. The structure is all wooden angles and exposed browns, with tasteful glass windows. Lights on inside. A wooden fence surrounds a decent side-yard abutting the sidewalk. You look over the fence into a yard. Someone with a beanie cap is weeding their garden. Move along, or rest your arms on the fence^{and say, "hello"}.`
+                );
+                playText(onEnd => {
+                    createNarrative(
+                        `^^^^^^^^^^^^Further down past the skate park, and some desolate fences, a bridge crosses over, making an underpass. Random cars and trucks sit under the shelter of the bridge. A group of people stand between a grey tractor trailer truck and a push-up muscles yellow truck. {Walk right past them}.`
+                    );
+                    playText(onEnd => {
+                        showBottomChoices();
+                    }, `redirect('truckers.html')`);
+                }, `redirect('wooden-house.html')`);
+            }, `redirect('vua.html')`);
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

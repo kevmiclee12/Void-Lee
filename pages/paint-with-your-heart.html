@@ -19,25 +19,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
+
+            createNarrative(
                 `In your mind, long links and legs crisscross and cascade from a central form. A sail grows from the space between each of the hinged limbs. A beach forms beneath it, as it scuttles, urged on by the power of the wind. Around each limb are golden chains wrapped around them in bunches. Tubes protrude from each limb and from the central body.`,
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                const delayedMessage = document.getElementById('delayedMessage');
-                if (delayedMessage) {
-                    delayedMessage.style.visibility = 'visible';
-                }
-            }, 'main');
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

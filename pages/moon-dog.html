@@ -28,25 +28,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
+
+            createNarrative(
                 "The dog submits to your touch, and leans against you. You find a collar with a locket wrapped around its neck. The locket is glowing faintly with a sigul of a crescent moon. The dog does not react to you touching the locket, and you think to open it. Inside the locket is a dried bit of plant matter that smells of vanilla, and a taped lock of hair.^^As you hold these items, they dissolve in your palm, and you feel an energy fill you with intention."
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                const delayedMessage = document.getElementById('delayedMessage');
-                if (delayedMessage) {
-                    delayedMessage.style.visibility = 'visible';
-                }
-            }, 'main');
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

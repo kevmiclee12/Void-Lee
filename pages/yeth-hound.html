@@ -32,25 +32,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/audiocheck.net_brownnoise.wav', true, true, 0.3)
-            createDialogComponent(
-                'main',
-                'none',
+
+            createNarrative(
                 "Its bloodshot eyes stare into yours with shameless hunger. The smell of stale smoke like the stench of clothing bathed in campfire fills your nostrils. It begins to howl, its lips pursed, and its cheeks tighening around its jaw, filled with human teeth. A stomach-filled terror builds in you, and your first reaction is to strike out at it as hard as you can.^^In what manner do you kick it in its demented, and yucky face?"
             );
-            playText(0.03, window.innerWidth * 0.8, onEnd => {
-                const delayedMessage = document.getElementById('delayedMessage');
-                if (delayedMessage) {
-                    delayedMessage.style.visibility = 'visible';
-                }
-            }, 'main');
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
-
-        window.onbeforeunload = function () {
-            audioElement.pause();
-            audioElement.currentTime = 0;
-        };
-
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

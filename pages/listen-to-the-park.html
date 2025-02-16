@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Void Lee</title>
@@ -11,12 +11,7 @@
 <body>
     <div id="overlay" onClick="finishText()">
 
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('wish2.html')">That dog was much different than I had
-                    assumed</a>
-            </div>
         </div>
     </div>
 
@@ -24,13 +19,15 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
-
-            createNarrative(
-                "It runs away across the field."
-            );
+            createNarrative('You put your arms to your sides, palms against your thighs.^{Continue the sound meditation by closing your eyes}.');
             playText(onEnd => {
                 showBottomChoices();
-            });
+                createNarrative('^^^Nah, I want to see people and I want to see light. {Go into the neighborhood}.');
+                playText(onEnd => {
+                    createNarrative(`^^^^^Eh, I'd rather just do whatever. {Break focus, let your mind wander}.`);
+                    playText(null, `redirect('wish1.html')`);
+                }, `redirect('neighborhood.html')`);
+            }, `redirect('meditation.html')`);
         }
 
     </script>

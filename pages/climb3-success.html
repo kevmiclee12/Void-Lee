@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Void Lee</title>
@@ -11,25 +10,23 @@
 <body>
     <div id="overlay" onClick="finishText()">
 
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('wish2.html')">That dog was much different than I had
-                    assumed</a>
-            </div>
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
         </div>
     </div>
+
 
     <script src="../script.js"></script>
     <script>
         window.onload = function () {
             fadeInOverlay();
-
             createNarrative(
-                "It runs away across the field."
+                `You grabbed that sucker! It almost squirms free before you can recover from the shock of such a miraculous feat. Overjoyed and triumphant, you shimmy back down to the forest floor with an easy swagger.`
             );
             playText(onEnd => {
-                showBottomChoices();
+                addItem('squirrel');
             });
         }
 
@@ -38,6 +35,8 @@
     <link rel="stylesheet" href="../styles/button.css">
     <link rel="stylesheet" href="../styles/dialog.css">
     <link rel="stylesheet" href="../styles/choices.css">
+    <link rel="stylesheet" href="../styles/alert.css">
+
 </body>
 
 </html>
