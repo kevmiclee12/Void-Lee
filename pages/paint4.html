@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `Alone, but not lonesome, you walk on small legs, seeing the beast with new eyes. You {look for a path up.}`);
+            playText(onEnd => {
+
+            }, `redirect('paint5.html');`);
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+
+</body>
+
+</html>

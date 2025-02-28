@@ -7,16 +7,17 @@
     <title>Void Lee</title>
 </head>
 
-<!-- TODO: Sound -- Jean Sibelius -->
-
 <body>
     <div id="overlay" onClick="finishText()">
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" id="pineneedles" onClick="addItem('pine needles')">Show them the proof</a>
+                <a class="choice-button" id='proof' onClick="redirect('faeries-litter-police.html')">Show them the
+                    proof</a>
                 <br>
-                <a class="choice-button" onClick="redirect('sleep2.html')">My mistake</a>
+                <a class="choice-button" onClick="redirect('faeries-snail-trees.html')">"Oh I see, you were planting
+                    snail
+                    trees! The Hongatar are a noble breed."</a>
             </div>
         </div>
         <div id="custom-alert" class="snackbar">
@@ -24,18 +25,25 @@
         </div>
     </div>
 
-
-
     <script src="../script.js"></script>
     <script>
         window.onload = function () {
             fadeInOverlay();
-            createNarrative(
-                `We take offsense to that, thingy sir. Of all the things, littering!`,
-            );
-            playText(onEnd => {
+            buildSidebar();
+
+            const items = JSON.parse(localStorage.getItem("items")) ?? [];
+
+            if (!items.includes('hongatar trash')) {
+                const proofButton = document.getElementById('proof');
+                proofButton.style.visibility = 'hidden'
+            }
+
+            createDialog('long', 'faerie1', `~HONGATAR #1~^^What? Pölkkypää! Everyone knows hongatar don't litter.`, onClick => {
+                shiftDialog('long');
                 showBottomChoices();
             });
+            playText(null, null, 'long');
+
         }
 
     </script>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="redirect('neighborhood-approach3.html')">Ask if you can join their
+                    crew.</a>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `You start talkin real fast. You were just being bold, you wanted to break taboo for a minute. You did not mean anything by it, you didn't have any reason to approach them. You are not a cop, you don't know any cops, and please can they delete those videos.`
+            );
+            playText(onEnd => {
+                showBottomChoices();
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+    <link rel="stylesheet" href="../styles/alert.css">
+</body>
+
+</html>

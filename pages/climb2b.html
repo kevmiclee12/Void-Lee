@@ -14,7 +14,7 @@
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
                 <a class="choice-button" onClick="redirect('climb3.html')">Push yourself even harder</a>
                 </br>
-                <a class="choice-button" onClick="redirect('give-up.html')">Give up</a>
+                <a class="choice-button" onClick="redirect('climb-give-up.html')">Give up</a>
             </div>
         </div>
     </div>
@@ -23,12 +23,13 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
+            buildSidebar();
             createNarrative(
-                `You keep shimmying up the trunk, past the first branch. Your arms and legs are getting fatigued. The squirrel hasn't moved. It is watching you and barking.`
+                `You keep shimmying up the trunk, past the first branch. Your arms and legs are giving out. The {squirrel} hasn't moved. The way it watches you, vacillating between tepid curiosity and utter indifference, suggests the thought of you as a threat could not be further from its mind.`
             );
             playText(onEnd => {
                 showBottomChoices();
-            });
+            }, `toggleSidebar('id', 'squirrel')`);
         }
 
     </script>

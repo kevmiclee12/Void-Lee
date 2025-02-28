@@ -21,9 +21,10 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
+            buildSidebar();
 
             createNarrative(
-                `The hum reaches a cresecendo and slowly begins its ebb into entropic silence. With each milliliter of breath that exits your lungs, the pervading artifical glow diminishes and the stars return to their former glory, one by one. Buildings topple and decay as trees and fields reclaim the landscape. The highways wither like wisps of smoke disintegrating into the hills. The once imposing grids of farms and neighborhoods fade into amorphous wilderness.^^Day, night, day, night. Seasons cycle and time dutifully carves the terrain with imperceptible changes. All is as it was before.`,
+                `The hum intensifies until it almost becomes unbearable, making you wince. It reaches a cresecendo and slowly begins its ebb back into entropic silence, leaving a ghostly impression of its power in your memory.^^With each milliliter of breath that exits your lungs, the pervading artifical glow diminishes and the stars return to their former glory, one by one.^^Buildings topple and decay as trees and fields reclaim the landscape. The highways wither like wisps of smoke disintegrating into the hills. The once imposing grids of farms and neighborhoods fade into amorphous wilderness.^^Day, night, day, night. Seasons cycle and time dutifully carves the terrain with imperceptible changes. All is as it was before.`,
             );
             playText(onEnd => {
                 showBottomChoices();

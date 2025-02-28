@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <span>Your mind quiets as you <a class="choice-button"
+                        onClick="redirect('park-listen1.html')">listen</a>.</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `You put your arms to your sides, palms against your thighs. You bend your knees slightly, keeping them supple. You imagine your feet are growing roots deep into the earth. You imagine the crown of your head is attached by a golden thread to a distant star. You half-close your eyes and slow your breathing.`
+            );
+            playText(onEnd => {
+                //TODO: play ohm sound
+                showBottomChoices();
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

@@ -23,25 +23,20 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
+            buildSidebar();
 
             createNarrative(
                 `You sit down at the desk and open to a fresh page of the pad. You look down onto the off-white paper. A void to fill. Dimensionless. The desire to form and create something in that void. It pulls you, amuses you, scares you. You feel like proving yourself brave, resisting the urge to make marks. {Go into the Void}.`,
             );
             playText(onEnd => {
                 createNarrative(
-                    `^^^^^^You want to practice the skill of representation. Of translating your experience to others. "Practice communicating the simplest idea first," your imaginary friend tells you. {Make a Comic}.`,
+                    `^^^^^^You can feel the spirit rising in you, and the thrill of channeling that spirit! Feelings with no where to go are like idle hands...they animate. Or, no, do they become animate hands!? Nonononono, please no! You pick up the paintbrush, smoosh some acrylic paint into the palette and {Paint with your Heart}.`,
                 );
                 playText(onEnd => {
-                    createNarrative(
-                        `^^^^^^^^^^You can feel the spirit rising in you, and the thrill of channeling that spirit! Feelings with no where to go are like idle hands...they animate. Or, no, do they become animate hands!? Nonononono, please no! You pick up the paintbrush, smoosh some acrylic paint into the palette and {Paint with your Heart}.`,
-                    );
-                    playText(onEnd => {
-                        showBottomChoices();
-                    }, `redirect('paint-with-your-heart.html')`,
-                    );
-                }, `redirect('comic.html')`,
+                    showBottomChoices();
+                }, `redirect('paint1.html')`,
                 );
-            }, `redirect('into-the-void.html')`,
+            }, `redirect('void.html')`,
             );
         }
 

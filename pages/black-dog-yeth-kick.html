@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <span>You start to <a class="choice-button" style="font-style: italic;"
+                        onClick="redirect('black-dog-yeth-kick-regret.html')">feel bad</a>.</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+            const prefix = choice == 'stomp' ? 'You stomp right down onto its face. It squeals, and snarls.' : 'You back up and sprint into a quick leap, shifting your weight out to your feet to kick with both feet right into its face.^The redblack dog yelps, and then snarls.'
+
+            createNarrative(
+                `${prefix}^^It looks you right in your eyes.`
+            );
+            playText(onEnd => {
+                showBottomChoices();
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

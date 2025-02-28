@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div class="story" id="story" style="background-image: url(../resources/images/backgrounds/new-game.png);">
+            <div
+                style="background-image: url(../resources/images/backgrounds/window-slats.png); height: 80vh; position: relative; background-size: auto; background-repeat: no-repeat; background-position: center">
+            </div>
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="increaseStat('athletics', 1); redirect('park.html')">Go
+                    to
+                    the
+                    Park</a></br>
+                <a class="choice-button" onClick="increaseStat('shitheadedness', 1); redirect('city.html')">Go into the
+                    City</a>
+                <br>
+                <a class="choice-button" onClick="increaseStat('will', 1); redirect('room.html')">Go to your
+                    room</a>
+                <br>
+                <span>You can do anything! <a class="choice-button" onClick="increaseStat('shitheadedness', 1);
+                    redirect('survtech.html')">Look
+                        at
+                        your phone</a>.</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                "Light pours through the blinds of your front window and onto the ceiling in stripes. The view out your window shows an empty alleyway.",
+            );
+            playText(onEnd => {
+                showBottomChoices();
+            });
+
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

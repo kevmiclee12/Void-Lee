@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <span>You see a donut shop. <a class="choice-button" onClick="redirect('donut-shop.html')">Run to
+                        it</a>.</span>
+            </div>
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `Yes, but as you start to sprint away, you drop the spray paint and they manage to steal your belt. You have to hold up your pants with your hand. They also still have those videos...but they'll be pretty useless in court.^^You see a street leading up to clusters of restaurants and stores, apartments and houses. The side streets sidle up the hill.`
+            );
+            playText(onEnd => {
+                removeItem('spray paint');
+                setTimeout(function () {
+                    removeItem('belt');
+                }, 1500);
+                showBottomChoices();
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+    <link rel="stylesheet" href="../styles/alert.css">
+</body>
+
+</html>

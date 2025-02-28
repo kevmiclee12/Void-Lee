@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="redirect('hypno5.html?lines=true')">"I don't think I'm cut out
+                    for
+                    this."</a>
+                <br>
+                <a class="choice-button" onClick="redirect('hypno5.html?lines=true')">"I need more time to go over
+                    my
+                    lines!"</a>
+                <br>
+                <a class="choice-button" onClick="increaseStat('will', 1); redirect('hypno5.html')">"Fuck it! Let's do
+                    it live!"</a>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `You hear one knock at the door before it swings open. A large fellow bustles in importantly, his smile entreating you.^^With a gusto that feels suspiciously contrived, he addresses you.`
+            );
+            playText(onEnd => {
+                createDialog('long', 'hypno_gourd', `~HYPNO GOURD~^^You're not ready? Don't worry, you'll be fine.^\`The show must go on\`!`,
+                    onClick => {
+                        dismissDialog(null, true);
+                        shiftDialog('long');
+                        showBottomChoices();
+                    },
+                );
+                playText(null, null, 'long');
+            })
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="redirect('void-not-alone.html')">Not anymore!</a>
+                </br>
+                <a class="choice-button" onClick="redirect('void-alone.html')">The Void is alone...</a>
+                </br>
+                <a class="choice-button" onClick="toggleSidebar('id', 'whatever')">Whatever.</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `Sad is okay! It loves. Sad loves company.^^Nothing cannot have company, even when it does, it isn't really there. It is Mu, the not-a-thing state of all things.^^When looked at, anything has nothing in it. You can get closer and closer to skin until you see there are voids between even the building blocks of life. There are arms and legs with no use, and in the little bags of water that make us up there is  information with no use. There are third eyes that do not see. There are Dead Lights, flying in the void, they let you live forever, not moving.^^The only living forever for us is death. Death and the void are not the same. They are close, but not the same. If you are dead, you are somewhere. If you are dead it means you once walked the Earf. The dead live on in others' minds. Absense is more than the void. The void is nothing, nowhere.^^There is no sad in the Void. Is the Void alone?`,
+            );
+            playText(onEnd => {
+                showBottomChoices();
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `In the sky, the light fades as dark clouds roll in. Around the dark gray of their bulbous billowing, dots of light sail and sink through air like snowflakes.^^You find a hold up from the walker's planted foot. You climb up onto its calf, and then you scurry up the sidewalk of its haunch as it moves.^^You {leap up from its haunch} to grab onto the ledge of its massive thigh.`
+            );
+            playText(onEnd => {
+
+            }, `redirect('paint6.html');`);
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+
+</body>
+
+</html>

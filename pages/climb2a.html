@@ -18,8 +18,9 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
+            buildSidebar();
             createNarrative(
-                `You reach for a nearby branch. It breaks. {Keep shimmying up}.`
+                `You reach for a nearby branch. It breaks, but your thighs remain firmly clenched on the trunk. {Keep shimmying up}.`
             );
             playText(null, `redirect('climb2b.html')`);
         }

@@ -11,6 +11,12 @@
     <div id="overlay" onClick="finishText()">
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="redirect('sleep1.html')">Close your eyes.</a>
+                <br>
+                <span>Nooo!!! I'd rather sit at the desk! <a class="choice-button" onClick="redirect('paint.html')">I'm
+                        not sleepy!</a></span>
+            </div>
         </div>
     </div>
 
@@ -18,10 +24,13 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
+            buildSidebar();
             createNarrative(
-                `You get over to your bed, pull the sheets, slip in and nestle into the blankets. You're not very tired, but you're so unmotivated it hardly matters. It's not long before you are {fast asleep}.`
+                `You get over to your bed, pull the sheets, slip in and nestle into the blankets. You're not very tired, but you're so unmotivated it hardly matters.`
             );
-            playText(null, `redirect('sleep1.html')`);
+            playText(onEnd => {
+                showBottomChoices();
+            });
         }
 
     </script>

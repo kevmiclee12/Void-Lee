@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" onClick="redirect('park-listen.html')">Open your ears.</a>
+                </br>
+                <a class="choice-button" onClick="redirect('black-dog.html')">Stare off into space.</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+            createDialog('long', 'drunk1', `~DRUNK #1~^^Oh shit! A skatepark! Cool! Bye!`, onClick => {
+                dismissDialog('long');
+                createNarrative(
+                    `They run past you to the skatepark.^^As they lope off, you turn around and lean against a tree.`
+                );
+                playText(onEnd => {
+                    showBottomChoices();
+                })
+            });
+            playText(null, null, 'long');
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

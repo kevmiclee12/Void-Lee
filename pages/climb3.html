@@ -24,11 +24,22 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
+            buildSidebar();
             createNarrative(
-                `Atta boy. Quitters never win! Your brow is wet with dream sweat. Your hands and arms have many small cuts from the rough climbing. You feel sappy bits on your clothes and face. The squirrel comes a little closer to you.^^Your muscles start to tremble. The squirrel gets up in your grill and shouts, "Putoat! Putoat!" Because you're dreaming, you understand that the squirrel is taunting you with a chant to make you fall.^^In a last ditch effort, your hand darts out to {snatch the furball}.`
+                `Atta boy. Quitters never win! Your brow is wet with dream sweat. Your hands and limbs are all scraped up from climbing. You feel sappy bits on your clothes and face. The {squirrel} comes a little closer to you.^^Your muscles start to tremble. The squirrel gets up in your grill.`
             );
             playText(onEnd => {
-            }, `skillRoll('athletics', () => redirect('climb3-success.html'), () => redirect('climb3-fail.html'))`);
+                createDialog('long', 'squirrel', `~SQUIRREL~^^Putoat! Putoat!`, onClick => {
+                    dismissDialog('long');
+                    dismissDialog(null, true);
+                    createNarrative(
+                        `The little vermin is taunting you!^^In a last ditch effort, your hand darts out to {snatch the furball}.`
+                    );
+                    playText(null, `skillRoll('athletics', () => redirect('climb4.html?success=true'), () => redirect('climb4.html?success=false'))`)
+
+                }, true);
+                playText(null, null, 'long');
+            }, `toggleSidebar('id', 'squirrel')`);
         }
 
     </script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+            const params = new URLSearchParams(window.location.search);
+            const lines = params.get('lines');
+
+
+            createDialog('long', 'hypno_gourd', `~HYPNO GOURD~^^${lines ? `Don't be ridiculous. Your part doesn't even have any lines.` : `Great, great. They're waiting for you out there.`} Quickly, put this on.`,
+                onClick => {
+                    dismissDialog('long');
+                    createNarrative(
+                        `He shoves a costume at you and turns away with a huff. You feel obliged to put it on quickly. No sooner than your head slips through the top of the costume is the large man ushering you out the door. You barely catch a glimpse of yourself in the dressing room mirror.^^You're a... {keg}?`
+                    );
+                    playText(null, `redirect('hypno6.html')`);
+                },
+            );
+            playText(null, null, 'long');
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

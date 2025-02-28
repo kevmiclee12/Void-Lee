@@ -14,13 +14,9 @@
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="increaseStat('bluemagic', 1); redirect('moon-dog.html')">Pet the
-                    creature
-                    under its chin</a>
+                <a class="choice-button" onClick="redirect('black-dog1.html')">Go closer</a>
                 </br>
-                <a class="choice-button" onClick="increaseStat('will', 1); redirect('yeth-hound.html')">Stomp on its
-                    face as
-                    hard as you can</a>
+                <a class="choice-button" onClick="redirect('black-dog1.html')">Back away</a>
             </div>
         </div>
     </div>
@@ -29,8 +25,9 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
+            buildSidebar();
             createNarrative(
-                `Before you move a muscle, the dark star advances at a clip. As the distance closes, you notice rust red fur, interspersed with oily black. You feel riveted to the spot, unable to look away.^^You recall the words of your sister the last time she read your fortune using those weird blocks and strings, "You must be careful! There is a Red Dog. And, there is a Black Dog."^^But...this is both? You start acting careful. ^^As the Redblack dog approaches, you notice with rising nausea that it has a humanlike face but with dog flesh, and full dark eyes.`
+                `Your attention shifts to the field as the distant lights of the highway pull your attention, like shooting stars.^^Below your gaze, you slowly notice that a form is hunched across the field from you. Like a dark and burly bush, you can't make out its features. You are sure that was not there a minute ago.`
             );
             playText(onEnd => {
                 showBottomChoices();

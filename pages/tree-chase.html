@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+
+            let text = '';
+
+            switch (choice) {
+                case 'dream':
+                    text = `You chose to fall asleep forever, so you don't freak out`
+                    break;
+                case 'climb':
+                    text = `You chose to chase the squirrel so the squirrel is taking it's vengeance on you directing the trees action`
+                    break;
+                case 'chop-success':
+                    text = `you chose to chop down the trees and succeed, so the trees are extra angry`
+                    break;
+                case 'chop-fail':
+                    text = `you chose to chop down the trees and failed so the trees are just fucking with you`
+            }
+
+            //TODO: Items?
+
+            createNarrative(
+                `The trees are chasing you. ${text}`
+            );
+            playText(onEnd => {
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+    <link rel="stylesheet" href="../styles/alert.css">
+
+</body>
+
+</html>

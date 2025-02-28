@@ -161,6 +161,7 @@ a {
 #overlay {
     background-color: black;
     opacity: 0;
+    margin: 0;
 }
 
 #overlay.show {
@@ -171,4 +172,29 @@ a {
 #overlay.hide {
     animation: fadeOut 0.2s ease-in-out forwards;
     pointer-events: none;
+}
+
+
+
+.sidebar {
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: -300px;
+    background: #333;
+    color: white;
+    transition: left 0.3s ease-in-out;
+    padding: 15px;
+    z-index: 1000;
+}
+
+/* Open class to show sidebar */
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar-title {
+    font-size: 18px;
+    font-weight: bold;
 }

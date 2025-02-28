@@ -2,6 +2,12 @@ const DIALOG_BOX_LONG = "../resources/images/dialogs/dialog-box-long.png"
 const MUD_MAN = "../resources/images/avatars/mud-man.png"
 const DRUNK_1 = "../resources/images/avatars/drunk1.png"
 const DRUNK_2 = "../resources/images/avatars/drunk2.png"
+const FAERIE_1 = "../resources/images/avatars/faerie1.png"
+const FAERIE_2 = "../resources/images/avatars/faerie2.png"
+const FAERIE_3 = "../resources/images/avatars/faerie3.png"
+const HYPNO_GOURD = "../resources/images/avatars/hypno-gourd.png"
+const SQUIRREL = "../resources/images/avatars/squirrel.png"
+
 
 
 const DIALOG_BOX_MAP = {
@@ -20,7 +26,12 @@ const DIALOG_BOX_MAP = {
 const AVATAR_MAP = {
     'mud_man': MUD_MAN,
     'drunk1': DRUNK_1,
-    'drunk2': DRUNK_2
+    'drunk2': DRUNK_2,
+    'faerie1': FAERIE_1,
+    'faerie2': FAERIE_2,
+    'faerie3': FAERIE_3,
+    'hypno_gourd': HYPNO_GOURD,
+    'squirrel': SQUIRREL
 }
 
 /*
@@ -36,21 +47,38 @@ const stats = {
     will: 0
 }
 
-const items = {};
+const statChecks = {};
+
+const items = [];
 
 function increaseStat(name, amount) {
     const newStats = JSON.parse(localStorage.getItem("stats"));
+    const newStatChecks = JSON.parse(localStorage.getItem("statChecks")) ?? {};
 
-    console.log(`increase ${name} by ${amount}`)
-    newStats[name] += amount;
+    console.log(`CHECK: ${newStatChecks}`)
 
-    console.log(newStats)
+    const statCheck = newStatChecks[name] ?? [];
 
-    localStorage.setItem("stats", JSON.stringify(newStats));
+    if (!statCheck?.includes(window.location.href)) {
+        console.log(`increase ${name} by ${amount}`)
+        newStats[name] += amount;
+        statCheck.push(window.location.href);
+        newStatChecks[name] = statCheck;
+
+        console.log(newStats)
+        console.log(newStatChecks);
+
+        localStorage.setItem("stats", JSON.stringify(newStats));
+        localStorage.setItem("statChecks", JSON.stringify(newStatChecks));
+    }
 }
 
 function setDrunkChoice(choice) {
-    localStorage.setItem("drunkChoide", choice)
+    localStorage.setItem("drunkChoice", choice)
+}
+
+function updateMagicNosehairs() {
+    localStorage.setItem('magicNosehairs', true);
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -66,13 +94,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 function addItem(name, overrideId) {
     //TODO: add item sound
+    console.log(`ADD ITEM: ${name}`);
     const newItems = JSON.parse(localStorage.getItem("items"));
-    const id = name.replace(/ /g, '');
 
-    newItems[id] = (newItems[id] || 0) + 1;
+    newItems.push(name);
 
     localStorage.setItem("items", JSON.stringify(newItems));
-
 
     if (overrideId) {
         const elements = document.querySelectorAll(`#${overrideId} a`);
@@ -81,13 +108,28 @@ function addItem(name, overrideId) {
         })
     } else {
         const element = document.querySelector(`#delayedMessage a`);
-        element.style.display = "none";
+        if (element) {
+            element.style.display = "none";
+        }
+    }
+    showSnackbar(`You got +1 <strong>${name}</strong>`)
+}
 
+function removeItem(name) {
+    const newItems = JSON.parse(localStorage.getItem("items"));
+
+    const index = newItems.indexOf(name);
+    if (index !== -1) {
+        newItems.splice(index, 1);
+        localStorage.setItem("items", JSON.stringify(newItems));
     }
 
-    console.log('ITEM: ', name)
+    showSnackbar(`-1 <strong>${name}</strong>`)
+}
 
-    showSnackbar(`You got +1 <strong>${name}</strong>`)
+function checkItems(value) {
+    const newItems = JSON.parse(localStorage.getItem("items"));
+    return !newItems.includes(value);
 }
 
 function trackHistory(url) {
@@ -97,10 +139,15 @@ function trackHistory(url) {
 }
 
 function startGame() {
+    localStorage.clear();
     fadeInOverlay();
     localStorage.setItem("stats", JSON.stringify(stats));
     localStorage.setItem("items", JSON.stringify(items));
     localStorage.setItem("history", JSON.stringify([]));
+    localStorage.setItem("openedDict", JSON.stringify(false));
+    localStorage.setItem("dictPages", JSON.stringify([]));
+    localStorage.setItem("dictHistory", JSON.stringify([]));
+
 
 
     playText(() => showBottomChoices(), null, 'title');
@@ -135,7 +182,6 @@ function getPlayTextWidth(id) {
 
 window.playText = function (onEnd, choice, overrideId) {
     const id = overrideId ?? `main${narrativeCount}`;
-    console.log(id);
     const fadeTextElements = document.querySelectorAll(`#${id}`);
     const speed = getPlayTextSpeed(id);
     const maxWidth = getPlayTextWidth(id);
@@ -304,7 +350,7 @@ window.createNarrative = function (dialogText) {
     story.appendChild(bounceText);
 }
 
-window.createDialog = function (dialogType, avatarType, dialogText, onClick) {
+window.createDialog = function (dialogType, avatarType, dialogText, onClick, playSound) {
 
     const dialogBoxWrapper = document.createElement('div')
     const dialogBox = document.createElement('img');
@@ -342,7 +388,8 @@ window.createDialog = function (dialogType, avatarType, dialogText, onClick) {
     dialogBoxWrapper.style.display = 'inline-block';
     dialogBoxWrapper.style.width = '100%'
     dialogBoxWrapper.classList.add('movable');
-    dialogBoxWrapper.onclick = function () {
+    dialogBoxWrapper.onclick = function (event) {
+        event.stopPropagation();
         onClick();
     };
     dialogBoxWrapper.appendChild(dialogBox);
@@ -355,15 +402,18 @@ window.createDialog = function (dialogType, avatarType, dialogText, onClick) {
     }
     story.appendChild(text);
     story.appendChild(bounceText);
+
+    if (playSound) {
+        console.log('play sound!');
+        const audio = new Audio(`../resources/audio/${avatarType}.mp3`);
+        audio.play();
+    }
 }
 
 window.dismissDialog = function (id, textOnly) {
-    console.log(`dismiss ${id ?? `main${narrativeCount - 1}`}`)
     const removeItems = [...document.querySelectorAll(`#${id ?? `main${narrativeCount - 1}`}`), ...document.querySelectorAll(`#dialog`)];
 
-    console.log(textOnly)
     if (!textOnly) {
-        console.log(document.querySelectorAll(`#avatar`));
         removeItems.push(...document.querySelectorAll(`#avatar`))
     }
 
@@ -376,19 +426,6 @@ window.shiftDialog = function (id) {
     })
 }
 
-function checkItemHistory(item, page) {
-    const checkItems = JSON.parse(localStorage.getItem("items"));
-    const history = JSON.parse(localStorage.getItem("history"));
-
-    console.log(checkItems[item]);
-    console.log(`EXISTS? ${history.some(e => e.includes(page))}`);
-
-    if (checkItems[item] && history.some(e => e.includes(page))) {
-        const element = document.querySelector("#delayedMessage a");
-        element.style.display = "none";
-    }
-}
-
 /*
 ------------------------
         AUDIO
@@ -396,71 +433,86 @@ function checkItemHistory(item, page) {
 */
 const activeAudios = [];
 let audio;
+let audioPath;
 
 window.playAudio = function (audioUrl, loop, fadeIn, buffer) {
-    audio = new Audio(audioUrl);
 
-    if (loop) {
-        audio.loop = loop;
-    }
+    if (audioUrl != audioPath) {
+        audio = new Audio(audioUrl);
+        audioPath = audioUrl;
 
-    if (buffer) {
-        audio.addEventListener('timeupdate', function () {
-            if (this.currentTime > this.duration - buffer) {
-                this.currentTime = 0
-                this.play();
+        if (loop) {
+            audio.loop = loop;
+        }
+
+        if (buffer) {
+            audio.addEventListener('timeupdate', function () {
+                if (this.currentTime > this.duration - buffer) {
+                    this.currentTime = 0
+                    this.play();
+                }
+            });
+        }
+
+
+        if (fadeIn) {
+            audio.volume = 0;
+            var isFirstIteration = true;
+            audio.play();
+
+            function fadeInVolume() {
+                if (isFirstIteration) {
+                    var fadeDuration = 5;
+                    var interval = 50;
+                    var step = (1 / fadeDuration) * (interval / 1000);
+                    var currentVolume = audio.volume;
+
+                    var fadeInterval = setInterval(function () {
+                        if (currentVolume < 1) {
+                            currentVolume += step;
+                            audio.volume = Math.min(currentVolume, 1);
+                        } else {
+                            clearInterval(fadeInterval);
+                            isFirstIteration = false;
+                        }
+                    }, interval);
+                }
             }
+            audio.addEventListener('play', fadeInVolume);
+        } else {
+            audio.play();
+        }
+
+
+        activeAudios.push({
+            audioUrl: audioUrl,
+            audio: audio,
         });
     }
+}
 
 
-    if (fadeIn) {
-        audio.volume = 0;
-        var isFirstIteration = true;
-        audio.play();
+function stopAudio() {
+    if (audio) {
+        console.log('Stopping audio!!!');
+        const fadeDuration = 1000;
+        const interval = 50;
+        const fadeStep = audio.volume / (fadeDuration / interval);
 
-        function fadeInVolume() {
-            if (isFirstIteration) {
-                var fadeDuration = 5;
-                var interval = 50;
-                var step = (1 / fadeDuration) * (interval / 1000);
-                var currentVolume = audio.volume;
-
-                var fadeInterval = setInterval(function () {
-                    if (currentVolume < 1) {
-                        currentVolume += step;
-                        audio.volume = Math.min(currentVolume, 1);
-                    } else {
-                        clearInterval(fadeInterval);
-                        isFirstIteration = false;
-                    }
-                }, interval);
+        const fadeOut = setInterval(() => {
+            if (audio.volume > 0) {
+                audio.volume = Math.max(0, audio.volume - fadeStep);
+            } else {
+                clearInterval(fadeOut);
+                audio.pause();
+                window.location.href = url
             }
-        }
-        audio.addEventListener('play', fadeInVolume);
-    } else {
-        // just play
-        audio.play();
-    }
+        }, interval);
 
-    activeAudios.push({
-        audioUrl: audioUrl,
-        audio: audio,
-    });
+        audio = null;
+    }
 }
 
-
-window.stopAudio = function () {
-    audio.pause();
-}
-
-window.onbeforeunload = function () {
-    console.log('checking audio');
-    if (audioElement) {
-        audioElement.pause();
-        audioElement.currentTime = 0;
-    }
-};
 
 /*
 ------------------------
@@ -482,12 +534,9 @@ function closeCustomAlert(callback) {
 }
 
 function showSnackbar(message, duration = 4000) {
-    console.log('SHOW ', message)
     const alertBox = document.getElementById("custom-alert");
     const messageBox = document.getElementById("alert-message");
     messageBox.innerHTML = message;
-
-    console.log(alertBox)
 
     alertBox.classList.add("show");
 
@@ -507,34 +556,37 @@ function showSnackbar(message, duration = 4000) {
 */
 
 function redirect(url) {
-
-    fadeOutOverlay();
-
     if (audio) {
-        const fadeDuration = 1000;
-        const interval = 50;
-        const fadeStep = audio.volume / (fadeDuration / interval);
-
-        const fadeOut = setInterval(() => {
-            if (audio.volume > 0) {
-                audio.volume = Math.max(0, audio.volume - fadeStep);
-            } else {
-                clearInterval(fadeOut);
-                audio.pause();
-                window.location.href = url
-            }
-        }, interval);
-    } else {
-        window.location.href = url
+        console.log('saving audio');
+        sessionStorage.setItem("audioTime", audio.currentTime);
+        sessionStorage.setItem("audioPath", audioPath);
     }
-
-    trackHistory(url)
+    fadeOutOverlay();
+    window.location.href = url;
+    trackHistory(url);
 }
 
 function fadeInOverlay() {
     const overlay = document.getElementById("overlay");
     overlay.classList.remove("hide");
     overlay.classList.add("show");
+
+    checkAudio();
+}
+
+function checkAudio() {
+    const url = window.location.href;
+    const savedAudio = sessionStorage.getItem("audioPath")
+
+    if (savedAudio) {
+        if (url.includes('faeries')) {
+            playAudio(savedAudio, false, false, 0.3);
+            const savedTime = sessionStorage.getItem("audioTime");
+            audio.currentTime = parseFloat(savedTime);
+        }
+    }
+
+
 }
 
 function fadeOutOverlay() {
@@ -544,24 +596,19 @@ function fadeOutOverlay() {
 }
 
 function finishText() {
-    console.log('try finish text')
-    if (timeoutIds.length > 0 || timeoutFns.length > 0) {
-        console.log('run finsihed text');
-        const elements = [...document.querySelectorAll('span'), ...document.querySelectorAll('a')];
-        elements.forEach(span => {
-            span.style.animationDelay = '0s'
-        })
-        console.log(`ONTIMEOUT FNS:`, timeoutFns);
-        console.log(`TIMEOUTIDS: ${timeoutIds}`);
-        for (let i = 0; i < timeoutIds.length; i++) {
-            clearTimeout(timeoutIds[i]);
-            timeoutIds.splice(i, 1);
-        }
+    console.log('finishText');
+    const elements = [...document.querySelectorAll('span'), ...document.querySelectorAll('a')];
+    elements.forEach(span => {
+        span.style.animationDelay = '0s'
+    })
+    for (let i = 0; i < timeoutIds.length; i++) {
+        clearTimeout(timeoutIds[i]);
+        timeoutIds.splice(i, 1);
+    }
 
-        for (let i = 0; i < timeoutFns.length; i++) {
-            timeoutFns[i]();
-            timeoutFns.splice(i, 1);
-        }
+    for (let i = 0; i < timeoutFns.length; i++) {
+        timeoutFns[i]();
+        timeoutFns.splice(i, 1);
     }
 }
 
@@ -570,8 +617,6 @@ function skillRoll(stat, onSuccess, onFailure) {
     // baseline + (stat * multipler)
     const successRate = 0.1 + (statValue * 0.3);
     const roll = Math.random();
-    console.log(roll);
-    console.log(successRate);
     if (successRate > 1 || roll < successRate) {
         onSuccess();
     } else {
@@ -582,6 +627,214 @@ function skillRoll(stat, onSuccess, onFailure) {
     //TODO: Catastrophic failure?
 }
 
+/*
+----------------------------
+        SIDE BAR
+----------------------------
+*/
+
+function buildSidebar() {
+    //TODO: if dict is empty, don't add ID
+    const story = document.getElementById('story');
+    const openedDict = JSON.parse(localStorage.getItem("openedDict"));
+
+    story.insertAdjacentHTML('afterbegin', `
+        <div id="sidebar-options" style="display: flex; flex-direction: column; gap: 8px; top: 1vw; left: 1vw; position: fixed;">
+            <button style="width: 60px" onclick="toggleSidebar('bag')">BAG</button>
+            ${openedDict ? `<button style="width: 60px" onclick="toggleSidebar('id')">ID</button>` : ''}
+            <button style="width: 60px" onclick="toggleSidebar('stats')">STATS</button>
+        </div>
+        <div id="sidebar" class="sidebar">
+        </div>`);
+}
 
 
+function toggleSidebar(value, dictPage) {
+    const sidebar = document.getElementById("sidebar")
+    sidebar.classList.toggle("open");
+    clearDictHistory();
+
+    if (sidebar.classList.contains("open")) {
+
+        switch (value) {
+            case 'bag':
+                buildItems();
+                break;
+            case 'id':
+                buildDict(dictPage);
+                break;
+            case 'stats':
+                buildStats();
+            default:
+                break;
+        }
+    }
+}
+
+function buildItems() {
+    const sidebar = document.getElementById('sidebar');
+
+    const title = `<p class="sidebar-title">ITEMS</p>`
+
+    const items = JSON.parse(localStorage.getItem("items"))
+    const countMap = items.reduce((acc, item) => {
+        acc[item] = (acc[item] || 0) + 1;
+        return acc;
+    }, {});
+    const result = Object.entries(countMap).map(([item, count]) => `x${count} ${item}`);
+    const itemsList = `<p>${result.join('<br>')}</p>`;
+
+    const closeBtn = `<button onclick="toggleSidebar('bag')">Close Bag</button>`
+
+    sidebar.innerHTML = title + itemsList + closeBtn
+}
+
+function buildStats() {
+    const sidebar = document.getElementById('sidebar');
+
+    const title = `<p class="sidebar-title">STATS: FOR TESTING PURPOSES ONLY</p>`
+
+    const statsString = localStorage.getItem("stats")
+
+    const stats = statsString.replaceAll(`"`, '').replaceAll('}', '').replaceAll('{', '').replaceAll(':', ': ').split(',')
+
+
+    const statList = `<p>${stats.join('<br>')}</p>`;
+
+    const closeBtn = `<button onclick="toggleSidebar('stats')">Close</button>`
+
+    sidebar.innerHTML = title + statList + closeBtn
+}
+
+function addToDict(page) {
+    if (page) {
+        const dictPages = JSON.parse(localStorage.getItem("dictPages"));
+        if (!dictPages) {
+            localStorage.setItem("dictPages", JSON.stringify([page]));
+        } else if (!dictPages.includes(page)) {
+            dictPages.push(page);
+            localStorage.setItem("dictPages", JSON.stringify(dictPages));
+        }
+    }
+}
+
+//TODO: Images for each entry
+
+function buildDict(page) {
+    const openedDict = JSON.parse(localStorage.getItem("openedDict"));
+    const sidebar = document.getElementById('sidebar');
+    let innerHTML = ``;
+
+    manageDictHistory(page);
+    addToDict(page);
+
+    if (!openedDict) {
+        localStorage.setItem("openedDict", true);
+
+        const title = `<p class="sidebar-title">IDENTIFIER</p>`;
+        const body = `<p>Welcome to your Identifier. Here you can compile and reference all of the mysterious and wonderful thingies you encounter on your journey.</p>`;
+        const btn = `<button onclick="buildDict('${page}')">Continue</button>`;
+
+        sidebar.innerHTML = title + body + btn;
+
+        //TODO: find the sidebar-options by id and insert the new button or clear it out and rebuild
+        buildSidebar();
+
+        return;
+    } else {
+        let title = 'IDENTIFIER';
+
+        if (page && page != '') {
+            title = page.toUpperCase();
+        }
+
+        title = `<p class="sidebar-title">${title}</p>`;
+        const body = `<p>${getDictEntry(page)}</p>`;
+
+        innerHTML += title + body;
+    }
+
+    const buttons = [];
+
+    const dictHistory = JSON.parse(localStorage.getItem("dictHistory"));
+
+
+    if (dictHistory && dictHistory.filter(e => e != page).length > 0) {
+        const trueHistory = dictHistory.filter(e => e != page)
+        const lastPage = trueHistory[trueHistory.length - 1];
+        const goBackBtn = `<button onclick="dictBack('${page}','${lastPage}')">Back to ${lastPage}</button>`
+        buttons.push(goBackBtn);
+
+    }
+
+
+    if (page && page != '') {
+        const homeBtn = `<button onclick="buildDictHome()">Identifier Home</button>`;
+        buttons.push(homeBtn);
+    }
+
+
+    const closeBtn = `<button onclick="toggleSidebar()">Put Identifier Away</button>`;
+    buttons.push(closeBtn);
+
+    const buttonsHtml = `<div style="display: flex; flex-direction: column; gap: 8px;">${buttons.join('')}</div>`;
+    innerHTML += buttonsHtml;
+
+    sidebar.innerHTML = innerHTML;
+}
+
+function getDictEntry(value) {
+    switch (value) {
+        case 'hongatar':
+            return `Hongatar are mischief incarnate. They, like nature, are neither good nor evil, not lawful nor chaotic. Sometimes they help a small child escape a cave, even though they might complain about the nuisance cuttingly, and make fun of the kid. Sometimes they will help a megalomaniac into great power by hacking their competitor's <button onclick="buildDict('hyperleaks')">Hyperleaks</button>. The reason faeries glow is because they have a pure and beautiful life force like <button onclick="buildDict('dorgang')">Dorgang</button>.`
+        case 'hyperleaks':
+            return `A Hyperleak is a prosumer product. Invented by Survecap, this machine is under constant corporate surveillance throughout all Leaks. If you do anything on this machine, Survecap will know for sure. Client-side scanning, baby.<br><br>That being said, this machine is SO user-friendly or 'easy-to-use'. Though, it is easy to use mostly because everyone in the Leakyverse uses Survecap interfaces and are used to their particular type of user-hostile. Organisms resist change.`
+        case `dorgang`:
+            return `If Dorgang were not so ethical, he might be a real sex wizard. But don't get your hopes up, this guy is GREY in many ways. He does like puns and dry humor, however. Always cleverness is Dorgang's jam. And he also knows a lot about anything weird, powerful or mystical. He's always on his enemies' asses, making sure they do not commit evil against large swatches of other people. Dorgang is not exactly what one might call 'chill' or 'bussin'. That being said, you REALLY want Dorgang on your team, no matter what.<br><br>Dorgang is a Gandalf-like parody character made up by someone at Wendall Carefare's Leaktable. If a comparative reference to Dorgang led you here, just know that Dorgang can be used as a comparative character-reference to the chracter that is being compared to Dorgang. They are Dorgang-like.`;
+        case 'whatever':
+            return 'Whatever can be somewhere, somehow, something. But it has not figured out where that is yet.';
+        case 'squirrel':
+            return 'A squirrel description.';
+        default:
+            const dictPages = JSON.parse(localStorage.getItem("dictPages"));
+            return dictPages.map(e => `<button onclick=buildDict('${e}')>${e}</button>`).join('<br><br>')
+    }
+}
+
+function buildDictHome() {
+    clearDictHistory();
+    const sidebar = document.getElementById('sidebar');
+    const closeBtn = `
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+        <button onclick="toggleSidebar()">Put Identifier Away</button>
+    </div>`;
+
+    sidebar.innerHTML = getDictEntry() + closeBtn;
+}
+
+function clearDictHistory() {
+    const dictHistory = JSON.parse(localStorage.getItem("dictHistory"));
+    if (dictHistory) {
+        localStorage.setItem("dictHistory", JSON.stringify([]));
+    }
+}
+
+function dictBack(fromPage, toPage) {
+    const dictHistory = JSON.parse(localStorage.getItem("dictHistory"));
+    const newDictHistory = dictHistory.filter(e => e != fromPage && e != toPage);
+    localStorage.setItem("dictHistory", JSON.stringify(newDictHistory));
+
+    buildDict(toPage);
+}
+
+function manageDictHistory(page) {
+    const dictHistory = JSON.parse(localStorage.getItem("dictHistory"));
+
+    if (!dictHistory) {
+        localStorage.setItem("dictHistory", JSON.stringify([page]));
+    } else {
+        dictHistory.push(page);
+        localStorage.setItem("dictHistory", JSON.stringify(dictHistory));
+    }
+}
 

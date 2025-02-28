@@ -27,13 +27,14 @@
     <script>
         window.onload = function () {
             fadeInOverlay();
+            buildSidebar();
 
             createNarrative(
-                `You lock in on a squirrel. Its grey body is a corkscrew streak around the trunk. It's time to give chase. You straddle the trunk, feeling the roughness of the bark tugging at your turtleneck as you shimmy up. Just a little closer... The squirrel is right there! Its little face, filled with alarm, fills you with determination.`
+                `You lock in on a {squirrel}. Its grey body is a corkscrew streak around the trunk. It's time to give chase. You straddle the trunk, feeling the roughness of the bark tugging at your turtleneck as you shimmy up. Just a little closer... The squirrel is right there! Its little face, filled with alarm (or is it amusement?), fills you with determination.`
             );
             playText(onEnd => {
                 showBottomChoices();
-            });
+            }, `toggleSidebar('id', 'squirrel')`);
         }
 
     </script>

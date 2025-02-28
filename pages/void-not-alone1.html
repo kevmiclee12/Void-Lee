@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button"
+                    onClick="increaseStat('bluemagic', 1); redirect('void-not-alone2.html?choice=bm')">Can you copy
+                    and paste
+                    your whole
+                    life?</a>
+                <br>
+                <a class="choice-button"
+                    onClick="increaseStat('will', 1); redirect('void-not-alone2.html?choice=w')">Can my mind pin
+                    down
+                    matter?</a>
+                <br>
+                <a class="choice-button"
+                    onClick="increaseStat('athletics', 1); redirect('void-not-alone2.html?choice=ath')">Is there a
+                    way to
+                    always be playing?</a>
+                <br>
+                <a class="choice-button"
+                    onClick="increaseStat('shitheadedness', 1); redirect('void-not-alone2.html?choice=sh')">What does
+                    that song
+                    <i>really</i>
+                    mean?</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../script.js"></script>
+    <script>
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `Your once void-blank paper is filled with questions you have for yourself. As you focus on each one, the others seem to imperceptibly fade, as if your attention is all that makes them real.`
+            );
+            playText(onEnd => {
+                showBottomChoices();
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>
