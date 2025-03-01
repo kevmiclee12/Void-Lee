@@ -13,6 +13,9 @@
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
 
         </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
     </div>
 
     <script src="../script.js"></script>
@@ -26,27 +29,34 @@
 
             let text = '';
 
+            const other = `the dull sound resounds, it is joined by a chorus of snapping, cracking, creaking. Soft at first, the din grows louder and louder.^^A tree slams as it splinters and crashes into the ground behind you, making you jump. Another tree falls, narrowly missing your shoulder. A tree that wasn't even there before begins to fall directly overhead. You dive out of the way at the last moment.^^The trees are chasing you!^^You {run} forward through the forest.`
+
+
             switch (choice) {
                 case 'dream':
-                    text = `You chose to fall asleep forever, so you don't freak out`
+                    text = `The thuds you were hearing turned out to be very real. Well, for a dream... especially considering you were dreaming twice. As`
                     break;
                 case 'climb':
-                    text = `You chose to chase the squirrel so the squirrel is taking it's vengeance on you directing the trees action`
+                    text = `As you swat at the pesky vermin you lose your grip and fall backwards like a defeated villain in slow-motion, finally hitting the groud with a thud. As`
                     break;
                 case 'chop-success':
-                    text = `you chose to chop down the trees and succeed, so the trees are extra angry`
+                    text = `You slice through the tree with one fell swoop. Wow! Your parking lot dreams just might come true!^^The huge tree creaks ominously as it starts to fall. Just as you are about to yell, "Timber!", you hear strange noises from the depths of the forest. The tree hits the ground with a dull lifeless thud. As`
                     break;
                 case 'chop-fail':
-                    text = `you chose to chop down the trees and failed so the trees are just fucking with you`
+                    removeItem('axe');
+                    text = `The axe bounces off the tree and flies out of your hands. Not even a dent. Lame! Looks like you won't get your parking lot after all. As`
+                    break;
             }
 
-            //TODO: Items?
+
 
             createNarrative(
-                `The trees are chasing you. ${text}`
+                `${text}${other}`
             );
             playText(onEnd => {
-            });
+            }, `redirect('tree-chase1.html')`);
+
+            //TODO: do the # of items here affect how well you can dodge the trees?
         }
 
     </script>

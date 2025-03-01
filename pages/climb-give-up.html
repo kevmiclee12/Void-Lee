@@ -26,7 +26,18 @@
                 `The {squirrel} is right. You could never expect to be compete with its arboreal superiority. Better to slide back down the tree before you get hurt.`
             );
             playText(onEnd => {
-                showBottomChoices();
+                createDialog('long', 'squirrel', `~SQUIRREL~^^Putoat! Putoat!`, onClick => {
+                    dismissDialog(null, true);
+                    dismissDialog('long');
+                    createNarrative(`Dang squirrel! It's becoming aggressive, jumping on and off your head and yanking your hair.`);
+                    playText(onEnd => {
+                        createDialog('long', 'squirrel', `~SQUIRREL~^^PUTOAT! PUTOAT!`, onClick => {
+                            redirect('tree-chase.html?choice=climb');
+                        });
+                        playText(null, null, 'long');
+                    });
+                });
+                playText(null, null, 'long');
             }, `toggleSidebar('id', 'squirrel')`);
         }
 

@@ -11,11 +11,6 @@
     <div id="overlay" onClick="finishText()">
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <span>A foreboding sense of doom rouses you from your dream's dream and you <a class="choice-button"
-                        onClick="redirect('tree-chase.html?choice=dream')">awaken back into your original
-                        dream</a>.</span>
-            </div>
         </div>
         <div id="custom-alert" class="snackbar">
             <p id="alert-message"></p>
@@ -27,11 +22,14 @@
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
+            const showItem = checkItems('mushroom');
+
             createNarrative(
-                `It occurs to you that you are hugging a colorful mushroom. You can tell cause your face is right up against it.The mushroom smells like marshmallow pencils. Its flesh is soft and springy. What a special mushroom! What a special day! You feel content.^^You hear yourself say aloud, "Wow! What a colorful mushroom."^^You open your eyes, and sit back a little, admiring the mushroom's shape.^^{Grab up a handful of the mushroom's flesh.}`
+                `It occurs to you that you are hugging a colorful mushroom. You can tell because your face is right up against it. The mushroom smells like marshmallow pencils. Its flesh is soft and springy. What a special mushroom! What a special day! You feel content.^^You hear yourself say aloud, "Wow! What a colorful mushroom."^^You lean back for a while just admiring the mushroom's shape.${showItem ? `^^{Grab up a handful of the mushroom's flesh.}` : ''}`
             );
             playText(onEnd => {
-                showBottomChoices();
+                createNarrative(`^^^^^^^^^${showItem ? '^^' : ''}You begin to hear a faint thudding noise like the labored heartbeat of some distant goliath. Suddenly, a foreboding sense of doom rouses you from your dream's dream and you {awaken back into your original dream.}`);
+                playText(null, `redirect('tree-chase.html?choice=dream')`)
             }, `addItem('mushroom', 'main0')`);
         }
 

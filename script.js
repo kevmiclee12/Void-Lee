@@ -77,8 +77,8 @@ function setDrunkChoice(choice) {
     localStorage.setItem("drunkChoice", choice)
 }
 
-function updateMagicNosehairs() {
-    localStorage.setItem('magicNosehairs', true);
+function updatePartyStatus(value) {
+    localStorage.setItem('partyStatus', value);
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -94,7 +94,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 function addItem(name, overrideId) {
     //TODO: add item sound
-    console.log(`ADD ITEM: ${name}`);
     const newItems = JSON.parse(localStorage.getItem("items"));
 
     newItems.push(name);
@@ -115,7 +114,7 @@ function addItem(name, overrideId) {
     showSnackbar(`You got +1 <strong>${name}</strong>`)
 }
 
-function removeItem(name) {
+function removeItem(name, overrideId) {
     const newItems = JSON.parse(localStorage.getItem("items"));
 
     const index = newItems.indexOf(name);
@@ -147,8 +146,11 @@ function startGame() {
     localStorage.setItem("openedDict", JSON.stringify(false));
     localStorage.setItem("dictPages", JSON.stringify([]));
     localStorage.setItem("dictHistory", JSON.stringify([]));
-
-
+    localStorage.setItem("partyStatus", '');
+    localStorage.setItem("drunkChoice", '');
+    localStorage.setItem("statChecks", JSON.stringify([]));
+    localStorage.setItem("audioPath", '');
+    localStorage.setItem("audioTime", null);
 
     playText(() => showBottomChoices(), null, 'title');
     playAudio('resources/audio/intro.mp3', true, true, 0.3);
@@ -634,7 +636,6 @@ function skillRoll(stat, onSuccess, onFailure) {
 */
 
 function buildSidebar() {
-    //TODO: if dict is empty, don't add ID
     const story = document.getElementById('story');
     const openedDict = JSON.parse(localStorage.getItem("openedDict"));
 
@@ -697,6 +698,12 @@ function buildStats() {
     const statsString = localStorage.getItem("stats")
 
     const stats = statsString.replaceAll(`"`, '').replaceAll('}', '').replaceAll('{', '').replaceAll(':', ': ').split(',')
+
+    const partyStatus = localStorage.getItem("partyStatus");
+
+    if (partyStatus && partyStatus != '') {
+        stats.push(`<br>party status: ${partyStatus}`);
+    }
 
 
     const statList = `<p>${stats.join('<br>')}</p>`;
