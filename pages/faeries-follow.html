@@ -65,10 +65,10 @@
                                                             dismissDialog('main0', true);
                                                             dismissDialog('main1', true);
                                                             dismissDialog('long');
-                                                            createNarrative(`The group of hongatar turn to look at you.`);
+                                                            createNarrative(`The group of {hongatar} turn to look at you.`);
                                                             playText(onEnd => {
                                                                 showBottomChoices();
-                                                            });
+                                                            }, `toggleSidebar('id', 'hongatar')`);
                                                         });
                                                     playText(null, null, 'long');
                                                 });
