@@ -737,8 +737,8 @@ function buildDict(page) {
 
         sidebar.innerHTML = title + body + btn;
 
-        //TODO: find the sidebar-options by id and insert the new button or clear it out and rebuild
-        buildSidebar();
+        let sidebarOptions = document.getElementById("sidebar-options");
+        sidebarOptions.innerHTML += `<button style="width: 60px" onclick="toggleSidebar('id')">ID</button>`;
 
         return;
     } else {
