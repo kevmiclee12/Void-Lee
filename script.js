@@ -566,6 +566,13 @@ function redirect(url) {
     fadeOutOverlay();
     window.location.href = url;
     trackHistory(url);
+
+    //TODO: every redirect increases the 'time' that has passed. 
+    //TODO: Every 2-3 passages puts a new notification on the phone and progress the phone story (if they've already viewed it)
+
+    const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
+    const newPassageCount = passageCount + 1;
+    localStorage.setItem("passageCount", newPassageCount);
 }
 
 function fadeInOverlay() {
@@ -639,11 +646,16 @@ function buildSidebar() {
     const story = document.getElementById('story');
     const openedDict = JSON.parse(localStorage.getItem("openedDict"));
 
+    const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
+
+    const newPhonePassage = passageCount % 3 === 0;
+
     story.insertAdjacentHTML('afterbegin', `
         <div id="sidebar-options" style="display: flex; flex-direction: column; gap: 8px; top: 1vw; left: 1vw; position: fixed;">
-            <button style="width: 60px" onclick="toggleSidebar('bag')">BAG</button>
+            <div class="icon" style="height: 40px; width: 40px" onclick="toggleSidebar('bag')"><img src="../resources/images/icons/bag.svg" width: 40px; height: 40px></div>
             ${openedDict ? `<button style="width: 60px" onclick="toggleSidebar('id')">ID</button>` : ''}
-            <button style="width: 60px" onclick="toggleSidebar('stats')">STATS</button>
+            <div class="icon" style="height: 40px; width: 40px" onclick="toggleSidebar('stats')"><img src="../resources/images/icons/stats.svg" width: 40px; height: 40px></div>
+            <div class="icon" style="height: 40px; width: 40px" onclick="toggleSidebar('phone')"><img src="../resources/images/icons/phone.svg" width: 40px; height: 40px></div>
         </div>
         <div id="sidebar" class="sidebar">
         </div>`);
@@ -666,6 +678,9 @@ function toggleSidebar(value, dictPage) {
                 break;
             case 'stats':
                 buildStats();
+                break;
+            case 'phone':
+                buildPhone();
             default:
                 break;
         }
@@ -711,6 +726,16 @@ function buildStats() {
     const closeBtn = `<button onclick="toggleSidebar('stats')">Close</button>`
 
     sidebar.innerHTML = title + statList + closeBtn
+}
+
+function buildPhone() {
+    const sidebar = document.getElementById('sidebar');
+
+    const title = `<p class="sidebar-title">PHONE</p>`
+
+    const closeBtn = `<button onclick="toggleSidebar('phone')">Close</button>`
+
+    sidebar.innerHTML = title + closeBtn
 }
 
 function addToDict(page) {
