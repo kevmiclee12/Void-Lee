@@ -18,18 +18,20 @@
                     live around here."</a>
                 </br>
                 <a class="choice-button"
-                    onClick="increaseStat('shitheadedness', 1); setDrunkChoice('sun'); redirect('park-wish1b.html?choice=sun')">"It's
+                    onClick="increaseStat('shitheadedness', 1); localStorage.setItem('drunkChoice', 'sun'); redirect('park-wish1b.html?choice=sun')">"It's
                     the Sun."</a>
                 </br>
                 <a class="choice-button"
-                    onClick="increaseStat('shitheadedness', 1); setDrunkChoice('moon'); redirect('park-wish1b.html?choice=moon')">"It's
+                    onClick="increaseStat('shitheadedness', 1); localStorage.setItem('drunkChoice', 'moon'); redirect('park-wish1b.html?choice=moon')">"It's
                     the Moon."</a>
             </div>
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
@@ -50,12 +52,12 @@
                                     dismissDialog(null, true);
                                     shiftDialog('long');
                                     showBottomChoices();
-                                });
+                                }, true);
                             playText(null, null, 'long');
                         });
-                    });
+                    }, true);
                     playText(null, null, 'long');
-                });
+                }, true);
                 playText(null, null, 'long');
             });
         }

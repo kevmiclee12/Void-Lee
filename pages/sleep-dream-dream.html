@@ -19,8 +19,10 @@
             <p id="alert-message"></p>
         </div>
     </div>
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
@@ -32,7 +34,7 @@
             );
             playText(onEnd => {
                 showBottomChoices();
-            }, [`addItem('brain moss', 'main0')`]);
+            }, [`addItem('brain moss')`]);
         }
 
     </script>

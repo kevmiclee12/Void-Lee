@@ -20,15 +20,15 @@
                     my
                     lines!"</a>
                 <br>
-                <a class="choice-button" onClick="increaseStat('will', 1); redirect('hypno5.html')">"Fuck it! Let's do
-                    it live!"</a>
-
+                <a class="choice-button" onClick="increaseStat('will', 1); redirect('hypno5.html')">"I got this!"</a>
             </div>
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();

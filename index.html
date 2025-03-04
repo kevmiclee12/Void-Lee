@@ -22,34 +22,35 @@
         color: transparent; 
         left: 25vw;
         top: 5vw;
-        text-shadow: 4px 4px 2px #D7873D;
+        text-shadow: 4px 4px 2px #9F3A27;
         position: absolute;" data-text="Void Lee">
             </p>
             <p id="title" class="fade-text bounce" style="font-size: 4vw; 
                     font-weight: bold; 
-                    color: #6D05FF; 
+                    color: black; 
                     left: 25vw;
                     top: 5vw;
                     position: absolute;" data-text="Void Lee">
             </p>
             <p class="fade" id="delayedMessage"
                 style="visibility:hidden; position: absolute; left: 10vw; top: 35vw; line-height: 1;">
-                <a class="text-button" onClick="stopAudio(); redirect('pages/home.html')">
+                <a class="choice-button" onClick="stopAudio(); redirect('pages/home.html')">
                     New game
                 </a>
             </p>
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script>
+    <script type="module">
+        import * as script from "./script.js"
+
         window.onload = function () {
             showCustomAlert(`By clicking the button below, you indicate <br>your desire to play <b>codename: Void Lee</b>`);
         }
     </script>
     <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="styles/alert.css">
-    <link rel="stylesheet" href="styles/button.css">
+    <link rel="stylesheet" href="styles/choices.css">
 </body>
 
 </html>

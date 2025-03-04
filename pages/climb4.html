@@ -18,8 +18,10 @@
     </div>
 
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
@@ -33,12 +35,12 @@
                 `Pfft. Of course you missed. Who catches a squirrel with their bare hands? As a result, you lose your grip and fall backwards like a defeated villain in slow-motion.^^You hit the ground with a soft thud and several pinecones scatter down around you.${showPineCone ? ` {Pick up a pinecone.}` : ''}`
 
             if (success) {
-                updatePartyStatus('squirrel tamer');
+                localStorage.setItem('partyStatus', 'squirrel tamer');
             } else {
-                updatePartyStatus('squirrel bitch');
+                localStorage.setItem('partyStatus', 'squirrel bitch');
             }
 
-            const choices = [`addItem('pinecone', 'main0')`, `toggleSidebar('id', 'squirrel')`];
+            const choices = [`addItem('pinecone')`, `toggleSidebar('id', 'squirrel')`];
 
             createNarrative(text + `^^The {squirrel} wants you to follow it.`);
 

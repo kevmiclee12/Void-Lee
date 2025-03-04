@@ -12,18 +12,23 @@
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('hypno4.html')">Continue</a>
+                <a class="choice-button" onClick="redirect('hypno3a.html')">Keep practicing</a>
+                <br>
+                <a class="choice-button" onClick="redirect('hypno4.html')">Finish</a>
             </div>
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `You had fallen asleep on some dream moss, but you open your eyes to find yourself in a dressing room with a script in your hands, practicing lines for a play:^^"What a good boy am I, so far from being an ant."^"What a good boy... am I! So... \`far\` from being an ant!"^"What a good boy am I, so far... from \`being\` an ant."^...^"Builder of the gods, put an orange-soda fountain in my bedroom!"^"Builder... \`of the gods\`, put an orange-soda fountain in... \`my bedroom\`!"^"Builder of the... gods? Put... an \`orange-soda\` fountain in my bedroom!"^...^"Where's my wife? I miss her."^"Where's my... \`wife?\` I miss her!"^"Where's \`my\` wife? \`I miiiiiss herrrrrrr\`!!!"`
+                `You had fallen asleep on some dream moss, but you open your eyes to find yourself in a dressing room with a script in your hands, practicing lines for a play:
+                ^^"What a good boy am I, so far from being an ant."^"What a good boy... am I! So... \`far\` from being an ant!"^"What a good boy am I, so far... from \`being\` an ant."^...^"Builder of the gods, put an orange-soda fountain in my bedroom!"^"Builder... \`of the gods\`, put an orange-soda fountain in... \`my bedroom\`!"^"Builder of the... gods? Put... an \`orange-soda\` fountain in my bedroom!"^...^"Where's my wife? I miss her."^"Where's my... \`wife?\` I miss her!"^"Where's \`my\` wife? \`I miiiiiss herrrrrrr\`!!!"`
             );
             playText(onEnd => {
                 showBottomChoices();

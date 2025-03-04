@@ -17,8 +17,10 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
@@ -40,12 +42,12 @@
                         createDialog('long', winner, `~${winnerTitle}~^^HA, EAT IT!`, onClick => {
                             shiftDialog('long');
                             showBottomChoices();
-                        });
+                        }, true);
                         playText(null, null, 'long');
                     });
                 });
                 playText(null, null, 'long');
-            });
+            }, true);
             playText(null, null, 'long');
 
         }

@@ -12,7 +12,10 @@
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('party-hongatar.html')">Party</a>
+                <a class="choice-button" onClick="redirect('party-hongatar.html')">"Um... No thanks"</a>
+                <br>
+                <a class="choice-button" onClick="redirect('party-hongatar.html')">"PARTY!!!!"</a>
+
             </div>
         </div>
         <div id="custom-alert" class="snackbar">
@@ -20,8 +23,10 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
@@ -32,31 +37,31 @@
 
             switch (choice) {
                 case 'bow':
-                    updatePartyStatus('magic nosehairs');
+                    localStorage.setItem('partyStatus', 'magic nosehairs');
                     text = `The {hongatar} seem giddy at your gracious display and you can feel your nosehairs tingling.`
                     break;
                 case 'lesson':
-                    updatePartyStatus('god of the forest');
+                    localStorage.setItem('partyStatus', 'god of the forest');
                     text = 'The {hongatar} nod solemnly. After a moment of quiet reflection, they all begin to extol the virtues of not littering.'
                     break;
                 case 'thanks':
-                    updatePartyStatus('butt of the joke');
+                    localStorage.setItem('partyStatus', 'butt of the joke');
                     text = `"Thanks!".."\`Thanks!\`".."tHaNkS!!" The {hongatar} are mocking you ruthlessly in what you tell yourself is all in good fun.`
                     break;
                 case 'wink':
-                    updatePartyStatus('sexy god of the forest');
+                    localStorage.setItem('partyStatus', 'sexy god of the forest');
                     text = 'This excites the {hongatar} very much. They start to flip and spin and shout and yip.'
                     break;
                 case 'flatter':
-                    updatePartyStatus('one with the hongatar');
+                    localStorage.setItem('partyStatus', 'one with the hongatar');
                     text = `The {hongatar} blush simultaneously. What you said has them all a-titter!`
                     break;
                 case 'insult':
-                    updatePartyStatus(`nobody's friend`);
+                    localStorage.setItem('partyStatus', `nobody's friend`);
                     text = `"\`tHaT's ThE sTuPiDeSt ThInG i'Ve EvEr HeArD!\`" The {hongatar} are mocking you ruthlessly, totally unfazed by your shallow insult.`
                     break;
                 case 'accuse':
-                    updatePartyStatus('boy who cried wolf');
+                    localStorage.setItem('partyStatus', 'boy who cried wolf');
                     text = `The {hongatar} dismiss you summarily. You simply don't have the proof to back your accusations.`
                     break;
             }
@@ -85,17 +90,12 @@
                                                 createNarrative(`The {hongatar} with the coolest outfit addresses you.`)
                                                 playText(onEnd => {
                                                     createDialog('long', 'faerie2', `~HONGATAR #2~^^Wow, a human that understands Fairy etiquette, how amusing, how rare! What a find! Will you join us? We are headed to a Leak Party.`, onClick => {
-                                                        dismissDialog('long');
                                                         dismissDialog(null, true);
-                                                        createNarrative(
-                                                            `Without warning, the hongatar bombard you with faerie dust. You feel sleepy. You feel strange. You're already asleep, you're already dreaming, but now you really feel like you're dreaming.`
-                                                        );
-                                                        playText(onEnd => {
-                                                            showBottomChoices();
-                                                        });
+                                                        shiftDialog('long');
+                                                        showBottomChoices();
                                                     });
                                                     playText(null, null, 'long');
-                                                }, `toggleSidebar('id', 'hongatar')`);
+                                                }, [`toggleSidebar('id', 'hongatar')`]);
                                             });
                                             playText(null, null, 'long');
                                         });

@@ -18,9 +18,9 @@
                 <a class="choice-button" onClick="increaseStat('athletics', 1); redirect('park.html')">Go
                     to
                     the
-                    Park</a></br>
+                    park</a></br>
                 <a class="choice-button" onClick="increaseStat('shitheadedness', 1); redirect('city.html')">Go into the
-                    City</a>
+                    city</a>
                 <br>
                 <a class="choice-button" onClick="increaseStat('will', 1); redirect('room.html')">Go to your
                     room</a>
@@ -33,8 +33,8 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+    <script type="module">
+        import * as script from "../script.js"
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();

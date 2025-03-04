@@ -22,15 +22,17 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
             const showAxe = checkItems('axe');
 
             if (showAxe) {
-                addItem('axe', 'main0');
+                addItem('axe');
             }
 
             createNarrative(

@@ -14,15 +14,17 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
                 `You reach for a nearby branch. It breaks, but your thighs remain firmly clenched on the trunk. {Keep shimmying up}.`
             );
-            playText(null, `redirect('climb2b.html')`);
+            playText(null, [`redirect('climb2b.html')`]);
         }
 
     </script>

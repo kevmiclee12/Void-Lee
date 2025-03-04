@@ -13,10 +13,13 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
+            playAudio('../resources/audio/party.mp3', true, 12);
             buildSidebar();
             createNarrative(
                 `You arrive at the party with the hongatar.`

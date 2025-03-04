@@ -11,23 +11,26 @@
     <div id="overlay" onClick="finishText()">
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('hypno2.html')">Breathe out.</a>
-            </div>
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `The idea of dreaming twice is kind of heavy. How will you wake up? If you wake up, how will you wake up \`again\`? In the dream within a dream, you close your eyes and breathe in.^^A hilly landscape sprawls out before you, expanding into a void panorama, filling every corner of the emptiness as you inhale deeper. Day, night, day, night. Seasons cycle and time dutifully carves the terrain with imperceptible changes.^^You've never had a dream like this before. Usually it's packing, or missing busses.^^Soon settlements are forming. Clusters of huts dot the hillsides and farms appear like patchwork sewn into the splay. Inhaling deeper still, spidery networks of highways fan out and spread like mycelia infecting the landscape. Now a hill flattened here and there. The huts evolve into large buildings and the grey of steel and asphalt overtakes the green of trees and fields. The stars in the night sky become less, the clarity of day is obscured by haze and the natural quiet is consumed by an ever-surmounting hum.`,
+                `The idea of dreaming twice is kind of heavy. How will you wake up? If you wake up, how will you wake up \`again\`? In the dream within a dream, you close your eyes and breathe in.
+                ^^A hilly landscape sprawls out before you, expanding into a void panorama, filling every corner of the emptiness as you inhale deeper. Day, night, day, night. Seasons cycle and time dutifully carves the terrain with imperceptible changes.
+                ^^You've never had a dream like this before. Usually it's packing, or missing busses.
+                ^^Soon settlements are forming. Clusters of huts dot the hillsides and farms appear like patchwork sewn into the splay. Inhaling deeper still, spidery networks of highways fan out and spread like mycelia infecting the landscape. Now a hill flattened here and there. The huts evolve into large buildings and the grey of steel and asphalt overtakes the green of trees and fields. The stars in the night sky become less, the clarity of day is obscured by haze and the natural quiet is consumed by an ever-surmounting hum.
+                ^^{Breathe out.}`,
             );
             playText(onEnd => {
                 showBottomChoices();
-            })
+            }, [`redirect('hypno2.html')`]);
         }
 
     </script>

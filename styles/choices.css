@@ -3,7 +3,7 @@
     font-size: 1.9vw;
     font-weight: 900;
     position: absolute;
-    left: 30vw;
+    left: 26vw;
     bottom: 3vw;
     word-wrap: normal;
     overflow-wrap: normal;
@@ -20,11 +20,11 @@
     padding: 0;
     margin: 0;
     line-height: 1;
-    color: blue;
+    color: #9F3A27;
 }
 
 .choice-button:hover {
-    color: #6D05FF;
+    color: #B56D3C;
 }
 
 #delayedMessage {

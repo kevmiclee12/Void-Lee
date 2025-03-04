@@ -18,8 +18,9 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
@@ -34,7 +35,7 @@
 
             switch (choice) {
                 case 'dream':
-                    text = `The thuds you were hearing turned out to be very real. Well, for a dream... especially considering you were dreaming twice. As`
+                    text = `The thuds you were hearing turned out to be very real. Well, for a dream... especially considering you were dreaming twice.^^As`
                     break;
                 case 'climb':
                     text = `As you swat at the pesky vermin you lose your grip and fall backwards like a defeated villain in slow-motion, finally hitting the groud with a thud. As`

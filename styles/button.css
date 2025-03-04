@@ -37,6 +37,7 @@ button:focus {
 
 .icon:hover {
     cursor: pointer;
+    color: #B56D3C;
 }
 
 .icon {
@@ -45,6 +46,7 @@ button:focus {
     font-size: 16px;
     position: relative;
     cursor: pointer;
+    color: #9F3A27;
 }
 
 .notification-badge {

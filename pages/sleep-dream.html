@@ -19,8 +19,10 @@
         </div>
     </div>
 
-    <script src="../script.js"></script>
-    <script>
+
+    <script type="module">
+        import * as script from "../script.js"
+
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
@@ -31,11 +33,11 @@
             const prefix = fromPaint ? `You're full of snot and spit to be ejected like a poet on stage adding to her poem with the consecration of monthly blood play. You want to paint with your own blood. "Ah, to sleep! To dream. To exclaim sighs of relief, to end the waking nightmare of choice and possibility."` : `"Ah, to sleep, perchance to dream."`;
 
             createNarrative(
-                `${prefix}^^A great forest towers over you. The ground is layered with pine needles. The stacked needles must be at least 40cm deep! It feels like this bed of needles is just barely supporting your weight and if you were any heavier, you might start to sink. Your progress is slow while you focus on balance.${showItem ? '^^{Pick up a handful of pine needles.}' : ''}`,
+                `${prefix}^^...^^A great forest towers over you. The ground is layered with pine needles. The stacked needles must be at least 40cm deep! It feels like this bed of needles is just barely supporting your weight and if you were any heavier, you might start to sink. Your progress is slow while you focus on balance.${showItem ? '^^{Pick up a handful of pine needles.}' : ''}`,
             );
             playText(onEnd => {
                 showBottomChoices();
-            }, [`addItem('pine needles', 'main0')`]);
+            }, [`addItem('pine needles')`]);
         }
 
     </script>
