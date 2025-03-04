@@ -55,19 +55,12 @@ function increaseStat(name, amount) {
     const newStats = JSON.parse(localStorage.getItem("stats"));
     const newStatChecks = JSON.parse(localStorage.getItem("statChecks")) ?? {};
 
-    console.log(`CHECK: ${newStatChecks}`)
-
     const statCheck = newStatChecks[name] ?? [];
 
     if (!statCheck?.includes(window.location.href)) {
-        console.log(`increase ${name} by ${amount}`)
         newStats[name] += amount;
         statCheck.push(window.location.href);
         newStatChecks[name] = statCheck;
-
-        console.log(newStats)
-        console.log(newStatChecks);
-
         localStorage.setItem("stats", JSON.stringify(newStats));
         localStorage.setItem("statChecks", JSON.stringify(newStatChecks));
     }
@@ -80,17 +73,6 @@ function setDrunkChoice(choice) {
 function updatePartyStatus(value) {
     localStorage.setItem('partyStatus', value);
 }
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    const newStats = JSON.parse(localStorage.getItem("stats"));
-    const newItems = JSON.parse(localStorage.getItem("items"));
-    const history = JSON.parse(localStorage.getItem("history"));
-
-
-    console.log(newStats)
-    console.log(newItems)
-    console.log(history)
-});
 
 function addItem(name, overrideId) {
     //TODO: add item sound
@@ -151,9 +133,12 @@ function startGame() {
     localStorage.setItem("statChecks", JSON.stringify([]));
     localStorage.setItem("audioPath", '');
     localStorage.setItem("audioTime", null);
+    localStorage.setItem("hasReadPhone", false);
+    localStorage.setItem("hasNewPhoneItem", false);
+    localStorage.setItem("caughtSquirrel", false);
 
     playText(() => showBottomChoices(), null, 'title');
-    playAudio('resources/audio/intro.mp3', true, true, 0.3);
+    playAudio('resources/audio/intro.mp3', true, 5, 0.3);
 }
 
 
@@ -182,12 +167,11 @@ function getPlayTextWidth(id) {
     return window.innerWidth * 0.8;
 }
 
-window.playText = function (onEnd, choice, overrideId) {
+window.playText = function (onEnd, choices, overrideId) {
     const id = overrideId ?? `main${narrativeCount}`;
     const fadeTextElements = document.querySelectorAll(`#${id}`);
     const speed = getPlayTextSpeed(id);
     const maxWidth = getPlayTextWidth(id);
-
 
     if (onEnd && fadeTextElements.length > 0) {
         const text = fadeTextElements[0].dataset.text;
@@ -208,7 +192,7 @@ window.playText = function (onEnd, choice, overrideId) {
             let italic = false;
             let skip = false;
             let specialCharacters = ['`', '~']
-            let choiceIndex;
+            const choiceIndices = [];
             let newHtml = text
                 .replace(/(<b>|<\/b>)/g, '~')
                 .replace(/(<i>|<\/i>)/g, '`')
@@ -226,7 +210,7 @@ window.playText = function (onEnd, choice, overrideId) {
                     }
 
                     if (char == '{') {
-                        choiceIndex = index;
+                        choiceIndices.push(index)
                         skip = true
                     }
 
@@ -263,10 +247,19 @@ window.playText = function (onEnd, choice, overrideId) {
                 })
                 .join("")
 
-            if (choice) {
-                element.innerHTML = newHtml
-                    .replace(/{/g, `<span style="animation-delay: ${choiceIndex * speed}s;"><a class="choice-button" onClick="${choice}">`)
-                    .replace('}', '</a></span>');
+            if (choices) {
+                let i = 0;
+                element.innerHTML = newHtml.split('').map((e) => {
+                    let char = e;
+                    if (e == '{') {
+                        char = `<span style="animation-delay: ${choiceIndices[i] * speed}s;"><a class="choice-button" onClick="${choices[i]}">`;
+                    }
+                    if (e == '}') {
+                        char = '</a></span>';
+                        i++;
+                    }
+                    return char;
+                }).join('');
             } else {
                 element.innerHTML = newHtml
             }
@@ -355,7 +348,7 @@ window.createNarrative = function (dialogText) {
 window.createDialog = function (dialogType, avatarType, dialogText, onClick, playSound) {
 
     const dialogBoxWrapper = document.createElement('div')
-    const dialogBox = document.createElement('img');
+    const dialogBox = document.createElement('div');
     const avatar = document.createElement('img');
 
 
@@ -382,11 +375,11 @@ window.createDialog = function (dialogType, avatarType, dialogText, onClick, pla
 
 
     const dialogData = DIALOG_BOX_MAP[dialogType];
-    dialogBox.src = dialogData.src
+    // dialogBox.src = dialogData.src
     dialogBox.classList.add(dialogData.class);
     dialogBox.classList.add('movable');
     dialogBoxWrapper.id = dialogType;
-    dialogBoxWrapper.style.curosor = 'pointer';
+    dialogBoxWrapper.style.cursor = 'pointer';
     dialogBoxWrapper.style.display = 'inline-block';
     dialogBoxWrapper.style.width = '100%'
     dialogBoxWrapper.classList.add('movable');
@@ -406,7 +399,6 @@ window.createDialog = function (dialogType, avatarType, dialogText, onClick, pla
     story.appendChild(bounceText);
 
     if (playSound) {
-        console.log('play sound!');
         const audio = new Audio(`../resources/audio/${avatarType}.mp3`);
         audio.play();
     }
@@ -437,7 +429,7 @@ const activeAudios = [];
 let audio;
 let audioPath;
 
-window.playAudio = function (audioUrl, loop, fadeIn, buffer) {
+window.playAudio = function (audioUrl, loop, fadeDuration, buffer) {
 
     if (audioUrl != audioPath) {
         audio = new Audio(audioUrl);
@@ -457,14 +449,13 @@ window.playAudio = function (audioUrl, loop, fadeIn, buffer) {
         }
 
 
-        if (fadeIn) {
+        if (fadeDuration) {
             audio.volume = 0;
             var isFirstIteration = true;
             audio.play();
 
             function fadeInVolume() {
                 if (isFirstIteration) {
-                    var fadeDuration = 5;
                     var interval = 50;
                     var step = (1 / fadeDuration) * (interval / 1000);
                     var currentVolume = audio.volume;
@@ -496,7 +487,6 @@ window.playAudio = function (audioUrl, loop, fadeIn, buffer) {
 
 function stopAudio() {
     if (audio) {
-        console.log('Stopping audio!!!');
         const fadeDuration = 1000;
         const interval = 50;
         const fadeStep = audio.volume / (fadeDuration / interval);
@@ -559,10 +549,19 @@ function showSnackbar(message, duration = 4000) {
 
 function redirect(url) {
     if (audio) {
-        console.log('saving audio');
         sessionStorage.setItem("audioTime", audio.currentTime);
         sessionStorage.setItem("audioPath", audioPath);
     }
+    const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
+    const newPassageCount = passageCount + 1;
+    localStorage.setItem("passageCount", newPassageCount);
+    localStorage.setItem("hasReadPhone", false);
+
+
+    if (newPassageCount % 3 == 0) {
+        localStorage.setItem("hasNewPhoneItem", true);
+    }
+
     fadeOutOverlay();
     window.location.href = url;
     trackHistory(url);
@@ -570,9 +569,7 @@ function redirect(url) {
     //TODO: every redirect increases the 'time' that has passed. 
     //TODO: Every 2-3 passages puts a new notification on the phone and progress the phone story (if they've already viewed it)
 
-    const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
-    const newPassageCount = passageCount + 1;
-    localStorage.setItem("passageCount", newPassageCount);
+
 }
 
 function fadeInOverlay() {
@@ -605,7 +602,6 @@ function fadeOutOverlay() {
 }
 
 function finishText() {
-    console.log('finishText');
     const elements = [...document.querySelectorAll('span'), ...document.querySelectorAll('a')];
     elements.forEach(span => {
         span.style.animationDelay = '0s'
@@ -646,21 +642,35 @@ function buildSidebar() {
     const story = document.getElementById('story');
     const openedDict = JSON.parse(localStorage.getItem("openedDict"));
 
-    const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
+    const newPhonePassage = JSON.parse(localStorage.getItem("hasReadPhone")) === false && JSON.parse(localStorage.getItem("hasNewPhoneItem")) === true;
 
-    const newPhonePassage = passageCount % 3 === 0;
+    const sidebarOptions = document.getElementById("sidebar-options");
 
-    story.insertAdjacentHTML('afterbegin', `
-        <div id="sidebar-options" style="display: flex; flex-direction: column; gap: 8px; top: 1vw; left: 1vw; position: fixed;">
-            <div class="icon" style="height: 40px; width: 40px" onclick="toggleSidebar('bag')"><img src="../resources/images/icons/bag.svg" width: 40px; height: 40px></div>
-            ${openedDict ? `<button style="width: 60px" onclick="toggleSidebar('id')">ID</button>` : ''}
-            <div class="icon" style="height: 40px; width: 40px" onclick="toggleSidebar('stats')"><img src="../resources/images/icons/stats.svg" width: 40px; height: 40px></div>
-            <div class="icon" style="height: 40px; width: 40px" onclick="toggleSidebar('phone')"><img src="../resources/images/icons/phone.svg" width: 40px; height: 40px></div>
+    const innerHTML = `
+    <div class="icon" onclick="toggleSidebar('bag')"><img src="../resources/images/icons/bag.svg"></div>
+        ${openedDict ? `<div class="icon" onclick="toggleSidebar('id')"><img src="../resources/images/icons/journal.svg"></div>` : ''}
+        <div class="icon" onclick="toggleSidebar('stats')"><img src="../resources/images/icons/stats.svg"></div>
+        <div class="icon-container">
+        <div class="icon" onclick="toggleSidebar('phone')">
+            <img src="../resources/images/icons/phone.svg">
         </div>
-        <div id="sidebar" class="sidebar">
-        </div>`);
-}
+        ${newPhonePassage ? '<div class="notification-badge">!</div>' : ''}
+    </div>`
 
+
+
+
+    if (sidebarOptions) {
+        sidebarOptions.innerHTML = innerHTML
+    } else {
+        story.insertAdjacentHTML('afterbegin', `
+            <div id="sidebar-options" style="display: flex; flex-direction: column; gap: 8px; top: 1vw; left: 1vw; position: fixed;">
+            ${innerHTML}
+            </div>
+            <div id="sidebar" class="sidebar">
+            </div>`);
+    }
+}
 
 function toggleSidebar(value, dictPage) {
     const sidebar = document.getElementById("sidebar")
@@ -729,13 +739,31 @@ function buildStats() {
 }
 
 function buildPhone() {
+    const hasNewPhoneItem = JSON.parse(localStorage.getItem("hasNewPhoneItem"));
+
+    let body = '';
+    const phonePassageCount = Number(localStorage.getItem('phonePassageCount') ?? '0');
+
+    if (hasNewPhoneItem) {
+        const newPassageCount = phonePassageCount + 1;
+        body = `<br><p>SURVTECH PASSAGE #${newPassageCount}</p><br>`
+        localStorage.setItem('phonePassageCount', newPassageCount);
+    } else {
+        body = `<br><p>SURVTECH PASSAGE #${phonePassageCount}</p><br>`
+    }
+
+    localStorage.setItem("hasReadPhone", true);
+    localStorage.setItem("hasNewPhoneItem", false);
+
+
     const sidebar = document.getElementById('sidebar');
 
     const title = `<p class="sidebar-title">PHONE</p>`
 
-    const closeBtn = `<button onclick="toggleSidebar('phone')">Close</button>`
 
-    sidebar.innerHTML = title + closeBtn
+    const closeBtn = `<button onclick="toggleSidebar('phone'); buildSidebar();">Close</button>`
+
+    sidebar.innerHTML = title + body + closeBtn
 }
 
 function addToDict(page) {
@@ -810,7 +838,7 @@ function buildDict(page) {
     buttons.push(closeBtn);
 
     const buttonsHtml = `<div style="display: flex; flex-direction: column; gap: 8px;">${buttons.join('')}</div>`;
-    innerHTML += buttonsHtml;
+    innerHTML += '<br>' + buttonsHtml;
 
     sidebar.innerHTML = innerHTML;
 }
@@ -829,6 +857,7 @@ function getDictEntry(value) {
             return 'A squirrel description.';
         default:
             const dictPages = JSON.parse(localStorage.getItem("dictPages"));
+            dictPages.sort((a, b) => a.localeCompare(b))
             return dictPages.map(e => `<button onclick=buildDict('${e}')>${e}</button>`).join('<br><br>')
     }
 }

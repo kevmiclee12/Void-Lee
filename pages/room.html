@@ -20,22 +20,18 @@
             fadeInOverlay();
             buildSidebar();
 
+            const choices = [
+                `increaseStat('shitheadedness', 1); redirect('sleep.html')`,
+                `increaseStat('bluemagic', 1); redirect('paint.html')`,
+                `increaseStat('athletics', 1); redirect('park.html')`,
+            ];
+
             createNarrative(
-                "You trudge up the light green carpeted narrow stairs to your room. Your room is festooned with posters, orderly piles of sorted odds and ends, and trinkets. Your bed may be a full, but its puffy yellow comforter looks inviting. {Lay you down to Sleep}.",
+                `You trudge up the light green carpeted narrow stairs to your room. Your room is festooned with posters, orderly piles of sorted odds and ends, and trinkets. Your bed may be a full, but its puffy yellow comforter looks inviting. {Lay you down to Sleep}.
+                ^^A pad of paper sits at a desk, an inviting work chair next to it. Paintbrushes and pencils and all kind of nice tools of creation rest on this desk. Settle into a chair to {Make Something}.
+                ^^The empty bed and the blank page remind you of fresh snow, a bright day, the smell of morning mud. Poets saunter. Plastic bags and paper boxes are blown around by the wind. Kids play: throwing and kicking, snorting and rolicking. Actually, you wish you could {Go to the Park}.`,
             );
-            playText(onEnd => {
-                createNarrative(
-                    `^^^^^A pad of paper sits at a desk, an inviting work chair next to it. Paintbrushes and pencils and all kind of nice tools of creation rest on this desk. Settle into a chair to {Make Something}.`
-                );
-                playText(onEnd => {
-                    createNarrative(
-                        `^^^^^^^^^The empty bed and the blank page remind you of fresh snow, a bright day, the smell of morning mud. Poets saunter. Plastic bags and paper boxes are blown around by the wind. Kids play: throwing and kicking, snorting and rolicking. Actually, you wish you could {Go to the Park}.`
-                    );
-                    playText(null, `increaseStat('athletics', 1); redirect('park.html')`);
-                }, `increaseStat('bluemagic', 1); redirect('paint.html')`,
-                );
-            }, `increaseStat('shitheadedness', 1); redirect('sleep.html')`,
-            );
+            playText(onEnd => { }, choices);
         }
 
     </script>

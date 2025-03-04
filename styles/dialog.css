@@ -2,11 +2,13 @@
     left: -100%;
     bottom: 2%;
     position: absolute;
+    height: 16vw;
     width: 98vw;
     opacity: 0;
     animation: slideInFadeIn 800ms ease-out forwards;
     z-index: 1;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .dialog-avatar {
@@ -29,7 +31,7 @@
     position: absolute;
     left: -100%;
     top: 38vw;
-    width: 64vw;
+    /* width: 64vw; */
     word-wrap: normal;
     overflow-wrap: normal;
     white-space: nowrap;
@@ -37,6 +39,11 @@
     pointer-events: none;
     opacity: 0;
     animation: slideInFadeInText 800ms ease-out forwards, wobble 2.0s infinite;
+    background-color: rgba(220, 225, 225, 0.6);
+    border-radius: 8px;
+    padding: 16px;
+    outline: 1px solid rgb(147, 145, 145);
+    outline-offset: -4px;
 }
 
 .dialog-text-bounce {
@@ -55,6 +62,7 @@
     pointer-events: none;
     opacity: 0;
     animation: slideInFadeInText 800ms ease-out forwards, dialog-shift 3.5s infinite, wobble 2.0s infinite;
+    padding: 16px;
 }
 
 

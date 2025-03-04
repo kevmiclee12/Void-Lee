@@ -24,30 +24,25 @@
             fadeInOverlay();
             buildSidebar();
 
+            const choices = [
+                `redirect('climb.html')`,
+                `toggleSidebar('id', 'hongatar')`,
+                `redirect('faeries-follow.html')`,
+                `redirect('swing-it.html')`,
+                `redirect('sleep-dream-dream.html')`,
+            ];
+
             createNarrative(
-                `Trees! Grand, huge, awe-inspiring trees! The crisp, beautiful pine scent cuts through the pervading damp of the forest. There are squirrels and spiders scurrying and spindling. {Try to catch one}. Above, the pines' trunks creak. Their creaky columns bend into the sky. You gaze at the trees, taking them in like a worshipper at the shrine. The woody deities are set in bas-relief against the backdrop of clear sky.`,
+                `Trees! Grand, huge, awe-inspiring trees! The crisp, beautiful pine scent cuts through the pervading damp of the forest. There are squirrels and spiders scurrying and spindling. {Try to catch one}. Above, the pines' trunks creak. Their creaky columns bend into the sky. You gaze at the trees, taking them in like a worshipper at the shrine. The woody deities are set in bas-relief against the backdrop of clear sky.
+                ^^A group of {pine faeries} emerge from the knot of a nearby tree. They circle around you, teasing you, plucking your eyelashes and spitting in your nostril holes.
+                ^^They swirl away off to your left. {Follow them}.
+                ^^Dad-gum forest faeries. Yep, if you had you an ax, you'd {start chopping} down all these trees, right this second. If you don't, someone else surely will. A place like this? Prime real estate. Goodbye paradise, hello parking lot!
+                ^^Forget the faeries, forget the trees, forget the parking lot... look at that brain-colored moss over there! Mmm, awww.... you wanna curl up and {take a nap}.`,
             );
             playText(onEnd => {
-                createNarrative(
-                    `^^^^^^^^A group of {pine faeries} emerge from the knot of a nearby tree. They circle around you, teasing you, plucking your eyelashes and spitting in your nostril holes.`,
-                );
-                playText(onEnd => {
-                    createNarrative('^^^^^^^^^^^They swirl away off to your left. {Follow them}.');
-                    playText(onEnd => {
-                        createNarrative(
-                            `^^^^^^^^^^^^^Dad-gum forest faeries. Yep, if you had you an ax, you'd {start chopping} down all these trees, right this second. If you don't, someone else surely will. A place like this? Prime real estate. Goodbye paradise, hello parking lot! `,
-                        );
-                        playText(onEnd => {
-                            createNarrative(
-                                `^^^^^^^^^^^^^^^^^^Forget the faeries, forget the trees, forget the parking lot... look at that brain-colored moss over there! Mmm, awww.... you wanna curl up and {take a nap}.`,
-                            );
-                            playText(onEnd => {
-                            }, `redirect('sleep-dream-dream.html')`)
-                        }, `redirect('swing-it.html')`)
-                    }, `redirect('faeries-follow.html')`);
-                }, `toggleSidebar('id', 'hongatar')`)
-            }, `redirect('climb.html')`);
+            }, choices);
         }
+
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

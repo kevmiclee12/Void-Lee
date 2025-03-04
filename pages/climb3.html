@@ -30,11 +30,11 @@
                     createNarrative(
                         `The little vermin is taunting you!^^In a last ditch effort, your hand darts out to {snatch the furball}.`
                     );
-                    playText(null, `skillRoll('athletics', () => redirect('climb4.html?success=true'), () => redirect('climb4.html?success=false'))`)
+                    playText(null, [`skillRoll('athletics', () => redirect('climb4.html?success=true'), () => redirect('climb4.html?success=false'))`])
 
                 }, true);
                 playText(null, null, 'long');
-            }, `toggleSidebar('id', 'squirrel')`);
+            }, [`toggleSidebar('id', 'squirrel')`]);
         }
 
     </script>

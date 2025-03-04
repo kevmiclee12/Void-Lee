@@ -40,49 +40,46 @@
 
             const showItem = checkItems('hongatar trash');
 
+            const choices = [`toggleSidebar('id', 'hongatar')`, `addItem('hongatar trash', 'main1')`]
+
             createNarrative(
-                `You follow after the {hongatar}. They are so furry and cute! Some have white and some have black fur. The wings look like fly's wings. The flock flies through the air, leaving rapidly fading trails of light in their wake. They seem to be eating small snails, and then casting their shells to the forest floor.`
+                `You follow after the {hongatar}. They are so furry and cute! Some have white and some have black fur. The wings look like fly's wings. The flock flies through the air, leaving rapidly fading trails of light in their wake. They seem to be eating small snails, and then casting their shells to the forest floor.
+                ${showItem ? '^^{Pick up a handful of hongatar trash}.' : ''}^^The faeries are excitedly chattering amongst themselves.`
             );
             playText(onEnd => {
-                createNarrative(`^^^^${showItem ? '^^{Pick up a handful of hongatar trash}.' : ''}^^The faeries are excitedly chattering amongst themselves.`)
-                playText(onEnd => {
-                    createDialog('long', 'faerie1', `~HONGATAR #1~^^Mun muru, if you're with me, I can endure any frat party without crying.`,
-                        onClick => {
-                            dismissDialog('long');
-                            createDialog('long', 'faerie2', `~HONGATAR #2~^^Aww kullannuppu, that's so sweet. Are you gonna do a Keg stand this time?`,
-                                onCLick => {
-                                    dismissDialog('long');
-                                    createDialog('long', 'faerie1', `~HONGATAR #1~^^Muru, I would do it, but I would have to cry first.`,
-                                        onClick => {
-                                            dismissDialog('long');
-                                            createDialog('long', 'faerie3', `~HONGATAR #3~^^Hey funny faces, let's see if the Keg can do an us-stand!`,
-                                                onClick => {
-                                                    dismissDialog('long');
-                                                    createDialog('long', 'faerie2', `~HONGATAR #2~^^Söpöt pikku puput, a thingy is following us.`,
-                                                        onClick => {
-                                                            dismissDialog('main0', true);
-                                                            dismissDialog('main1', true);
-                                                            dismissDialog('long');
-                                                            createNarrative(`The group of {hongatar} turn to look at you.`);
-                                                            playText(onEnd => {
-                                                                showBottomChoices();
-                                                            }, `toggleSidebar('id', 'hongatar')`);
-                                                        });
-                                                    playText(null, null, 'long');
-                                                });
-                                            playText(null, null, 'long');
-                                        });
-                                    playText(null, null, 'long');
-                                });
-                            playText(null, null, 'long');
-                        });
-                    playText(null, null, 'long');
-                }, `addItem('hongatar trash', 'main1')`);
-            }, `toggleSidebar('id', 'hongatar')`);
+                createDialog('long', 'faerie1', `~HONGATAR #1~^^Mun muru, if you're with me, I can endure any frat party without crying.`,
+                    onClick => {
+                        dismissDialog('long');
+                        createDialog('long', 'faerie2', `~HONGATAR #2~^^Aww kullannuppu, that's so sweet. Are you gonna do a Keg stand this time?`,
+                            onCLick => {
+                                dismissDialog('long');
+                                createDialog('long', 'faerie1', `~HONGATAR #1~^^Muru, I would do it, but I would have to cry first.`,
+                                    onClick => {
+                                        dismissDialog('long');
+                                        createDialog('long', 'faerie3', `~HONGATAR #3~^^Hey funny faces, let's see if the Keg can do an us-stand!`,
+                                            onClick => {
+                                                dismissDialog('long');
+                                                createDialog('long', 'faerie2', `~HONGATAR #2~^^Söpöt pikku puput, a thingy is following us.`,
+                                                    onClick => {
+                                                        dismissDialog('main0', true);
+                                                        dismissDialog('main1', true);
+                                                        dismissDialog('long');
+                                                        createNarrative(`The group of {hongatar} turn to look at you.`);
+                                                        playText(onEnd => {
+                                                            showBottomChoices();
+                                                        }, [`toggleSidebar('id', 'hongatar')`]);
+                                                    });
+                                                playText(null, null, 'long');
+                                            });
+                                        playText(null, null, 'long');
+                                    });
+                                playText(null, null, 'long');
+                            });
+                        playText(null, null, 'long');
+                    });
+                playText(null, null, 'long');
+            }, choices);
         }
-
-
-
 
 
     </script>

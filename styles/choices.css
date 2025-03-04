@@ -26,3 +26,11 @@
 .choice-button:hover {
     color: #6D05FF;
 }
+
+#delayedMessage {
+    background-color: rgba(220, 225, 225, 0.6);
+    border-radius: 8px;
+    padding: 16px;
+    outline: 1px solid rgb(147, 145, 145);
+    outline-offset: -4px;
+}
