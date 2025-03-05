@@ -4,7 +4,8 @@ let audioPath;
 
 export function playAudio(audioUrl, loop, fadeDuration) {
 
-    console.log(`playing1: ${audioUrl}`)
+    console.log(`playing3: ${audioUrl}`);
+    console.log('EXISTING?: ', audio);
 
     if (audioUrl != audioPath) {
         console.log('different paths GO')
@@ -23,8 +24,6 @@ export function playAudio(audioUrl, loop, fadeDuration) {
         if (fadeDuration) {
             audio.volume = 0;
             var isFirstIteration = true;
-            audio.play();
-
             function fadeInVolume() {
                 if (isFirstIteration) {
                     var interval = 50;
@@ -45,6 +44,7 @@ export function playAudio(audioUrl, loop, fadeDuration) {
                 }
             }
             audio.addEventListener('play', fadeInVolume);
+            audio.play();
         } else {
             audio.play();
         }
@@ -59,8 +59,11 @@ export function playAudio(audioUrl, loop, fadeDuration) {
 export function stopAudio() {
     console.log(`stopping: ${audio}`);
     if (audio) {
+        audio.currentTime = 0;
+        audio.volume = 0;
         audio.pause();
     }
+    sessionStorage.setItem("audioPath", null);
 }
 
 export function checkAudio() {
