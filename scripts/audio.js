@@ -2,7 +2,7 @@ const activeAudios = [];
 let audio;
 let audioPath;
 
-export function playAudio(audioUrl, loop, fadeDuration) {
+export function playAudio(audioUrl, loop, fadeDuration, onLoaded) {
 
     console.log(`playing: ${audioUrl}`)
 
@@ -53,6 +53,10 @@ export function playAudio(audioUrl, loop, fadeDuration) {
             audio: audio,
         });
     }
+
+    if (onLoaded) {
+        onLoaded();
+    }
 }
 
 export function stopAudio() {
@@ -85,7 +89,7 @@ export function checkAudio() {
 
     if (savedAudio) {
         if (url.includes('faeries')) {
-            playAudio(savedAudio, false, false);
+            playAudio(savedAudio, false, null);
             const savedTime = sessionStorage.getItem("audioTime");
             audio.currentTime = parseFloat(savedTime);
         }
