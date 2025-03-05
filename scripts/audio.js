@@ -33,7 +33,9 @@ export function playAudio(audioUrl, loop, fadeDuration) {
                     var fadeInterval = setInterval(function () {
                         if (currentVolume < 1) {
                             currentVolume += step;
-                            audio.volume = Math.min(currentVolume, 1);
+                            if (audio) {
+                                audio.volume = Math.min(currentVolume, 1);
+                            }
                         } else {
                             clearInterval(fadeInterval);
                             isFirstIteration = false;
@@ -53,7 +55,7 @@ export function playAudio(audioUrl, loop, fadeDuration) {
     }
 }
 
-export async function stopAudio() {
+export function stopAudio() {
     console.log(`stopping: ${audio}`);
     if (audio) {
         const fadeDuration = 1000;
