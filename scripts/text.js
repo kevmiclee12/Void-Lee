@@ -129,7 +129,7 @@ export function playText(onEnd, choices, overrideId) {
     }
 };
 
-export function finishText() {
+export function finishText(additionalCallback) {
     const elements = [...document.querySelectorAll('span'), ...document.querySelectorAll('a')];
     elements.forEach(span => {
         span.style.animationDelay = '0s'
@@ -142,6 +142,10 @@ export function finishText() {
     for (let i = 0; i < timeoutFns.length; i++) {
         timeoutFns[i]();
         timeoutFns.splice(i, 1);
+    }
+
+    if (additionalCallback) {
+        additionalCallback();
     }
 }
 

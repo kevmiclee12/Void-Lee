@@ -2,7 +2,7 @@ const activeAudios = [];
 let audio;
 let audioPath;
 
-export function playAudio(audioUrl, loop, fadeDuration, onLoaded) {
+export function playAudio(audioUrl, loop, fadeDuration) {
 
     console.log(`playing: ${audioUrl}`)
 
@@ -52,12 +52,6 @@ export function playAudio(audioUrl, loop, fadeDuration, onLoaded) {
             audioUrl: audioUrl,
             audio: audio,
         });
-    }
-
-    console.log('audio loaded');
-    if (onLoaded) {
-        console.log('onLoaded not null');
-        onLoaded();
     }
 }
 

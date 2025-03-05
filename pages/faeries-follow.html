@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <div id="overlay" onClick="finishText()">
+    <div id="overlay" onClick="finishText(playAudio('../resources/audio/faeries.mp3', false, 10))">
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
@@ -39,6 +39,7 @@
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
+            playAudio('../resources/audio/faeries.mp3', false, 10);
 
             const showItem = checkItems('hongatar trash');
 
@@ -51,6 +52,7 @@
             playText(onEnd => {
                 createDialog('long', 'faerie1', `~HONGATAR #1~^^Mun muru, if you're with me, I can endure any frat party without crying.`,
                     onClick => {
+                        playAudio('../resources/audio/faeries.mp3', false, 10);
                         dismissDialog('long');
                         createDialog('long', 'faerie2', `~HONGATAR #2~^^Aww kullannuppu, that's so sweet. Are you gonna do a Keg stand this time?`,
                             onCLick => {
