@@ -67,3 +67,4 @@ function startGame() {
     playAudio('resources/audio/intro.mp3', true, 5);
 }
 window.startGame = startGame;
+

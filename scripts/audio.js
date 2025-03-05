@@ -96,5 +96,3 @@ export function saveAudioState() {
         sessionStorage.setItem("audioPath", audioPath);
     }
 }
-
-

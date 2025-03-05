@@ -24,7 +24,7 @@
                 `Yuck! It tastes like...^^You don't get a chance to finish the thought. It feels like the whole world is being stretched inside-out. You hear a voice, like an echo in your mind, "See you soon, raccoon!" Then {everything goes dark}.`
             );
             playText(onEnd => {
-            }, [`redirect('party.html')`]);
+            }, [`playAudio('../resources/audio/party.mp3', true, 20); redirect('party.html');`]);
         }
 
     </script>
