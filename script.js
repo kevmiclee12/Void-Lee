@@ -1,10 +1,10 @@
-import { increaseStat, skillRoll } from "./stats.js"
-import { addItem, removeItem, checkItems } from "./items.js"
-import { redirect, fadeInOverlay } from "./page.js"
-import { finishText, showBottomChoices, createNarrative, createDialog, dismissDialog, shiftDialog, playText } from "./text.js"
-import { playAudio, stopAudio, checkAudio, saveAudioState } from "./audio.js"
-import { buildSidebar, toggleSidebar } from "./sidebar.js"
-import { showCustomAlert, closeCustomAlert, showSnackbar } from "./alerts.js"
+import { increaseStat, skillRoll } from "./scripts/stats.js"
+import { addItem, removeItem, checkItems } from "./scripts/items.js"
+import { redirect, fadeInOverlay, clearChoice, invert } from "./scripts/page.js"
+import { finishText, showBottomChoices, hideBottomChoices, createNarrative, createDialog, dismissDialog, shiftDialog, playText } from "./scripts/text.js"
+import { playAudio, stopAudio, checkAudio, saveAudioState } from "./scripts/audio.js"
+import { buildSidebar, toggleSidebar } from "./scripts/sidebar.js"
+import { showCustomAlert, closeCustomAlert, showSnackbar } from "./scripts/alerts.js"
 
 window.skillRoll = skillRoll;
 window.increaseStat = increaseStat;
@@ -15,9 +15,12 @@ window.addItem = addItem;
 
 window.redirect = redirect;
 window.fadeInOverlay = fadeInOverlay;
+window.clearChoice = clearChoice;
+window.invert = invert;
 
 window.finishText = finishText;
 window.showBottomChoices = showBottomChoices;
+window.hideBottomChoices = hideBottomChoices;
 window.createNarrative = createNarrative;
 window.createDialog = createDialog;
 window.dismissDialog = dismissDialog;

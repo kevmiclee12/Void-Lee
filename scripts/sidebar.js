@@ -17,7 +17,7 @@ export function buildSidebar() {
             ${PHONE_ICON}
         </div>
         ${openedDict ? `<div class="icon" onclick="toggleSidebar('id')">${ID_ICON}</div>` : ''}
-        ${newPhonePassage ? '<div class="notification-badge">!</div>' : ''}
+        ${newPhonePassage ? '<div class="notification-badge"><p>1</p></div>' : ''}
     </div>`
 
 
@@ -97,19 +97,13 @@ function buildStats() {
 
     const partyStatus = localStorage.getItem("partyStatus");
 
-    if (partyStatus && partyStatus != '') {
-        stats.push(`<br>party status: ${partyStatus}`);
-    }
-
-
-
     const statList = `<p>${stats.map((stat) => {
         return `<div style="width: 340px; display: flex; flex-direction: row;"><span style="flex: 1">${stat.split(':')[0]}:</span><span style="flex: 1">${stat.split(':')[1]}</span></div>`
     }).join('<br>')}</p>`
 
     const closeBtn = `<button onclick="toggleSidebar('stats')">Close</button>`
 
-    sidebar.innerHTML = title + statList + closeBtn
+    sidebar.innerHTML = title + statList + `<p>party aspect: ${partyStatus}</p><br>` + closeBtn
 }
 
 function buildPhone() {

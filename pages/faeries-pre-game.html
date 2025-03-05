@@ -9,22 +9,22 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
+
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
 
         window.onload = function () {
             fadeInOverlay();
-            playAudio('../resources/audio/party.mp3', true, 12);
             buildSidebar();
             createNarrative(
-                `You arrive at the party with the hongatar.`
+                `Yuck! It tastes like...^^You don't get a chance to finish the thought. It feels like the whole world is being stretched inside-out. You hear a voice, like an echo in your mind, "See you soon, raccoon!" Then {everything goes dark}.`
             );
-            playText();
+            playText(onEnd => {
+            }, [`redirect('party.html')`]);
         }
 
     </script>
@@ -32,6 +32,8 @@
     <link rel="stylesheet" href="../styles/button.css">
     <link rel="stylesheet" href="../styles/dialog.css">
     <link rel="stylesheet" href="../styles/choices.css">
+    <link rel="stylesheet" href="../styles/alert.css">
+
 </body>
 
 </html>

@@ -183,6 +183,13 @@ export function showBottomChoices() {
     }
 }
 
+export function hideBottomChoices() {
+    const delayedMessage = document.getElementById('delayedMessage');
+    if (delayedMessage) {
+        delayedMessage.style.visibility = 'hidden';
+    }
+}
+
 let narrativeCount = 0;
 
 export function createNarrative(dialogText) {
@@ -204,11 +211,11 @@ export function createNarrative(dialogText) {
     text.style.animation = 'wobble 2.0s infinite';
     text.style.opacity = 1;
     text.style.left = '10vw';
-    text.style.top = `1vw`;
+    text.style.top = `0vw`;
     bounceText.style.animation = 'dialog-shift 3.5s infinite, wobble 2.0s infinite';
     bounceText.style.opacity = 1;
     bounceText.style.left = '10vw';
-    bounceText.style.top = `1vw`
+    bounceText.style.top = `0vw`
 
     story.appendChild(text);
     story.appendChild(bounceText);

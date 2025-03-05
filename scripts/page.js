@@ -35,3 +35,13 @@ export function trackHistory(url) {
     history.push(url);
     localStorage.setItem("history", JSON.stringify(history));
 }
+
+export function clearChoice(id) {
+    const el = document.getElementById(id);
+    el.style.display = 'none';
+}
+
+export function invert() {
+    const el = document.getElementById('overlay');
+    el.style.filter = 'invert(1)';
+}

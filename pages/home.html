@@ -25,8 +25,8 @@
                 <a class="choice-button" onClick="increaseStat('will', 1); redirect('room.html')">Go to your
                     room</a>
                 <br>
-                <span>You can do anything! <a class="choice-button" onClick="increaseStat('shitheadedness', 1);
-                    redirect('survtech.html')">Look
+                <span id="phone">You can do anything! <a class="choice-button" onClick="increaseStat('shitheadedness', 1); localStorage.setItem('hasNewPhoneItem', true);
+                    toggleSidebar('phone'); clearChoice('phone');">Look
                         at
                         your phone</a>.</span>
             </div>

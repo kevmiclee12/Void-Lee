@@ -29,11 +29,11 @@
         import * as script from "../script.js"
 
         window.onload = function () {
-            playAudio('../resources/audio/faeries.mp3', false, 30, 0.3);
+            playAudio('../resources/audio/faeries.mp3', false, 30);
             fadeInOverlay();
             buildSidebar();
 
-            createNarrative('As you follow the {squirrel}, it is obvious the creature is very excited about something. You can faintly hear what might be voices in unison like a sing-song chant, growing louder as you progress. This must be where the squirrel is leading you.');
+            createNarrative('As you follow the {squirrel}, it is obvious the creature is very excited about something. You faintly hear what might be voices in unison like a sing-song chant, growing louder as you progress. This must be where the squirrel is leading you.');
             playText(onEnd => {
                 showBottomChoices();
             }, [`toggleSidebar('id', 'squirrel')`]);

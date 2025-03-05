@@ -9,7 +9,6 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
         </div>
     </div>
@@ -19,13 +18,23 @@
         import * as script from "../script.js"
 
         window.onload = function () {
+            invert();
             fadeInOverlay();
             playAudio('../resources/audio/party.mp3', true, 12);
             buildSidebar();
             createNarrative(
-                `You arrive at the party with the squirrel.`
+                `When you come to, you're still in the clearing, but it all seems \`different\`. The squirrel and hongatar are all here, but perfectly conscious. There is upbeat music, merry-making and of course, a keg!`
             );
-            playText();
+            playText(onEnd => {
+                createDialog('long', 'faerie1', `~HONGATAR #1~^^WOOOOOOOTTT!`, onClick => {
+                    dismissDialog('long');
+                    createDialog('long', 'squirrel', '~SQUIRREL~^^JOOOOOOOO!', onClick => {
+
+                    }, true);
+                    playText(null, null, 'long');
+                });
+                playText(null, null, 'long');
+            });
         }
 
     </script>

@@ -5,7 +5,7 @@ export const DRUNK_2 = "../resources/images/avatars/drunk2.png"
 export const FAERIE_1 = "../resources/images/avatars/faerie1.png"
 export const FAERIE_2 = "../resources/images/avatars/faerie2.png"
 export const FAERIE_3 = "../resources/images/avatars/faerie3.png"
-export const HYPNO_GOURD = "../resources/images/avatars/hypno-gourd.png"
+export const BUZZ = "../resources/images/avatars/buzz.png"
 export const SQUIRREL = "../resources/images/avatars/squirrel.png"
 export const CRAIG = "../resources/images/avatars/craig.png"
 
@@ -29,7 +29,7 @@ export const AVATAR_MAP = {
     'faerie1': FAERIE_1,
     'faerie2': FAERIE_2,
     'faerie3': FAERIE_3,
-    'hypno_gourd': HYPNO_GOURD,
+    'buzz': BUZZ,
     'squirrel': SQUIRREL,
     'craig': CRAIG,
 }

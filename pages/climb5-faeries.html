@@ -12,15 +12,14 @@
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <!-- <a class="choice-button" onClick="redirect('party-squirrel.html')">"Where are you taking me?"</a>
+                <a class="choice-button" onClick="redirect('climb5-faeries1.html?choice=hongatar')">Inspect the
+                    hongatar</a>
                 <br>
-                <a class="choice-button" onClick="redirect('party-squirrel.html')">"What's that chanting?"</a>
-                <br>
-                <a class="choice-button" onClick="redirect('party-squirrel.html')">Why am I following a squirrel?</a> -->
+                <a class="choice-button" onClick="redirect('climb5-faeries1.html?choice=squirrel')">Inspect the
+                    squirrel</a>
             </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -45,11 +44,30 @@
                     text = `You remember someone telling you: "Peculiar travel suggestions are dancing lessons from god." You suppose this is one of those times.`
             }
 
-            createNarrative(text + `^^All the while the chanting is growing louder. You're sure it's voices now. It sounds like they are saying, "We're going to a party! We're going to a party!" From time to time, the squirrel turns around, egging you on.`);
+            createNarrative(text + `^^All the while the chanting is growing louder. You're sure it's voices now. It sounds like they are chanting, "We're going to a party! We're going to a party!" From time to time, the squirrel turns around, egging you on.`);
             playText(onEnd => {
                 createDialog('long', 'squirrel', '~SQUIRREL~^^Puolue! Puolue!', onClick => {
-                    redirect('party-squirrel.html');
-                });
+                    dismissDialog('long');
+                    dismissDialog(null, true);
+                    createNarrative(
+                        `You arrive at a clearing. The {pine faeries} you saw earlier are all laying about on the ground, apparently unconscious.^^The squirrel is darting here and there, sniffing the hongatar and chittering excitedly.`
+                    );
+                    playText(onEnd => {
+                        createDialog('long', 'squirrel', '~SQUIRREL~^^Puolue! Puolue!', onClick => {
+                            dismissDialog('long');
+                            dismissDialog(null, true);
+                            createNarrative(`The squirrel finds an acorn and begins to nibble it. Suddenly, its whiskers twitch a few times and it swoons until it falls to ground unconcsious, just like the hongatar.`);
+                            playText(onEnd => {
+                                createDialog('long', 'squirrel', '~SQUIRREL~^^Pu...o..lue.... Puo.....', onClick => {
+                                    dismissDialog('long');
+                                    showBottomChoices();
+                                });
+                                playText(null, null, 'long');
+                            });
+                        }, true);
+                        playText(null, null, 'long');
+                    }, [`toggleSidebar('id', 'hongatar');`]);
+                }, true);
                 playText(null, null, 'long');
             });
         }

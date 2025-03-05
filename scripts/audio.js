@@ -2,7 +2,7 @@ const activeAudios = [];
 let audio;
 let audioPath;
 
-export function playAudio(audioUrl, loop, fadeDuration, buffer) {
+export function playAudio(audioUrl, loop, fadeDuration) {
 
 
     if (audioUrl != audioPath) {
@@ -12,27 +12,12 @@ export function playAudio(audioUrl, loop, fadeDuration, buffer) {
 
         if (loop) {
             audio.addEventListener("loadedmetadata", function () {
-
                 const duration = audio.duration;
-                console.log(duration);
                 setInterval(() => {
-                    console.log('play it again');
                     audio.currentTime = 0;
-                    console.log('played!');
                 }, duration * 1000);
-
             });
         }
-
-        if (buffer) {
-            audio.addEventListener('timeupdate', function () {
-                if (this.currentTime > this.duration - buffer) {
-                    this.currentTime = 0
-                    this.play();
-                }
-            });
-        }
-
 
         if (fadeDuration) {
             audio.volume = 0;
@@ -60,7 +45,6 @@ export function playAudio(audioUrl, loop, fadeDuration, buffer) {
         } else {
             audio.play();
         }
-
 
         activeAudios.push({
             audioUrl: audioUrl,
@@ -95,7 +79,7 @@ export function checkAudio() {
 
     if (savedAudio) {
         if (url.includes('faeries')) {
-            playAudio(savedAudio, false, false, 0.3);
+            playAudio(savedAudio, false, false);
             const savedTime = sessionStorage.getItem("audioTime");
             audio.currentTime = parseFloat(savedTime);
         }

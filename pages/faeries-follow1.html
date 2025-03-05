@@ -12,10 +12,9 @@
 
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('party-hongatar.html')">"Um... No thanks"</a>
+                <a class="choice-button" id="um" onClick="partyCheck()">"Um..."</a>
                 <br>
-                <a class="choice-button" onClick="redirect('party-hongatar.html')">"PARTY!!!!"</a>
-
+                <a class="choice-button" onClick="redirect('faeries-follow2.html')">"PARTY!!!!"</a>
             </div>
         </div>
         <div id="custom-alert" class="snackbar">
@@ -26,6 +25,30 @@
 
     <script type="module">
         import * as script from "../script.js"
+
+        let didCheck = false;
+
+        window.partyCheck = function () {
+            if (!didCheck) {
+                didCheck = true;
+                dismissDialog('long');
+                hideBottomChoices();
+                createDialog('long', 'faerie2', `~FAERIE #2~^^Are you sure Armaani? The party train is leaving!`, onClick => {
+                    shiftDialog('long');
+                    const btn = document.getElementById('um');
+                    btn.innerText = `I'm good. Thanks.`
+                    showBottomChoices();
+                });
+                playText(null, null, 'long')
+            } else {
+                dismissDialog('long');
+                hideBottomChoices();
+                createDialog('long', 'faerie2', `~FAERIE #2~^^Suit yourself!`, onClick => {
+                    redirect(`sleep-dream1.html?filter=faeries`);
+                });
+                playText(null, null, 'long')
+            }
+        }
 
         window.onload = function () {
             fadeInOverlay();
