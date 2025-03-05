@@ -65,16 +65,16 @@ export function stopAudio() {
 
         console.log(`volume: ${audio.volume}`);
         const fadeOut = setInterval(() => {
-            if (audio.volume > 0) {
-                audio.volume = Math.max(0, audio.volume - fadeStep);
-            } else {
-                clearInterval(fadeOut);
-                audio.pause();
-                window.location.href = url
+            if (audio) {
+                if (audio.volume > 0) {
+                    audio.volume = Math.max(0, audio.volume - fadeStep);
+                } else {
+                    clearInterval(fadeOut);
+                    audio.pause();
+                    window.location.href = url
+                }
             }
         }, interval);
-
-        audio = null;
     }
 }
 
