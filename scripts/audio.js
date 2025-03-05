@@ -79,6 +79,8 @@ export function checkAudio() {
     const url = window.location.href;
     const savedAudio = sessionStorage.getItem("audioPath")
 
+    console.log('CHECKING: ', savedAudio)
+
     if (savedAudio) {
         if (url.includes('faeries')) {
             playAudio(savedAudio, false, false);
