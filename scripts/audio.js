@@ -52,7 +52,7 @@ export function playAudio(audioUrl, loop, fadeDuration) {
     }
 }
 
-export function stopAudio() {
+export async function stopAudio() {
     if (audio) {
         const fadeDuration = 1000;
         const interval = 50;

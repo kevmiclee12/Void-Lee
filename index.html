@@ -34,7 +34,7 @@
             </p>
             <p class="fade" id="delayedMessage"
                 style="visibility:hidden; position: absolute; left: 10vw; top: 35vw; line-height: 1;">
-                <a class="choice-button" onClick="redirect('pages/home.html')">
+                <a class="choice-button" onClick="(async () => await newGame())()">
                     New game
                 </a>
             </p>
@@ -43,6 +43,11 @@
 
     <script type="module">
         import * as script from "./script.js"
+
+        window.newGame = async function () {
+            await stopAudio();
+            redirect('pages/home.html');
+        }
 
         window.onload = function () {
             showCustomAlert(`By clicking the button below, you indicate <br>your desire to play <b>codename: Void Lee</b>`);
