@@ -54,7 +54,9 @@ export function playAudio(audioUrl, loop, fadeDuration, onLoaded) {
         });
     }
 
+    console.log('audio loaded');
     if (onLoaded) {
+        console.log('onLoaded not null');
         onLoaded();
     }
 }
