@@ -4,9 +4,10 @@ let audioPath;
 
 export function playAudio(audioUrl, loop, fadeDuration) {
 
-    console.log(`playing: ${audioUrl}`)
+    console.log(`playing1: ${audioUrl}`)
 
     if (audioUrl != audioPath) {
+        console.log('different paths GO')
         audio = new Audio(audioUrl);
         audioPath = audioUrl;
 
