@@ -24,7 +24,16 @@
             invert();
             buildSidebar();
             createNarrative(`You're the life of the party. You're the Keg.`);
-            playText();
+            playText(onEnd => {
+                createDialog('long', 'faerie1', `~HONGATAR #1~^^WOOOOOOOTTT!`, onClick => {
+                    dismissDialog('long');
+                    createDialog('long', 'squirrel', '~SQUIRREL~^^JOOOOOOOO!', onClick => {
+
+                    }, true);
+                    playText(null, null, 'long');
+                });
+                playText(null, null, 'long');
+            });
         }
 
     </script>

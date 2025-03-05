@@ -11,17 +11,31 @@
     <div id="overlay" onClick="finishText()">
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <span>"I'm not doing this! Find someone else." <a class="choice-button"
-                        onClick="redirect('sleep-dream1.html?filter=nap');">Will yourself awake (Skill Roll -
-                        Will).</a></span>
+                <span>"I'm not doing this!" <a class="choice-button"
+                        onClick="redirect('sleep-dream1.html?filter=nap');">Will yourself awake</a>
+                    <div class=""></div>
+                </span>
+                <!-- TODO: skill roll - will? -->
                 <br>
-                <a class="choice-button" onClick="redirect('hypno7.html');">"I'm ready."</a>
+                <a class="choice-button" onClick="ready()">"I'm ready."</a>
             </div>
         </div>
     </div>
 
     <script type="module">
         import * as script from "../script.js"
+
+        window.ready = function () {
+            hideBottomChoices();
+            dismissDialog(null, true);
+            dismissDialog('long');
+            createDialog('long', 'buzz', '~BUZZ MORLEY~^^Great! I knew you were right for the job. Now remember everything I taught you.', onClick => {
+                dismissDialog('long');
+                createNarrative(`With that, the stage door shuts.^^It's dark, and doesn't really seem like a stage at all. As your eyes adjust and the scene takes shape, it seems eerily similar to the forest from your original dream.^^You hear voices approaching. Quick! {Act like a keg!}`);
+                playText(null, [`redirect('party-keg.html');`]);
+            }, true);
+            playText(null, null, 'long');
+        }
 
         window.onload = function () {
             fadeInOverlay();
