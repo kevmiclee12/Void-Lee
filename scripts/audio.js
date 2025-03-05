@@ -7,7 +7,6 @@ export function playAudio(audioUrl, loop, fadeDuration) {
 
     if (audioUrl != audioPath) {
         audio = new Audio(audioUrl);
-        audio.preload = "auto";
         audioPath = audioUrl;
 
         if (loop) {

@@ -22,8 +22,9 @@
                     about
                     littering.</a>
                 <br>
-                <span>Something special is bound to happen if you were to <a class="choice-button" onClick="">catch one
-                        of these things</a>.</span>
+                <span>Try to <a class="choice-button"
+                        onClick="skillRoll('athletics', () => redirect('tree-chase.html?choice=chop-success'), () => redirect('tree-chase.html?choice=chop-fail'))">impress
+                        them</a> with your climbing skills.</span>
             </div>
         </div>
         <div id="custom-alert" class="snackbar">
@@ -45,8 +46,8 @@
             const choices = [`toggleSidebar('id', 'hongatar')`, `addItem('hongatar trash')`]
 
             createNarrative(
-                `You follow after the {hongatar}. They are so furry and cute! Some have white and some have black fur. The wings look like fly's wings. The flock flies through the air, leaving rapidly fading trails of light in their wake. They seem to be eating small snails, and then casting their shells to the forest floor.
-                ${showItem ? '^^{Pick up a handful of hongatar trash}.' : ''}^^The faeries are excitedly chattering amongst themselves.`
+                `You follow after the {hongatar}. They all have the same dutch boy haircut and cro-magnon facial features. The wings look like fly's wings. The pack flies through the air, leaving rapidly fading trails of light in their wake. They seem to be eating small snails, and then casting their shells to the forest floor.
+                ${showItem ? '^^{Pick up a handful of hongatar trash.}' : ''}^^The faeries are excitedly chattering amongst themselves.`
             );
             playText(onEnd => {
                 createDialog('long', 'faerie1', `~HONGATAR #1~^^Mun muru, if you're with me, I can endure any frat party without crying.`,

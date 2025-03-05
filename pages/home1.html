@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div class="story" id="story" style="background-image: url(../resources/images/backgrounds/new-game.png);">
+            <div
+                style="background-image: url(../resources/images/backgrounds/window-slats.png); height: 80vh; position: relative; background-size: auto; background-repeat: no-repeat; background-position: center; pointer-events: none;">
+            </div>
+            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
+                <a class="choice-button" id="umbrella">Umbrella</a>
+                <br>
+                <a class="choice-button" id="cards">Deck of cards</a>
+                <br>
+                <a class="choice-button" id="zipties">Zip ties</a>
+                <br>
+                <a class="choice-button" id="nothing">Nothing</a>
+            </div>
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../script.js"
+
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+
+            const umbrellaBtn = document.getElementById('umbrella');
+            umbrellaBtn.onclick = function () {
+                addItem('umbrella');
+                hideBottomChoices();
+                dismissDialog(null, true);
+                createNarrative('Good thinking. {Continue}');
+                playText(onEnd => {
+
+                }, [`redirect('${choice}.html')`])
+            }
+
+            const cardsBtn = document.getElementById('cards');
+            cardsBtn.onclick = function () {
+                addItem('deck of cards');
+                hideBottomChoices();
+                dismissDialog(null, true);
+                createNarrative('Maybe someone will want to play. {Continue}');
+                playText(onEnd => {
+
+                }, [`redirect('${choice}.html')`])
+            }
+
+            const ziptiesBtn = document.getElementById('zipties');
+            ziptiesBtn.onclick = function () {
+                addItem('zip ties');
+                hideBottomChoices();
+                dismissDialog(null, true);
+                createNarrative(`Never know when you'll need a zip tie! {Continue}`);
+                playText(onEnd => {
+
+                }, [`redirect('${choice}.html')`])
+            }
+
+            const nothingBtn = document.getElementById('nothing');
+            nothingBtn.onclick = function () {
+                hideBottomChoices();
+                dismissDialog(null, true);
+                createNarrative(`Material belognings only weigh you down! {Continue}`);
+                playText(onEnd => {
+
+                }, [`redirect('${choice}.html')`])
+            }
+
+            createNarrative(
+                `Will you take anything with you?`
+            );
+            playText(onEnd => {
+                showBottomChoices();
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>
