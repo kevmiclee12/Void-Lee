@@ -59,22 +59,7 @@ export function playAudio(audioUrl, loop, fadeDuration) {
 export function stopAudio() {
     console.log(`stopping: ${audio}`);
     if (audio) {
-        const fadeDuration = 1000;
-        const interval = 50;
-        const fadeStep = audio.volume / (fadeDuration / interval);
-
-        console.log(`volume: ${audio.volume}`);
-        const fadeOut = setInterval(() => {
-            if (audio) {
-                if (audio.volume > 0) {
-                    audio.volume = Math.max(0, audio.volume - fadeStep);
-                } else {
-                    clearInterval(fadeOut);
-                    audio.pause();
-                    window.location.href = url
-                }
-            }
-        }, interval);
+        audio.pause();
     }
 }
 

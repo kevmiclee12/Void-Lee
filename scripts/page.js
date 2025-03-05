@@ -17,13 +17,11 @@ export function redirect(url) {
     //TODO: every redirect increases the 'time' that has passed. 
 }
 
-export function fadeInOverlay(skipCheck) {
+export function fadeInOverlay() {
     const overlay = document.getElementById("overlay");
     overlay.classList.remove("hide");
     overlay.classList.add("show");
-    if (!skipCheck) {
-        checkAudio();
-    }
+    checkAudio();
 }
 
 export function fadeOutOverlay() {
