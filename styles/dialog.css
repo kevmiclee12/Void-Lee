@@ -9,6 +9,7 @@
     z-index: 1;
     cursor: pointer;
     background-color: transparent;
+    /* pointer-events: none; */
 }
 
 .dialog-avatar {
@@ -30,7 +31,7 @@
     text-shadow: 0.15vw 0.15vh #9F3A27;
     position: absolute;
     left: -100%;
-    top: 38vw;
+    bottom: 1vw;
     /* width: 64vw; */
     word-wrap: normal;
     overflow-wrap: normal;
@@ -53,7 +54,7 @@
     color: black;
     position: absolute;
     left: -100%;
-    top: 38vw;
+    bottom: 1vw;
     width: 64vw;
     word-wrap: normal;
     overflow-wrap: normal;

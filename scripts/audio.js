@@ -4,11 +4,7 @@ let audioPath;
 
 export function playAudio(audioUrl, loop, fadeDuration) {
 
-    console.log(`playing3: ${audioUrl}`);
-    console.log('EXISTING?: ', audio);
-
     if (audioUrl != audioPath) {
-        console.log('different paths GO')
         audio = new Audio(audioUrl);
         audioPath = audioUrl;
 
@@ -57,7 +53,6 @@ export function playAudio(audioUrl, loop, fadeDuration) {
 }
 
 export function stopAudio() {
-    console.log(`stopping: ${audio}`);
     if (audio) {
         audio.currentTime = 0;
         audio.volume = 0;
@@ -69,8 +64,6 @@ export function stopAudio() {
 export function checkAudio() {
     const url = window.location.href;
     const savedAudio = sessionStorage.getItem("audioPath")
-
-    console.log('CHECKING: ', savedAudio)
 
     if (savedAudio) {
         if (url.includes('faeries')) {

@@ -20,22 +20,29 @@ function getPlayTextWidth(id) {
     return window.innerWidth * 0.8;
 }
 
+
 export function playText(onEnd, choices, overrideId) {
     const id = overrideId ?? `main${narrativeCount}`;
     const fadeTextElements = document.querySelectorAll(`#${id}`);
     const speed = getPlayTextSpeed(id);
     const maxWidth = getPlayTextWidth(id);
 
-    if (onEnd && fadeTextElements.length > 0) {
+    if (fadeTextElements.length > 0) {
         const text = fadeTextElements[0].dataset.text;
-        const textLength = text.length;
-        let timeoutId = setTimeout(function () {
-            timeoutIds = timeoutIds.filter(e => e !== timeoutId);
-            timeoutFns = timeoutFns.filter(e => e !== onEnd);
-            onEnd();
-        }, (speed * textLength) * 1000);
-        timeoutIds.push(timeoutId);
-        timeoutFns.push(onEnd);
+        if (text) {
+            const textLength = text.length;
+            let timeoutId = setTimeout(function () {
+                timeoutIds = timeoutIds.filter(e => e !== timeoutId);
+                timeoutFns = timeoutFns.filter(e => e !== onEnd);
+                if (onEnd) {
+                    onEnd();
+                }
+            }, (speed * textLength) * 1000);
+            timeoutIds.push(timeoutId);
+            if (onEnd) {
+                timeoutFns.push(onEnd);
+            }
+        }
     }
 
     fadeTextElements.forEach((element) => {
@@ -121,6 +128,16 @@ export function playText(onEnd, choices, overrideId) {
             if (maxWidth) {
                 insertLineBreaks(element, maxWidth);
             }
+        }
+
+        const lastLetter = element.querySelector("span:last-child");
+        if (lastLetter) {
+            lastLetter.addEventListener("animationend", () => {
+                const dialogs = document.querySelectorAll("#long.movable");
+                dialogs.forEach(e => {
+                    e.style.pointerEvents = "auto";
+                })
+            });
         }
     });
 
@@ -216,10 +233,13 @@ export function createNarrative(dialogText) {
     text.style.opacity = 1;
     text.style.left = '10vw';
     text.style.top = `0vw`;
+    text.style.bottom = 'auto';
+
     bounceText.style.animation = 'dialog-shift 3.5s infinite, wobble 2.0s infinite';
     bounceText.style.opacity = 1;
     bounceText.style.left = '10vw';
     bounceText.style.top = `0vw`
+    bounceText.style.bottom = 'auto';
 
     story.appendChild(text);
     story.appendChild(bounceText);
@@ -263,9 +283,11 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
     dialogBoxWrapper.style.display = 'inline-block';
     dialogBoxWrapper.style.width = '100%'
     dialogBoxWrapper.classList.add('movable');
+    dialogBoxWrapper.style.pointerEvents = 'none';
     dialogBoxWrapper.onclick = function (event) {
         event.stopPropagation();
         onClick();
+
     };
     dialogBoxWrapper.appendChild(dialogBox);
     story.appendChild(dialogBoxWrapper);

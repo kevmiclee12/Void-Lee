@@ -11,13 +11,14 @@
     <div id="overlay" onClick="finishText()">
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
             <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('party-keg.html');">Leak
-                    Party</a>
+                <span>"I'm not doing this! Find someone else." <a class="choice-button"
+                        onClick="redirect('sleep-dream1.html?filter=nap');">Will yourself awake (Skill Roll -
+                        Will).</a></span>
+                <br>
+                <a class="choice-button" onClick="redirect('hypno7.html');">"I'm ready."</a>
             </div>
         </div>
     </div>
-
-    <!-- TODO: BILLY HELP -->
 
     <script type="module">
         import * as script from "../script.js"
@@ -26,11 +27,31 @@
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `The BUZZ MORLEY describes where you are and what the mission is all while consolidating his position of power. Then it's lights, camera action and you're a keg at the Leak Party.`
+                `You walk out onto a steel catwalk. You see an infinite maze of these catwalks in every direction, and figures in an endless array of wild and impossbile costumes of all shapes and sizes. DESCRIBE SOME OF THE SCENES AS YOU WALK.`
             );
             playText(onEnd => {
-                showBottomChoices();
-            })
+                createDialog('long', 'buzz', `~BUZZ MORLEY~^^Busy, busy! Memespace is bumpin tonight! That's why we had to bring in you eh... erm.. \`amateurs\` tonight.`, onClick => {
+                    dismissDialog(null, true);
+                    dismissDialog('long');
+                    createNarrative(`He says \`amateur\` like he is trying to pronounce it in the language from which the word is origianlly derived, without actually knowing which language.`);
+                    playText(onEnd => {
+                        createDialog('long', 'buzz', `~BUZZ MORLEY~^^Here we are! Stage 2B, Leak Party. I'll let you take it from here. Break a leg! Figuratively, of course. If you were to actually break your leg... I knew we were forgetting something! The waiver, I have it here somewhere.`, onClick => {
+                            dismissDialog(null, true);
+                            dismissDialog('long');
+                            createNarrative(`He pats his pockets and looks around beseechingly, presumably for someone to blame. A mechanical voice drawls from inside Stage 2B, "They're ready for you, boss."`);
+                            playText(onEnd => {
+                                createDialog('long', 'buzz', `~BUZZ MORLEY~^^No matter! It will have to do. \`The show must go on!\` But absolutely NO leg breaking, or any bones while we're on the subject.`, onClick => {
+                                    shiftDialog('long');
+                                    showBottomChoices();
+                                }, true);
+                                playText(null, null, 'long');
+                            });
+                        }, true);
+                        playText(null, null, 'long')
+                    });
+                }, true);
+                playText(null, null, 'long');
+            });
         }
 
     </script>
