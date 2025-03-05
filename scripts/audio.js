@@ -4,6 +4,7 @@ let audioPath;
 
 export function playAudio(audioUrl, loop, fadeDuration) {
 
+    console.log(`playing: ${audioUrl}`)
 
     if (audioUrl != audioPath) {
         audio = new Audio(audioUrl);
@@ -53,11 +54,13 @@ export function playAudio(audioUrl, loop, fadeDuration) {
 }
 
 export async function stopAudio() {
+    console.log(`stopping: ${audio}`);
     if (audio) {
         const fadeDuration = 1000;
         const interval = 50;
         const fadeStep = audio.volume / (fadeDuration / interval);
 
+        console.log(`volume: ${audio.volume}`);
         const fadeOut = setInterval(() => {
             if (audio.volume > 0) {
                 audio.volume = Math.max(0, audio.volume - fadeStep);
