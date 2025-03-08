@@ -9,14 +9,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('tree-chase.html?choice=climb')">Cut your losses</a>
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -28,19 +23,17 @@
                 `The {squirrel} is right. You could never expect to be compete with its arboreal superiority. Better to slide back down the tree before you get hurt.`
             );
             playText(onEnd => {
-                createDialog('long', 'squirrel', `~SQUIRREL~^^Putoat! Putoat!`, onClick => {
+                createDialog('long', 'squirrel', `Putoat! Putoat!`, onClick => {
                     dismissDialog(null, true);
                     dismissDialog('long');
                     createNarrative(`Dang squirrel! It's becoming aggressive, jumping on and off your head and yanking your hair.`);
                     playText(onEnd => {
-                        createDialog('long', 'squirrel', `~SQUIRREL~^^PUTOAT! PUTOAT!`, onClick => {
+                        createDialog('long', 'squirrel', `PUTOAT! PUTOAT!`, onClick => {
                             redirect('tree-chase.html?choice=climb');
                         });
-                        playText(null, null, 'long');
                     });
                 });
-                playText(null, null, 'long');
-            }, [`toggleSidebar('id', 'squirrel')`]
+            }, [`toggleSidebar('id', 'squirrel', event)`]
             );
         }
 

@@ -9,18 +9,12 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <span>You stop recording and <a class="choice-button" onClick="redirect('paint4.html')">walk
-                        closer</a>.</span>
-            </div>
         </div>
         <div id="custom-alert" class="snackbar">
             <p id="alert-message"></p>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -33,7 +27,7 @@
                 `You pull out your phone, open the camera app, zoom in on the hulk, and hit record as it lumbers along the beach.^^As you hold the phone steady, you notice more. The beast has rings of gold and black chains that pulsate with a balloon-like shine. These braids are intricately wrapped around its limbs. On its legs, you notice that their width and incline would be possible to climb up the body.`
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices([{ label: '<span>You stop recording and </span>walk closer', onClick: `redirect('paint4.html')` }]);
                 addItem('beast recording');
 
             });

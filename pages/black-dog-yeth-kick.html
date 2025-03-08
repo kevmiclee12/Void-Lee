@@ -10,15 +10,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <span>You start to <a class="choice-button" style="font-style: italic;"
-                        onClick="redirect('black-dog-yeth-kick-regret.html')">feel bad</a>.</span>
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -35,7 +29,7 @@
                 `${prefix}^^It looks you right in your eyes.`
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices([{ label: '<span>You start to </span>feel bad.', onClick: `redirect('black-dog-yeth-kick-regret.html')` }]);
             });
         }
 

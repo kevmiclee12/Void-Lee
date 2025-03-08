@@ -10,18 +10,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <span>Or was it because it was<a class="choice-button" style="font-style: italic;"
-                        onClick="redirect('black-dog-heal.html?choice=monster')">
-                        so scary
-                    </a></span>
-
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -34,7 +25,7 @@
                 `You animal abuser!! But...its face is human, you say. Does that make it okay?^^Do you hate the human-faced dog because it's pieces of you?^Did you kick the dog-bodied human because it's pieces of you?`
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices([{ label: '<span>Or was it because it was </span><i>so scary</i>?', onClick: `redirect('black-dog-heal.html?choice=monster')` }]);
             });
         }
 

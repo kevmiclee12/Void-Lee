@@ -10,13 +10,13 @@ export function buildSidebar() {
     const sidebarOptions = document.getElementById("sidebar-options");
 
     const innerHTML = `
-    <div class="icon" onclick="toggleSidebar('bag')">${BAG_ICON}</div>
-        <div class="icon" onclick="toggleSidebar('stats')">${STATS_ICON}</div>
+    <div class="icon" onclick="toggleSidebar('bag', null, event)">${BAG_ICON}</div>
+        <div class="icon" onclick="toggleSidebar('stats', null, event)">${STATS_ICON}</div>
         <div class="icon-container">
-        <div class="icon" onclick="toggleSidebar('phone')">
+        <div class="icon" onclick="toggleSidebar('phone', null, event)">
             ${PHONE_ICON}
         </div>
-        ${openedDict ? `<div class="icon" onclick="toggleSidebar('id')">${ID_ICON}</div>` : ''}
+        ${openedDict ? `<div class="icon" onclick="toggleSidebar('id', null, event)">${ID_ICON}</div>` : ''}
         ${newPhonePassage ? '<div class="notification-badge"><p>1</p></div>' : ''}
     </div>`
 
@@ -35,7 +35,8 @@ export function buildSidebar() {
     }
 }
 
-export function toggleSidebar(value, dictPage) {
+export function toggleSidebar(value, dictPage, event) {
+    event.stopPropagation();
     const sidebar = document.getElementById("sidebar")
     sidebar.classList.toggle("open");
     clearDictHistory();
@@ -75,7 +76,7 @@ function buildItems() {
 
     const clearButton = `<button onclick="clearItems()">Empty Bag</button>`
 
-    const closeBtn = `<button onclick="toggleSidebar('bag')">Close Bag</button>`
+    const closeBtn = `<button onclick="toggleSidebar('bag', null, event)">Close Bag</button>`
 
     sidebar.innerHTML = title + itemsList + clearButton + closeBtn
 }
@@ -101,7 +102,7 @@ function buildStats() {
         return `<div style="width: 340px; display: flex; flex-direction: row;"><span style="flex: 1">${stat.split(':')[0]}:</span><span style="flex: 1">${stat.split(':')[1]}</span></div>`
     }).join('<br>')}</p>`
 
-    const closeBtn = `<button onclick="toggleSidebar('stats')">Close</button>`
+    const closeBtn = `<button onclick="toggleSidebar('stats', null, event)">Close</button>`
 
     sidebar.innerHTML = title + statList + `<p>party aspect: ${partyStatus}</p><br>` + closeBtn
 }
@@ -129,7 +130,7 @@ function buildPhone() {
     const title = `<p class="sidebar-title">PHONE</p>`
 
 
-    const closeBtn = `<button onclick="toggleSidebar('phone'); buildSidebar();">Close</button>`
+    const closeBtn = `<button onclick="toggleSidebar('phone', null, event); buildSidebar();">Close</button>`
 
     sidebar.innerHTML = title + body + closeBtn
 }
@@ -166,7 +167,7 @@ function buildDict(page) {
         sidebar.innerHTML = title + body + btn;
 
         let sidebarOptions = document.getElementById("sidebar-options");
-        sidebarOptions.innerHTML += `<div class="icon" onclick="toggleSidebar('id')">${ID_ICON}</div>`;
+        sidebarOptions.innerHTML += `<div class="icon" onclick="toggleSidebar('id', null, event)">${ID_ICON}</div>`;
 
         return;
     } else {
@@ -202,7 +203,7 @@ function buildDict(page) {
     }
 
 
-    const closeBtn = `<button onclick="toggleSidebar()">Put Identifier Away</button>`;
+    const closeBtn = `<button onclick="toggleSidebar(null, null, event)">Put Identifier Away</button>`;
     buttons.push(closeBtn);
 
     const buttonsHtml = `<div style="display: flex; flex-direction: column; gap: 8px;">${buttons.join('')}</div>`;
@@ -236,7 +237,7 @@ function buildDictHome() {
     const sidebar = document.getElementById('sidebar');
     const closeBtn = `
     <div style="display: flex; flex-direction: column; gap: 8px;">
-        <button onclick="toggleSidebar()">Put Identifier Away</button>
+        <button onclick="toggleSidebar(null, null, event)">Put Identifier Away</button>
     </div>`;
 
     sidebar.innerHTML = getDictEntry() + closeBtn;

@@ -32,12 +32,16 @@
                     top: 5vw;
                     position: absolute;" data-text="Void Lee">
             </p>
-            <p class="fade" id="delayedMessage"
-                style="visibility:hidden; position: absolute; left: 10vw; top: 35vw; line-height: 1;">
+            <div class="fade" id="delayedMessage"
+                style="visibility:hidden; position: absolute; left: 10vw; top: 35vw; flex-direction: column; display: flex;">
                 <a class="choice-button" onClick="stopAudio(); redirect('pages/home.html')">
                     New game
                 </a>
-            </p>
+                <div style="height: 8px"></div>
+                <a class="choice-button" onClick="stopAudio(); redirect('pages/credits.html')">
+                    Credits
+                </a>
+            </div>
         </div>
     </div>
 
@@ -52,7 +56,7 @@
     <link rel="stylesheet" href="styles/alert.css">
     <link rel="stylesheet" href="styles/choices.css">
     <link rel="stylesheet" href="styles/button.css">
-
+    <link rel="stylesheet" href="../styles/dialog.css">
 </body>
 
 </html>

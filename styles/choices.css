@@ -21,6 +21,10 @@
     margin: 0;
     line-height: 1;
     color: #9F3A27;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 62vw;
+    display: inline-block;
 }
 
 .choice-button:hover {

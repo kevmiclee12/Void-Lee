@@ -9,19 +9,7 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('faeries-follow1.html?choice=lesson')">"Let that be a lesson
-                    to
-                    you."</a>
-                <br>
-                <a class="choice-button" onClick="redirect('faeries-follow1.html?choice=thanks')">"Self-help is my
-                    favorite
-                    genre, thanks!"</a>
-                <br>
-                <a class="choice-button" onClick="redirect('faeries-follow1.html?choice=wink')">Wink.</a>
-            </div>
         </div>
         <div id="custom-alert" class="snackbar">
             <p id="alert-message"></p>
@@ -39,18 +27,18 @@
             buildSidebar();
             const showItem = checkItems('self-help book');
 
-            createDialog('long', 'faerie2', `~HONGATAR #2~^^Mercy!`, onClick => {
+            createDialog('long', 'faerie2', `Mercy!`, onClick => {
                 dismissDialog('long');
-                createDialog('long', 'faerie1', `~HONGATAR #1~^^Forgive us!`, onClick => {
+                createDialog('long', 'faerie1', `Forgive us!`, onClick => {
                     dismissDialog('long');
                     createNarrative(
                         `The {hongatar} now all seem to hold you in great reverence and awe, as if you were a god of the whole forest.`
                     );
                     playText(onEnd => {
-                        createDialog('long', 'faerie3', `~HONGATAR #3~^^A being of your stature should not dirty their hands with such filth.`, onClick => {
+                        createDialog('long', 'faerie3', `A being of your stature should not dirty their hands with such filth.`, onClick => {
                             dismissDialog('long');
                             removeItem('hongatar trash');
-                            createDialog('long', 'faerie3', `~HONGATAR #3~^^We found this magical tome in the forest. We can't read it but we know it's valuable. Here.`, onClick => {
+                            createDialog('long', 'faerie3', `We found this magical tome in the forest. We can't read it but we know it's valuable. Here.`, onClick => {
                                 dismissDialog(null, true);
                                 dismissDialog('long');
                                 if (showItem) {
@@ -60,17 +48,17 @@
                                     `The {hongatar} all stare at you expectantly, like eager children.`
                                 );
                                 playText(onEnd => {
-                                    showBottomChoices();
-                                }, [`toggleSidebar('id', 'hongatar')`]);
+                                    showBottomChoices([
+                                        { label: `"Let that be a lesson to you."`, onClick: `redirect('faeries-follow1.html?choice=lesson')` },
+                                        { label: `"Self-help is my favorite genre, thanks!"`, onClick: `redirect('faeries-follow1.html?choice=thanks')` },
+                                        { label: 'Wink.', onClick: `redirect('faeries-follow1.html?choice=wink')` }
+                                    ]);
+                                }, [`toggleSidebar('id', 'hongatar', event)`]);
                             });
-                            playText(null, null, 'long');
                         });
-                        playText(null, null, 'long');
-                    }, [`toggleSidebar('id', 'hongatar')`]);
+                    }, [`toggleSidebar('id', 'hongatar', event)`]);
                 });
-                playText(null, null, 'long');
             });
-            playText(null, null, 'long');
         }
 
     </script>

@@ -14,15 +14,6 @@
             <div
                 style="background-image: url(../resources/images/backgrounds/window-slats.png); height: 80vh; position: relative; background-size: auto; background-repeat: no-repeat; background-position: center; pointer-events: none;">
             </div>
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" id="umbrella">Umbrella</a>
-                <br>
-                <a class="choice-button" id="cards">Deck of cards</a>
-                <br>
-                <a class="choice-button" id="zipties">Zip ties</a>
-                <br>
-                <a class="choice-button" id="nothing">Nothing</a>
-            </div>
         </div>
         <div id="custom-alert" class="snackbar">
             <p id="alert-message"></p>
@@ -39,54 +30,56 @@
             const params = new URLSearchParams(window.location.search);
             const choice = params.get('choice');
 
-            const umbrellaBtn = document.getElementById('umbrella');
-            umbrellaBtn.onclick = function () {
+
+            createNarrative(
+                `Will you take anything with you?`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    {
+                        label: 'Umbrella',
+                        onClick: `
                 addItem('umbrella');
                 hideBottomChoices();
                 dismissDialog(null, true);
                 createNarrative('Good thinking. {Continue}');
                 playText(onEnd => {
 
-                }, [`redirect('${choice}.html')`])
-            }
-
-            const cardsBtn = document.getElementById('cards');
-            cardsBtn.onclick = function () {
+                }, [\`redirect('${choice}.html')\`])`
+                    },
+                    {
+                        label: 'Deck of cards',
+                        onClick: `
                 addItem('deck of cards');
                 hideBottomChoices();
                 dismissDialog(null, true);
                 createNarrative('Maybe someone will want to play. {Continue}');
                 playText(onEnd => {
 
-                }, [`redirect('${choice}.html')`])
-            }
-
-            const ziptiesBtn = document.getElementById('zipties');
-            ziptiesBtn.onclick = function () {
+                }, [\`redirect('${choice}.html')\`])`
+                    },
+                    {
+                        label: 'Zip ties',
+                        onClick: `              
                 addItem('zip ties');
                 hideBottomChoices();
                 dismissDialog(null, true);
-                createNarrative(`Never know when you'll need a zip tie! {Continue}`);
+                createNarrative(\`Never know when you'll need a zip tie! {Continue}\`);
                 playText(onEnd => {
 
-                }, [`redirect('${choice}.html')`])
-            }
-
-            const nothingBtn = document.getElementById('nothing');
-            nothingBtn.onclick = function () {
+                }, [\`redirect('${choice}.html')\`])`
+                    },
+                    {
+                        label: 'Nothing',
+                        onClick: `
                 hideBottomChoices();
                 dismissDialog(null, true);
-                createNarrative(`Material belognings only weigh you down! {Continue}`);
+                createNarrative(\`Material belongings only weigh you down! {Continue}\`);
                 playText(onEnd => {
 
-                }, [`redirect('${choice}.html')`])
-            }
-
-            createNarrative(
-                `Will you take anything with you?`
-            );
-            playText(onEnd => {
-                showBottomChoices();
+                }, [\`redirect('${choice}.html')\`])`
+                    }
+                ]);
             });
         }
 
@@ -95,6 +88,8 @@
     <link rel="stylesheet" href="../styles/button.css">
     <link rel="stylesheet" href="../styles/dialog.css">
     <link rel="stylesheet" href="../styles/choices.css">
+    <link rel="stylesheet" href="../styles/alert.css">
+
 </body>
 
 </html>

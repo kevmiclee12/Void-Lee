@@ -9,22 +9,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('hypno5.html?lines=true')">"I don't think I'm cut out
-                    for
-                    this."</a>
-                <br>
-                <a class="choice-button" onClick="redirect('hypno5.html?lines=true')">"I need more time to go over
-                    my
-                    lines!"</a>
-                <br>
-                <a class="choice-button" onClick="increaseStat('will', 1); redirect('hypno5.html')">"I got this!"</a>
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -36,15 +23,18 @@
                 `You hear one knock at the door before it swings open. A large fellow bustles in importantly, his smile entreating you.^^With a gusto that feels suspiciously contrived, he addresses you.`
             );
             playText(onEnd => {
-                createDialog('long', 'buzz', `~BUZZ MORLEY~^^You're not ready? Don't worry, you'll be fine.^\`The show must go on\`!`,
+                createDialog('long', 'buzz', `You're not ready? Don't worry, you'll be fine.^\`The show must go on\`!`,
                     onClick => {
                         dismissDialog(null, true);
                         shiftDialog('long');
-                        showBottomChoices();
+                        showBottomChoices([
+                            { label: `"I don't think I'm cut out for this."`, onClick: `redirect('hypno5.html?lines=true')` },
+                            { label: `"I need more time to go over my lines!"`, onClick: `redirect('hypno5.html?lines=true')` },
+                            { label: `"I got this!"`, onClick: `increaseStat('will', 1); redirect('hypno5.html')` }
+                        ]);
                     },
                     true,
                 );
-                playText(null, null, 'long');
             })
         }
 

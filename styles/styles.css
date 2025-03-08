@@ -15,6 +15,7 @@ body {
     background-position: center !important;
     position: relative;
     background-repeat: no-repeat;
+    animation: pulse 4.0s infinite;
 }
 
 
@@ -173,8 +174,6 @@ a {
     animation: fadeOut 0.2s ease-in-out forwards;
     pointer-events: none;
 }
-
-
 
 .sidebar {
     width: 250px;

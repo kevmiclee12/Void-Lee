@@ -9,14 +9,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('park-wish-done.html')">Open your mouth to reply.</a>
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -24,11 +19,10 @@
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
-            createDialog('long', 'drunk1', '~DRUNK #1~^^And you never looked up before either, huh?', onClick => {
+            createDialog('long', 'drunk1', 'And you never looked up before either, huh?', onClick => {
                 shiftDialog('long');
-                showBottomChoices();
+                showBottomChoices([{ label: 'Open your mouth to reply.', onClick: `redirect('park-wish-done.html')` }]);
             }, true);
-            playText(null, null, 'long');
         }
 
     </script>

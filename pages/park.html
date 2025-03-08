@@ -10,22 +10,12 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('park-wish.html')">Wish there were more people here.</a>
-                </br>
-                <a class="choice-button"
-                    onClick="increaseStat('shitheadedness', 1); redirect('neighborhood.html')">Leave the park to enter
-                    the
-                    neighborhood.</a>
-            </div>
         </div>
     </div>
 
     <script type="module">
         import * as script from "../script.js"
-
 
         window.onload = function () {
 
@@ -35,7 +25,10 @@
                 `You are in an empty park. In the distance, a childrens' play structure. Behind the play structure sits an empty public pool in yellow and light blue. Behind you, a soccer field, basketball court, and extensive skatepark.`
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices([
+                    { label: 'Wish there were more people here.', onClick: `redirect('park-wish.html')` },
+                    { label: '<span>Leave the park to </span>enter the neighborhood.', onClick: `increaseStat('shitheadedness', 1); redirect('neighborhood.html')` }
+                ]);
             });
         }
 

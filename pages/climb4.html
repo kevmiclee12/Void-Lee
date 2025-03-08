@@ -40,7 +40,7 @@
                 localStorage.setItem('partyStatus', 'squirrel bitch');
             }
 
-            const choices = [`addItem('pinecone')`, `toggleSidebar('id', 'squirrel')`];
+            const choices = [`addItem('pinecone')`, `toggleSidebar('id', 'squirrel', event)`];
 
             createNarrative(text + `^^The {squirrel} wants you to follow it.`);
 
@@ -48,13 +48,12 @@
                 createDialog(
                     'long',
                     'squirrel',
-                    `~SQUIRREL~^^Puolue! Puolue!`,
+                    `Puolue! Puolue!`,
                     onClick => {
                         redirect('climb5.html');
                     },
                     true,
                 );
-                playText(null, null, 'long');
             }, choices)
         }
 

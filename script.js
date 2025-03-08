@@ -63,7 +63,16 @@ function startGame() {
     localStorage.setItem("hasNewPhoneItem", false);
     localStorage.setItem("caughtSquirrel", false);
 
-    playText(() => showBottomChoices(), null, 'title');
+    playText(() => {
+        showBottomChoices(
+            [
+                { label: 'New game', onClick: `stopAudio(); redirect('pages/home.html')` },
+                { label: 'Credits', onCLick: '' },
+            ],
+            true,
+        );
+    },
+        null, 'title');
     playAudio('resources/audio/intro.mp3', true, 5);
 }
 window.startGame = startGame;

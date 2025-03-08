@@ -11,13 +11,8 @@
 <body>
     <div id="overlay" onClick="finishText()">
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('neighborhood-approach-tag1.html')">Tag it.</a>
-            </div>
         </div>
     </div>
-
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -29,7 +24,7 @@
                 `It's too late. You already shook the can. The gang edges closer, a mass of goading and menace. There is nowhere to run.`
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices([{ label: 'Tag it.', onClick: `redirect('neighborhood-approach-tag1.html')` }]);
             });
         }
 

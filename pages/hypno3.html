@@ -9,16 +9,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('hypno3a.html')">Keep practicing</a>
-                <br>
-                <a class="choice-button" onClick="redirect('hypno4.html')">Finish</a>
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -31,7 +24,10 @@
                 ^^"What a good boy am I, so far from being an ant."^"What a good boy... am I! So... \`far\` from being an ant!"^"What a good boy am I, so far... from \`being\` an ant."^...^"Builder of the gods, put an orange-soda fountain in my bedroom!"^"Builder... \`of the gods\`, put an orange-soda fountain in... \`my bedroom\`!"^"BUILDER OF THE GODS... PUT AN ORANGE-SODA FOUNTAIN IN MY BEDROOM!"^...^"Where's my wife? I miss her."^"Where's my... \`wife?\` I miss her!"^"Where's \`my\` wife? \`I miiiiiss herrrrrrr\`!!!"`
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices([
+                    { label: 'Keep practicing.', onClick: `redirect('hypno3a.html')` },
+                    { label: 'Finish.', onClick: `redirect('hypno4.html')` }
+                ]);
             })
         }
 

@@ -26,7 +26,7 @@
                 `Atta boy. Quitters never win! Your brow is wet with dream sweat. Your hands and limbs are all scraped up from climbing. You feel sappy bits on your clothes and face. The {squirrel} comes a little closer to you.^^Your muscles start to tremble. The squirrel gets up in your grill.`
             );
             playText(onEnd => {
-                createDialog('long', 'squirrel', `~SQUIRREL~^^Putoat! Putoat!`, onClick => {
+                createDialog('long', 'squirrel', `Putoat! Putoat!`, onClick => {
                     dismissDialog('long');
                     dismissDialog(null, true);
                     createNarrative(
@@ -35,8 +35,7 @@
                     playText(null, [`skillRoll('athletics', () => redirect('climb4.html?success=true'), () => redirect('climb4.html?success=false'))`])
 
                 }, true);
-                playText(null, null, 'long');
-            }, [`toggleSidebar('id', 'squirrel')`]);
+            }, [`toggleSidebar('id', 'squirrel', event)`]);
         }
 
     </script>

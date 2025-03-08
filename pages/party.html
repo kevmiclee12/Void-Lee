@@ -26,14 +26,12 @@
                 `When you come to, you're still in the clearing, but it all seems \`different\`. The squirrel and hongatar are all here, but perfectly conscious. There is upbeat music, merry-making and of course, a keg!`
             );
             playText(onEnd => {
-                createDialog('long', 'faerie1', `~HONGATAR #1~^^WOOOOOOOTTT!`, onClick => {
+                createDialog('long', 'faerie1', `WOOOOOOOTTT!`, onClick => {
                     dismissDialog('long');
-                    createDialog('long', 'squirrel', '~SQUIRREL~^^JOOOOOOOO!', onClick => {
+                    createDialog('long', 'squirrel', 'JOOOOOOOO!', onClick => {
 
                     }, true);
-                    playText(null, null, 'long');
                 });
-                playText(null, null, 'long');
             });
         }
 

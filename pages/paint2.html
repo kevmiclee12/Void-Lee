@@ -9,14 +9,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('paint3.html')">Pull out your phone</a>
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -29,7 +24,7 @@
                 `The wind blows in gusts. It tastes salty, like dead birds must.^^A long-legged creature steps in earth-shaking steps, moving with the pace of the blowing winds. The closest one towers over you. It is covered in dirt and seaweed, and it drips water.^^As you look out along the coast, there are many such beasts. They recede past the curve of the coast, shrouded in mist and seagulls.^^You admire the immense mass of your nearest beast. Like a child, you stare in unselfconscious awe of the thing. For you it is colored by no relatable experience. Lost in awe, you forget that you yourself are on the same beach.`
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices([{ label: 'Pull out your phone.', onClick: `redirect('paint3.html')` }]);
             });
         }
 

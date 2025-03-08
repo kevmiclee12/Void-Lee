@@ -158,11 +158,21 @@ export function finishText(additionalCallback) {
 
     for (let i = 0; i < timeoutFns.length; i++) {
         timeoutFns[i]();
-        timeoutFns.splice(i, 1);
     }
+    timeoutFns = [];
+
+    const dialogs = document.querySelectorAll("#long.movable");
+    dialogs.forEach(e => {
+        e.style.pointerEvents = "auto";
+    })
 
     if (additionalCallback) {
         additionalCallback();
+    }
+
+    const sidebar = document.getElementById("sidebar")
+    if (sidebar.classList.contains("open")) {
+        sidebar.classList.toggle("open");
     }
 }
 
@@ -197,19 +207,64 @@ function insertLineBreaks(element, maxWidth) {
     }
 }
 
-export function showBottomChoices() {
-    const delayedMessage = document.getElementById('delayedMessage');
-    if (delayedMessage) {
-        delayedMessage.style.visibility = 'visible';
+export function showBottomChoices(choices, isHome, isRight) {
+    if (isHome) {
+        const delayedMessage = document.getElementById('delayedMessage');
+        if (delayedMessage) {
+            delayedMessage.style.visibility = 'visible';
+        }
+    } else {
+        const dialogBoxWrapper = document.createElement('div')
+        const dialogBox = document.createElement('div');
+        const avatar = document.createElement('img');
+
+        const avatarData = AVATAR_MAP['player'];
+        avatar.src = avatarData['image'];
+        avatar.id = 'avatar';
+        avatar.classList.add('dialog-avatar');
+        if (rightAlignUserAvatar) {
+            avatar.style.left = '70vw';
+            avatar.style.transform = 'scaleX(-1)';
+        }
+
+        choices.forEach((choice, index) => {
+            const button = document.createElement('a');
+            button.classList.add('choice-button');
+            button.innerHTML = choice.label.replace(/(<span>)/g, '<span style="color: black">')
+
+            button.setAttribute("onclick", choice.onClick);
+            const lineBreak = document.createElement('div');
+            lineBreak.style.height = '8px';
+            dialogBox.appendChild(button);
+            if (index < choices.length - 1) {
+                dialogBox.appendChild(lineBreak);
+            }
+        })
+
+        const story = document.getElementById('story');
+
+        dialogBox.classList.add('dialog-text');
+        dialogBoxWrapper.id = 'choices';
+        dialogBox.style.whiteSpace = 'normal';
+
+        dialogBoxWrapper.appendChild(dialogBox);
+        story.appendChild(dialogBoxWrapper);
+
+        story.appendChild(avatar);
     }
+
 }
 
 export function hideBottomChoices() {
-    const delayedMessage = document.getElementById('delayedMessage');
-    if (delayedMessage) {
-        delayedMessage.style.visibility = 'hidden';
-    }
+    const choices = document.getElementById('choices');
+    choices.style.visibility = 'hidden';
+
+    const avatars = document.querySelectorAll(`#avatar`)
+
+    avatars.forEach(el => el.remove());
 }
+
+
 
 let narrativeCount = 0;
 
@@ -252,18 +307,16 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
     const avatar = document.createElement('img');
 
 
-    if (avatarType != 'none') {
-        const avatarData = AVATAR_MAP[avatarType];
-        avatar.src = avatarData;
-        avatar.id = 'avatar';
-        avatar.classList.add('dialog-avatar');
-    }
+    const avatarData = AVATAR_MAP[avatarType];
+    avatar.src = avatarData['image'];
+    avatar.id = 'avatar';
+    avatar.classList.add('dialog-avatar');
 
     const text = document.createElement('p');
     text.id = dialogType;
     text.classList.add('dialog-text');
     text.classList.add('movable-text');
-    text.setAttribute('data-text', dialogText);
+    text.setAttribute('data-text', `~${avatarData['name']}~^^${dialogText}`);
 
     const bounceText = document.createElement('p');
     bounceText.id = dialogType;
@@ -278,6 +331,8 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
     // dialogBox.src = dialogData.src
     dialogBox.classList.add(dialogData.class);
     dialogBox.classList.add('movable');
+    dialogBox.style.cursor = 'pointer';
+
     dialogBoxWrapper.id = dialogType;
     dialogBoxWrapper.style.cursor = 'pointer';
     dialogBoxWrapper.style.display = 'inline-block';
@@ -287,7 +342,6 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
     dialogBoxWrapper.onclick = function (event) {
         event.stopPropagation();
         onClick();
-
     };
     dialogBoxWrapper.appendChild(dialogBox);
     story.appendChild(dialogBoxWrapper);
@@ -306,7 +360,11 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
             audio.play();
         }, 800);
     }
+
+    playText(null, null, dialogType);
 }
+
+let rightAlignUserAvatar = false;
 
 export function dismissDialog(id, textOnly) {
     const removeItems = [...document.querySelectorAll(`#${id ?? `main${narrativeCount - 1}`}`), ...document.querySelectorAll(`#dialog`)];
@@ -316,10 +374,15 @@ export function dismissDialog(id, textOnly) {
     }
 
     removeItems.forEach(el => el.remove());
+    rightAlignUserAvatar = false;
 }
 
 export function shiftDialog(id) {
     document.querySelectorAll(`#${id}`).forEach(el => {
         el.classList.add('clicked')
     })
+    rightAlignUserAvatar = true;
 }
+
+const sinkPassages = ['climb', 'sleep-dream.', 'sleep-dream1.', 'swing-it', 'tree-chase', 'faeries-']
+

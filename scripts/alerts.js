@@ -11,7 +11,7 @@ export function closeCustomAlert(callback) {
     callback();
 }
 
-export function showSnackbar(message, duration = 4000) {
+export function showSnackbar(message, duration = 4000, callBack) {
     const alertBox = document.getElementById("custom-alert");
     const messageBox = document.getElementById("alert-message");
     messageBox.innerHTML = message;
@@ -23,6 +23,9 @@ export function showSnackbar(message, duration = 4000) {
 
         setTimeout(() => {
             alertBox.classList.remove("show", "hide");
+            if (callBack) {
+                callBack();
+            }
         }, 500);
     }, duration);
 }

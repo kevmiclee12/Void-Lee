@@ -10,19 +10,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="redirect('neighborhood-approach.html')">Walk right up to them.</a>
-                <br>
-                <a class="choice-button" onClick="redirect('neighborhood-avoid.html')">Cut right behind the
-                    skatepark.</a>
-                <br>
-                <a class="choice-button" onClick="redirect('park.html')">Return to the park</a>
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -34,7 +24,11 @@
                 `Further down past the skate park, and some desolate fences, a bridge crosses over, making an underpass. Random cars and trucks sit under the shelter of the bridge. A group of people stand between a grey tractor trailer truck and a push-up muscles yellow truck.`
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices([
+                    { label: 'Walk right up to them.', onClick: `redirect('neighborhood-approach.html')` },
+                    { label: 'Cut right behind the skatepark.', onClick: `redirect('neighborhood-avoid.html')` },
+                    { label: 'Return to the park.', onClick: `redirect('park.html')` }
+                ]);
             })
         }
 

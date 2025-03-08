@@ -14,28 +14,23 @@
             <div
                 style="background-image: url(../resources/images/backgrounds/window-slats.png); height: 80vh; position: relative; background-size: auto; background-repeat: no-repeat; background-position: center; pointer-events: none;">
             </div>
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-                <a class="choice-button" onClick="increaseStat('athletics', 1); redirect('home1.html?choice=park')">Go
-                    to
-                    the
-                    park</a></br>
-                <a class="choice-button"
-                    onClick="increaseStat('shitheadedness', 1); redirect('home1.html?choice=city')">Go into the
-                    city</a>
-                <br>
-                <a class="choice-button" onClick="increaseStat('will', 1); redirect('room.html')">Go to your
-                    room</a>
-                <br>
-                <span id="phone">You can do anything! <a class="choice-button" onClick="increaseStat('shitheadedness', 1); localStorage.setItem('hasNewPhoneItem', true);
-                    toggleSidebar('phone'); clearChoice('phone');">Look
-                        at
-                        your phone</a>.</span>
-            </div>
         </div>
     </div>
 
     <script type="module">
         import * as script from "../script.js"
+
+        const choices = [
+            { 'label': 'Go to the park.', 'onClick': `increaseStat('athletics', 1), redirect('home1.html?choice=park')` },
+            { 'label': 'Go into the city.', 'onClick': `increaseStat('shitheadedness', 1); redirect('home1.html?choice=city')` },
+            { 'label': 'Go to your room.', 'onClick': `increaseStat('will', 1); redirect('room.html')` },
+            { 'label': '<span>You can do anything! </span>Look at your phone.', 'onClick': `increaseStat('shitheadedness', 1); localStorage.setItem('hasNewPhoneItem', true); toggleSidebar('phone', null, event); clearPhoneChoice();` },
+        ];
+
+        window.clearPhoneChoice = function () {
+            hideBottomChoices();
+            showBottomChoices(choices.slice(0, 3))
+        }
 
         window.onload = function () {
             fadeInOverlay();
@@ -44,7 +39,7 @@
                 "Light pours through the blinds of your front window and onto the ceiling in stripes. The view out your window shows an empty alleyway.",
             );
             playText(onEnd => {
-                showBottomChoices();
+                showBottomChoices(choices);
             });
         }
 

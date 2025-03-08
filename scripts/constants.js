@@ -8,6 +8,8 @@ export const FAERIE_3 = "../resources/images/avatars/faerie3.png"
 export const BUZZ = "../resources/images/avatars/buzz.png"
 export const SQUIRREL = "../resources/images/avatars/squirrel.png"
 export const CRAIG = "../resources/images/avatars/craig.png"
+export const PLAYER = "../resources/images/avatars/player.png"
+
 
 export const DIALOG_BOX_MAP = {
     'long': {
@@ -23,13 +25,44 @@ export const DIALOG_BOX_MAP = {
 }
 
 export const AVATAR_MAP = {
-    'mud_man': MUD_MAN,
-    'drunk1': DRUNK_1,
-    'drunk2': DRUNK_2,
-    'faerie1': FAERIE_1,
-    'faerie2': FAERIE_2,
-    'faerie3': FAERIE_3,
-    'buzz': BUZZ,
-    'squirrel': SQUIRREL,
-    'craig': CRAIG,
+    'mud_man': {
+        'image': MUD_MAN,
+        'name': 'MUDMAN'
+    },
+    'drunk1': {
+        'image': DRUNK_1,
+        'name': 'DRUNK #1'
+    },
+    'drunk2': {
+        'image': DRUNK_2,
+        'name': 'DRUNK #2'
+    },
+    'faerie1': {
+        'image': FAERIE_1,
+        'name': 'HONGATAR #1'
+    },
+    'faerie2': {
+        'image': FAERIE_2,
+        'name': 'HONGATAR #2'
+    },
+    'faerie3': {
+        'image': FAERIE_3,
+        'name': 'HONGATAR #3'
+    },
+    'buzz': {
+        'image': BUZZ,
+        'name': 'BUZZ MORLEY'
+    },
+    'squirrel': {
+        'image': SQUIRREL,
+        'name': 'SQUIRREL'
+    },
+    'craig': {
+        'image': CRAIG,
+        'name': 'CRAIG'
+    },
+    'player': {
+        'image': PLAYER,
+        'name': 'YOU'
+    }
 }

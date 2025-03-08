@@ -9,13 +9,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
-            <div class="fade text" id="delayedMessage" style="visibility:hidden;">
-            </div>
         </div>
     </div>
-
 
     <script type="module">
         import * as script from "../script.js"
@@ -27,7 +23,7 @@
             const lines = params.get('lines');
 
 
-            createDialog('long', 'buzz', `~BUZZ MORLEY~^^${lines ? `Don't be ridiculous. Your part doesn't even have any lines.` : `Great, great. They're waiting for you out there.`} Quickly, put this on.`,
+            createDialog('long', 'buzz', `${lines ? `Don't be ridiculous. Your part doesn't even have any lines.` : `Great, great. They're waiting for you out there.`} Quickly, put this on.`,
                 onClick => {
                     dismissDialog('long');
                     createNarrative(
@@ -37,7 +33,6 @@
                 },
                 true,
             );
-            playText(null, null, 'long');
         }
 
     </script>

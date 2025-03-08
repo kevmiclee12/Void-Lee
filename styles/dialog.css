@@ -40,7 +40,7 @@
     pointer-events: none;
     opacity: 0;
     animation: slideInFadeInText 800ms ease-out forwards, wobble 2.0s infinite;
-    background-color: rgba(220, 225, 225, 0.6);
+    background-color: rgba(220, 225, 225, 0.35);
     border-radius: 8px;
     padding: 16px;
     outline: 1px solid #9F3A27;

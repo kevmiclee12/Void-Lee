@@ -65,12 +65,14 @@ export function checkAudio() {
     const url = window.location.href;
     const savedAudio = sessionStorage.getItem("audioPath")
 
-    if (savedAudio) {
-        if (url.includes('faeries')) {
-            playAudio(savedAudio, false, null);
-            const savedTime = sessionStorage.getItem("audioTime");
-            audio.currentTime = parseFloat(savedTime);
-        }
+    const resumeAudio = (savedAudio?.includes('faeries') && url.includes('faeries')) ||
+        (savedAudio?.includes('party') && url.includes('party')) ||
+        (savedAudio?.includes('hypno') && url.includes('hypno'))
+
+    if (resumeAudio) {
+        playAudio(savedAudio, true, null);
+        const savedTime = sessionStorage.getItem("audioTime");
+        audio.currentTime = parseFloat(savedTime);
     }
 }
 
