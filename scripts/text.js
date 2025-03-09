@@ -170,10 +170,10 @@ export function finishText(additionalCallback) {
         additionalCallback();
     }
 
-    const sidebar = document.getElementById("sidebar")
-    if (sidebar.classList.contains("open")) {
-        sidebar.classList.toggle("open");
-    }
+    // const sidebar = document.getElementById("sidebar")
+    // if (sidebar.classList.contains("open")) {
+    //     sidebar.classList.toggle("open");
+    // }
 }
 
 function insertLineBreaks(element, maxWidth) {
