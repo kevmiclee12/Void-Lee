@@ -23,8 +23,8 @@
             const choices = [`redirect('void.html')`, `redirect('paint1.html')`]
 
             createNarrative(
-                `You sit down at the desk and open to a fresh page of the pad. You look down onto the off-white paper. A void to fill. Dimensionless. The desire to form and create something in that void. It pulls you, amuses you, scares you. You feel like proving yourself brave, resisting the urge to make marks. {Go into the Void}.
-                ^^You can feel the spirit rising in you, and the thrill of channeling that spirit! Feelings with no where to go are like idle hands...they animate. Or, no, do they become animate hands!? Nonononono, please no! You pick up the paintbrush, smoosh some acrylic paint into the palette and {Paint with your Heart}.`,
+                `You sit down at the desk and open to a fresh page of the pad. You look down onto the off-white page of the notebook. A void to fill. Dimensionless. The desire to form and create something in that void. It pulls you, amuses you, scares you. You feel like proving yourself brave, resisting the urge to make marks. {Go into the Void}.
+                ^^You can feel the spirit rising in you, and the thrill of channeling that spirit! Feelings with no where to go are like idle hands...they animate. Or, no, do they become animate hands!? Nonononono, please no! You pick up the pencil and lay out your favorite color markers, and {Draw with your Heart}.`,
             );
             playText(onEnd => {
                 showBottomChoices([{ label: `<span>Nah, nevermind. </span>I'm going to sleep.`, onClick: `redirect('sleep-dream.html?fromPaint=true')` }]);
