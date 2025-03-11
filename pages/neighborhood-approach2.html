@@ -21,10 +21,10 @@
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `You start talkin real fast. You were just being bold, you wanted to break taboo for a minute. You did not mean anything by it, you didn't have any reason to approach them. You are not a cop, you don't know any cops, and please can they delete those videos.`
+                `You start talkin real fast. You just wanted to break social norms for a second! You thought they looked cool is all! You are not a cop, you don't know any cops, and please can they stop recording?`
             );
             playText(onEnd => {
-                showBottomChoices([{ label: 'Ask if you can join their crew.', onClick: `redirect('neighborhood-approach3.html')` }]);
+                showBottomChoices([{ label: 'They ask you to tag the underpass wall.', onClick: `redirect('neighborhood-approach3.html')` }]);
             });
         }
 

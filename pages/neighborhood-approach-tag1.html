@@ -21,10 +21,10 @@
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `You draw a simple black outline of bubble letters.^^S^H^T^R^^You step back from the wall, admiring your own pluck. The group of guys come up around you. They filmed the whole thing. You're in the crew now. First time anyone just walked up and joined. They think you are an unhinged person, just crazy enough to help do crimes.`
+                `You draw a simple black outline of bubble letters, and fill it with neon orange.^^R^A^P^T^^You step back from the wall, admiring your handiwork. The group join you to inspect the piece, and you sense shrugs of approval. They filmed the whole thing. ^^"That's the first time anyone just tagged it when we tried this!"^^ They seem to think you are just unhinged enough, just edgy enough to join their crew.^^"Do you want to join our spraypaint crew? We're called The Kids of the Can"`
             );
             playText(onEnd => {
-                showBottomChoices([{ label: 'Help do crimes.', onClick: `redirect('neighborhood-approach-crimes.html')` }]);
+                showBottomChoices([{ label: 'Join.', onClick: `redirect('neighborhood-approach-crimes.html')` }]);
             });
         }
 
@@ -37,3 +37,11 @@
 </body>
 
 </html>
+
+<!-- Choices - Join or Decline. 
+ On decline, give choices to join neighborhood-flee or go back to the park.
+ On Join, 1. They group gives you a hoodie to wear, and you pull it on, feeling the energy of the group. 
+ 2. Montage= Over the next hours, with glee in your eyes, and mischief in your hearts, you circle the city, tagging and drawing, and fleeing detection through a number of secret passageways and cool cut-throughs. You see orange cats lounging in forgotten back-fields, children plucking treasures out from the city beach, and explore an abandoned factory. Joy and fun consumes you for a time. 
+ 3. Nearby a CDC government building, a great place to tag presents itself, a sign high above the street, but concealed from easy view. 
+ 4. As you and the gang make a landscape mural of the park on the back of the sign, you and the group notice a disturbance from your vantage point inside the CDC first floor windows.
+ 5. A horrible little goblin is dancing through the halls, and burst out of a door, dancing along, traipsing about, and galavanting. It looks pretty healthy for a goblin. You and the gang are transfixed as behind the goblin, people in labcoasts burst out of the same door, clutching at their chests, and blowing chunks between the cars in the parking lot.-->
