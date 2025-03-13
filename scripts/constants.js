@@ -9,6 +9,8 @@ export const BUZZ = "../resources/images/avatars/buzz.png"
 export const SQUIRREL = "../resources/images/avatars/squirrel.png"
 export const CRAIG = "../resources/images/avatars/craig.png"
 export const PLAYER = "../resources/images/avatars/player.png"
+export const SPRAY_PAINT_GANG = "../resources/images/avatars/spray-paint-gang.png"
+
 
 
 export const DIALOG_BOX_MAP = {
@@ -64,5 +66,15 @@ export const AVATAR_MAP = {
     'player': {
         'image': PLAYER,
         'name': 'YOU'
+    },
+    'spray-paint-gang': {
+        'image': SPRAY_PAINT_GANG,
+        'name': 'SPRAY PAINT GANG'
+    },
+    'biff': {
+        'name': 'BIFF'
+    },
+    'awah': {
+        'name': 'AWAH'
     }
 }

@@ -308,9 +308,11 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
 
 
     const avatarData = AVATAR_MAP[avatarType];
-    avatar.src = avatarData['image'];
-    avatar.id = 'avatar';
-    avatar.classList.add('dialog-avatar');
+    if (avatarData['image']) {
+        avatar.src = avatarData['image'];
+        avatar.id = 'avatar';
+        avatar.classList.add('dialog-avatar');
+    }
 
     const text = document.createElement('p');
     text.id = dialogType;

@@ -24,7 +24,22 @@
                 `You start talkin real fast. You just wanted to break social norms for a second! You thought they looked cool is all! You are not a cop, you don't know any cops, and please can they stop recording?`
             );
             playText(onEnd => {
-                showBottomChoices([{ label: 'They ask you to tag the underpass wall.', onClick: `redirect('neighborhood-approach3.html')` }]);
+                createDialog('long', 'spray-paint-gang', `Brooooooooo! Check out that UNDERPASS! You should tag it.`, onClick => {
+                    dismissDialog('long');
+                    dismissDialog(null, true);
+                    createNarrative(
+                        `You stand there holding two spray paint cans, thinking about their request. This has all happened so fast. They seem to respect your boldness, and now they have escalated the relationship faster than a trust fall. They tell you that if you join, you can keep the spraycans. They urge you to do your tag on the underpass wall.`
+                    );
+                    playText(onEnd => {
+                        createDialog('long', 'spray-paint-gang', 'TAG IT! TAG IT!', onClick => {
+                            shiftDialog('long');
+                            showBottomChoices([
+                                { label: 'Tag the wall.', onClick: `redirect('neighborhood-approach-tag.html')` },
+                                { label: 'Flee.', onClick: `redirect('neighborhood-approach-flee.html')` }
+                            ]);
+                        });
+                    });
+                });
             });
         }
 

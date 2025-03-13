@@ -12,9 +12,6 @@
     <div id="overlay" onClick="finishText()">
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
         </div>
-        <div id="custom-alert" class="snackbar">
-            <p id="alert-message"></p>
-        </div>
     </div>
 
     <script type="module">
@@ -23,12 +20,12 @@
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
-
-            playText(onEnd => {
+            createDialog('long', 'spray-paint-gang', `Didn't peg you for one of those "crime doesn't pay" types.`, onClick => {
+                shiftDialog('long');
                 showBottomChoices([
-                    { label: 'Tag the wall.', onClick: `redirect('neighborhood-approach-tag.html')` },
-                    { label: 'Flee.', onClick: `redirect('neighborhood-approach-flee.html')` }
-                ]);
+                    { label: 'Flee.', onClick: `redirect('neighborhood-approach-flee.html')` },
+                    { label: 'Go back to the park.', onClick: `redirect('park.html')` },
+                ])
             });
         }
 
