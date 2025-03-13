@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+
+    <script type="module">
+        import * as script from "../script.js"
+
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            localStorage.setItem('aspect', 'beest artist');
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+
+            let text = ''
+
+            switch (choice) {
+                case 'red':
+                    text = `Starts a battle sequence > Rushes at another beest > Slam: The beest lifts up its thick head, and smashes down on the other beest, Gust: The beest opens its maw and lets out a hurricane-force wind at the other colossus, Either way, it damages it. The other beest attacks your character's, knocking you off and into the sand.`;
+                    break;
+                case 'green':
+                    text = `The green button sends the beest into the ocean and a huge staircase rises up, opens up, and you draw the beest descending beneath the waves.^^You draw a series of panels where the beest and the human descend the stairs leading beneath the ocean. Behind them, the vault doors close and the stairs seem to move downward into the dark, which becomes lit by torches. The beest kneels down at the bottom of the steps, and you draw your character in front of a pair of double doors. You draw hands pulling the door handle open and then the character sees a massive library.`
+                    break;
+                case 'black':
+                    text = `You draw the toon pressing the black button. The beest begins to shake violently and you write a shakily lettered, awful crunching sound coming up out of it. The legs buckle, and it falls to the sand.`
+                    break;
+            }
+
+            createNarrative(text);
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'You hear a sound outside, and it breaks you out of your concentration on the comic...', onClick: `redirect('zombie.html')` },
+                ]);
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+
+</body>
+
+</html>

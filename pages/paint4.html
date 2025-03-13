@@ -25,7 +25,7 @@
             createNarrative(
                 `The next page, you draw your character alone, approaching the beast with the eyes of adventure. You draw the figure in the next panels {looking for a path up.}`);
             playText(onEnd => {
-
+                showBottomChoices({ label: 'Stop drawing.', onClick: `redirect('zombie.html')` })
             }, [`redirect('paint5.html');`]);
         }
 

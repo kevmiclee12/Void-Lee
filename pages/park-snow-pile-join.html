@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../script.js"
+
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(`The players beckon you in, and ask you to play defense. You stand in front of the goal post on the left, following the movement of the ball.^^It sails up into the sky, and is trapped by a black woman wearing a circular neck scarf. She is wearing goggles, her hair tight in a bun. She has on a blue pinnie. Your opponent's movements are agile as she feints past your teammate. She runs toward you, dribbling.`);
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: '<span>Run up to her, and </span>attempt to steal the ball <span>by making a smart lunge.</span>', onClick: `` },
+                    { label: '<span>Approach, but keep a distance to </span>put yourself between her and the goal.', onClick: `` },
+                    { label: 'Run back toward the goal<span>, keeping an eye over your shoulder.', onClick: `` },
+
+                ]);
+            });
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>
+
+<!-- TODO: the sound of a soccer ball kick and some shouting/cheering/whistle -->

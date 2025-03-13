@@ -51,7 +51,7 @@
                         });
                     });
                 } else {
-                    createDialog('long', 'awah', `Hi I'm Awah, she/they. What's your name?`, onClick => {
+                    createDialog('long', 'awah', `<i>(whisper)</i>^Hi I'm Awah, she/they. What's your name?`, onClick => {
                         dismissDialog(null, true);
                         shiftDialog('long');
                         showBottomChoices([{ label: '...', onClick: `continueAwah()` }])

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../script.js"
+
+        window.onload = function () {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(`You approach the snowpile, and as you do, you hear the sounds of sport and athleticism sprouting from the summit. As you look closer, you note that there are figures at the top of the snow pile, and it sounds sporting! As you climb the snowpile, the figures seem to grow in size, and the ground recedes. As you near the summit, you are sweating and breathing vigorously. Ah! What a nice hike! Before you, upon a flat stretch of snowy grass, there's a soccer match. It looks friendly and safe, yet competitive, and there are a variety of different people of all races and genders playing.^^Off to your side there is a kid playing marbles. {Talk to the kid.}^^To your other side there is a kid pulling another kid in a sled.^{Talk to them.}`);
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Call out to ask if you can join the match.', onClick: `redirect('park-snow-pile-join.html')` },
+                    { label: '<span>Watch for a minute, then back out, and </span> head back to the park.', onClick: `redirect('park.html')` },
+                ]);
+            }, [`talkToMarbleKid()`, `talkToSledKids()`]);
+        }
+
+        window.talkToMarbleKid = function () {
+            hideBottomChoices();
+            createDialog('long', 'marbleKid', `Marbles are the same shape as Earf!`, onClick => {
+                dismissDialog('long');
+                showBottomChoices([
+                    { label: 'Call out to ask if you can join the match.', onClick: `redirect('park-snow-pile-join.html')` },
+                    { label: '<span>Watch for a minute, then back out, and </span> head back to the park.', onClick: `redirect('park.html')` },
+                ]);
+            })
+        }
+
+        window.talkToSledKids = function () {
+            hideBottomChoices();
+            createDialog('long', 'sledKids', `Pull faster! No! Faster, cur!`, onClick => {
+                dismissDialog('long');
+                showBottomChoices([
+                    { label: 'Call out to ask if you can join the match.', onClick: `redirect('park-snow-pile-join.html')` },
+                    { label: '<span>Watch for a minute, then back out, and </span> head back to the park.', onClick: `redirect('park.html')` },
+                ]);
+            })
+        }
+
+    </script>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../styles/choices.css">
+</body>
+
+</html>

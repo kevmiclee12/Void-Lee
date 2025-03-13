@@ -54,7 +54,7 @@ function startGame() {
     localStorage.setItem("openedDict", JSON.stringify(false));
     localStorage.setItem("dictPages", JSON.stringify([]));
     localStorage.setItem("dictHistory", JSON.stringify([]));
-    localStorage.setItem("partyStatus", '');
+    localStorage.setItem("aspect", '');
     localStorage.setItem("drunkChoice", '');
     localStorage.setItem("statChecks", JSON.stringify([]));
     localStorage.setItem("audioPath", '');

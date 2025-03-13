@@ -26,7 +26,13 @@
                 `Your character, in silouhette, pulls themself up onto the meat of the beast's thigh, and surmounts the swell of its back. Standing atop its spine, your character feels the movement of the beast beneath them, wavering. ^^But what does this character look like?`
             );
             playText(onEnd => {
-
+                showBottomChoices([
+                    { label: 'Muscular', onClick: `increaseStat('athletics', 1); redirect('paint7.html')` },
+                    { label: 'Relentless', onClick: `increaseStat('will', 1); redirect('paint7.html')` },
+                    { label: 'Complex', onClick: `increaseStat('bluemagic', 1); redirect('paint7.html')` },
+                    { label: 'Saucy', onClick: `increaseStat('shitheadedness', 1); redirect('paint7.html')` },
+                    { label: 'Stop drawing.', onClick: `redirect('zombie.html')` }
+                ]);
             });
         }
 
@@ -39,20 +45,3 @@
 </body>
 
 </html>
-
-<!-- choices: 1. Muscular (A), 2. Relentless (W) 3. Complex (BM) 4. Saucy (SH) 
- [[All go to same page]] [[Every page you can back out with 'Stop Drawing Now, but when you do, queue zombie apocalypse news and looking outside to see hungry ghouls outside, and people running away']]
- 
- 1. You draw in detail in the next panel a 1/2/3/4 character atop the windsail beest. With big eyes, and cartoonish swagger, you draw them looking around the back.
- 2. The figure finds a heart-shaped box on the back. You draw a close-up of it, it looks like a tiny treasure chest that you draw with a pink-marker aura so that it seems to be glowing.
- 3. You draw your character opening up the box, and finding controls inside: a joystick, and three buttons of different colors.
- 4. Choices: A. Draw them pushing the joystick forward, angling toward another beest, pushing the red button B. Draw them pushing the joystick toward the ocean, pressing the green button, C. Draw them pushing the black button
- A. Starts a battle sequence > Rushes at another beest > Slam: The beest lifts up its thick head, and smashes down on the other beest, Gust: The beest opens its maw and lets out a hurricane-force wind at the other colossus, Either way, it damages it. The other beest attacks your character's, knocking you off and into the sand.
- B. The green button sends the beest into the ocean, and a huge staircase rises up, and opens up, and you draw the beest descending beneath the waves
- C. You draw the toon pressing the black button. The beest begins to shake violently, and you write a shakily lettered, awful crunching sound coming up out of it. The legs buckle, and it falls to the sand.
- 
- B2. You draw a series of panels where the beest and the human descend the stairs leading beneath the ocean. Behind them, the vault doors close and the stairs seem to move downward into the dark, which becomes lit by torches. The beest kneels down at the bottom of the steps, and you draw your character in front of a pair of double doors. You draw hands pulling the door handle open, and then the character sees a massive library.
- 
- A2,B3,C2. You hear a sound outside, and it breaks you out of your concentration on the comic.
- 
- Commence zombie storyline.-->

@@ -96,7 +96,7 @@ function buildStats() {
 
     const stats = statsString.replaceAll(`"`, '').replaceAll('}', '').replaceAll('{', '').replaceAll(':', ': ').split(',')
 
-    const partyStatus = localStorage.getItem("partyStatus");
+    const aspect = localStorage.getItem("aspect");
 
     const statList = `<p>${stats.map((stat) => {
         return `<div style="width: 340px; display: flex; flex-direction: row;"><span style="flex: 1">${stat.split(':')[0]}:</span><span style="flex: 1">${stat.split(':')[1]}</span></div>`
@@ -104,7 +104,7 @@ function buildStats() {
 
     const closeBtn = `<button onclick="toggleSidebar('stats', null, event)">Close</button>`
 
-    sidebar.innerHTML = title + statList + `<p>party aspect: ${partyStatus}</p><br>` + closeBtn
+    sidebar.innerHTML = title + statList + `<p>aspect: ${aspect}</p><br>` + closeBtn
 }
 
 function buildPhone() {

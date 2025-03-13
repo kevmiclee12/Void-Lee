@@ -27,7 +27,8 @@
             playText(onEnd => {
                 showBottomChoices([
                     { label: 'Wish there were more people here.', onClick: `redirect('park-wish.html')` },
-                    { label: '<span>Leave the park to </span>enter the neighborhood.', onClick: `increaseStat('shitheadedness', 1); redirect('neighborhood.html')` }
+                    { label: '<span>Leave the park to </span>enter the neighborhood.', onClick: `increaseStat('shitheadedness', 1); redirect('neighborhood.html')` },
+                    { label: 'Play on the snowpile.', onClick: `redirect('park-snow-pile.html')` }
                 ]);
             });
         }
@@ -40,5 +41,3 @@
 </body>
 
 </html>
-
-<!-- Add the choice to do the snowpile -->

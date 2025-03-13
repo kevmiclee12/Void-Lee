@@ -76,5 +76,11 @@ export const AVATAR_MAP = {
     },
     'awah': {
         'name': 'AWAH'
+    },
+    'marbleKid': {
+        'name': 'MARBLE KID'
+    },
+    'sledKids': {
+        'name': 'SLED KIDS'
     }
 }

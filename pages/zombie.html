@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" href="../resources/images/avatars/mud-man.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Void Lee</title>
@@ -19,13 +20,8 @@
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
-            localStorage.setItem('aspect', 'well-versed');
-            createNarrative(
-                `"I ask. Teach."^"I...\`ask\`. \`Teach\`."^"I ASK. TEEEEEAAAACH!!!"`
-            );
-            playText(onEnd => {
-                showBottomChoices([{ label: 'Finish.', onClick: `redirect('hypno4.html')` }]);
-            })
+            createNarrative(`This just in. Breaking news. ZOMBIE APOCALYPSE! You look outside to see hungry ghouls and people running away.`);
+            playText();
         }
 
     </script>
