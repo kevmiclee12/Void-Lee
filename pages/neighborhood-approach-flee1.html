@@ -17,14 +17,15 @@
         </div>
     </div>
 
-    <!-- TODO: Holding pants up with one arm -->
-
     <script type="module">
         import * as script from "../script.js"
 
         window.onload = function () {
             fadeInOverlay();
             buildSidebar();
+
+            localStorage.setItem('aspect', 'holding pants up with one arm')
+
             createNarrative(
                 `Yes, but as you start to sprint away, you drop the spray paint and they manage to steal your belt. You have to hold up your pants with your hand. They also still have those videos...but they'll be pretty useless in court.^^You see a street leading up to clusters of restaurants and stores, apartments and houses. The side streets sidle up the hill.`
             );
