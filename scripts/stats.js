@@ -17,7 +17,6 @@ export function increaseStat(name, amount) {
 
 export function skillRoll(stat, onSuccess, onFailure) {
     const statValue = JSON.parse(localStorage.getItem("stats"))[stat];
-    // baseline + (stat * multipler)
     const successRate = 0.1 + (statValue * 0.3);
     const roll = Math.random();
     if (successRate > 1 || roll < successRate) {
@@ -26,6 +25,10 @@ export function skillRoll(stat, onSuccess, onFailure) {
         onFailure();
     }
 
+    //TODO: convert this to fate style, show the dice
+    //e.g squirrel rolls and you roll
+
     //TODO: succeed with style?
     //TODO: Catastrophic failure?
 }
+

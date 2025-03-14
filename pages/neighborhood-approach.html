@@ -10,6 +10,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
         </div>
     </div>
@@ -30,8 +33,8 @@
             const hasCards = checkItems('deck of cards');
 
             if (hasCards) {
-                choices.push({ label: `You have a deck of cards. "Gin anyone?"`, onClick: `redirect('neighborhood-approach1.html?choice=cards')` }
-                )
+                choices.push({ label: `You have a deck of cards. "Gin anyone?"`, onClick: `redirect('neighborhood-approach1.html?choice=cards')` })
+                //TODO: they end up tagging all your cards so your cards transform into a new deck of cards.
             }
 
             createNarrative(
@@ -47,6 +50,7 @@
     <link rel="stylesheet" href="../styles/button.css">
     <link rel="stylesheet" href="../styles/dialog.css">
     <link rel="stylesheet" href="../styles/choices.css">
+    <link rel="stylesheet" href="../styles/alert.css">
 </body>
 
 </html>

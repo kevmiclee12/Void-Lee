@@ -10,6 +10,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
         </div>
     </div>
@@ -21,7 +24,8 @@
             fadeInOverlay();
             buildSidebar();
             localStorage.setItem('aspect', 'delinquent');
-            createNarrative(`They group gives you a hoodie to wear, and you pull it on, feeling the energy of the group.
+            createNarrative(`
+            They group gives you a hoodie to wear, and you pull it on, feeling the energy of the group.
 2. Montage= Over the next hours, with glee in your eyes, and mischief in your hearts, you circle the city, tagging and drawing, and fleeing detection through a number of secret passageways and cool cut-throughs. You see orange cats lounging in forgotten back-fields, children plucking treasures out from the city beach, and explore an abandoned factory. Joy and fun consumes you for a time. 
 3. Nearby a CDC government building, a great place to tag presents itself, a sign high above the street, but concealed from easy view. 
 4. As you and the gang make a landscape mural of the park on the back of the sign, you and the group notice a disturbance from your vantage point inside the CDC first floor windows.

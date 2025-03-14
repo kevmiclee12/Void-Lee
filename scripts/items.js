@@ -19,8 +19,6 @@ function checkSinkStatus() {
     if (sinkPassages.some(e => window.location.href.includes(e))) {
         const itemCount = JSON.parse(localStorage.getItem('items')).length;
 
-        console.log(itemCount)
-
         let sinkingText = ''
 
         switch (itemCount) {

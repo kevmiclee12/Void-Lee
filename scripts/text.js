@@ -7,6 +7,8 @@ let timeoutFns = [];
 function getPlayTextSpeed(id) {
     if (id == 'title') {
         return 0.5;
+    } else if (id == 'subtitle') {
+        return 0.15;
     }
     return 0.03;
 }
@@ -256,11 +258,10 @@ export function showBottomChoices(choices, isHome, isRight) {
 }
 
 export function hideBottomChoices() {
-    const choices = document.getElementById('choices');
-    choices.style.visibility = 'hidden';
+    const choices = document.querySelectorAll(`#choices`);
+    choices.forEach(el => el.style.visibility = 'hidden');
 
-    const avatars = document.querySelectorAll(`#avatar`)
-
+    const avatars = document.querySelectorAll(`#avatar`);
     avatars.forEach(el => el.remove());
 }
 

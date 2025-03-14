@@ -68,3 +68,31 @@
     bottom: -100px;
     opacity: 0;
 }
+
+.phone-alert {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333333a1;
+    color: white;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: top 0.5s ease-in-out;
+    opacity: 0;
+    font-size: 16px;
+    line-height: 1;
+    z-index: 1000;
+    transition: opacity 0.5s ease, top 0.5s ease;
+}
+
+.phone-alert.show {
+    top: 32px;
+    opacity: 1;
+}
+
+.phone-alert.hide {
+    top: -100px;
+    opacity: 0;
+}

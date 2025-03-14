@@ -9,6 +9,9 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
         <div class="story" style="background-image: url(../resources/images/backgrounds/new-game.png);" id="story">
         </div>
         <div id="custom-alert" class="snackbar">
@@ -29,9 +32,7 @@
             playText(onEnd => {
                 showBottomChoices([
                     { label: 'Reach for the closest branch.', onClick: `increaseStat('athletics', 1); redirect('climb2a.html')` },
-                    {
-                        label: 'Keep shimmying up.
-                    ', onClick: `redirect('climb2b.html')` }
+                    { label: 'Keep shimmying up.', onClick: `redirect('climb2b.html')` }
                 ]);
             }, [`toggleSidebar('id', 'squirrel', event)`]);
         }

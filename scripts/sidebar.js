@@ -1,13 +1,15 @@
 import { BAG_ICON, STATS_ICON, PHONE_ICON, ID_ICON } from "./icons.js";
+import { dismissPhoneAlert } from "./alerts.js";
 
 
 export function buildSidebar() {
     const story = document.getElementById('story');
     const openedDict = JSON.parse(localStorage.getItem("openedDict"));
 
-    const newPhonePassage = JSON.parse(localStorage.getItem("hasReadPhone")) === false && JSON.parse(localStorage.getItem("hasNewPhoneItem")) === true;
-
     const sidebarOptions = document.getElementById("sidebar-options");
+
+    const phoneItems = JSON.parse(localStorage.getItem('phoneItems'));
+    const unreadPhoneItems = phoneItems.filter(e => !e.isRead);
 
     const innerHTML = `
     <div class="icon" onclick="toggleSidebar('bag', null, event)">${BAG_ICON}</div>
@@ -17,7 +19,7 @@ export function buildSidebar() {
             ${PHONE_ICON}
         </div>
         ${openedDict ? `<div class="icon" onclick="toggleSidebar('id', null, event)">${ID_ICON}</div>` : ''}
-        ${newPhonePassage ? '<div class="notification-badge"><p>1</p></div>' : ''}
+        ${unreadPhoneItems.length > 0 ? `<div class="notification-badge"><p>${unreadPhoneItems.length}</p></div>` : ''}
     </div>`
 
 
@@ -108,22 +110,16 @@ function buildStats() {
 }
 
 function buildPhone() {
-    const hasNewPhoneItem = JSON.parse(localStorage.getItem("hasNewPhoneItem"));
+    dismissPhoneAlert();
+    const phoneItems = JSON.parse(localStorage.getItem('phoneItems'))
+    const newPhoneItems = phoneItems.map(e => ({
+        id: e.id,
+        content: e.content,
+        isRead: true,
+    }));
+    localStorage.setItem('phoneItems', JSON.stringify(newPhoneItems))
 
-    let body = '';
-    const phonePassageCount = Number(localStorage.getItem('phonePassageCount') ?? '0');
-
-    if (hasNewPhoneItem) {
-        const newPassageCount = phonePassageCount + 1;
-        body = `<br><p>SURVTECH PASSAGE #${newPassageCount}</p><br>`
-        localStorage.setItem('phonePassageCount', newPassageCount);
-    } else {
-        body = `<br><p>SURVTECH PASSAGE #${phonePassageCount}</p><br>`
-    }
-
-    localStorage.setItem("hasReadPhone", true);
-    localStorage.setItem("hasNewPhoneItem", false);
-
+    const body = phoneItems.map(e => e.content).join('<br>');
 
     const sidebar = document.getElementById('sidebar');
 

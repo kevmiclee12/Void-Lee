@@ -59,8 +59,7 @@ function startGame() {
     localStorage.setItem("statChecks", JSON.stringify([]));
     localStorage.setItem("audioPath", '');
     localStorage.setItem("audioTime", null);
-    localStorage.setItem("hasReadPhone", false);
-    localStorage.setItem("hasNewPhoneItem", false);
+    localStorage.setItem("phoneItems", JSON.stringify([]));
     localStorage.setItem("caughtSquirrel", false);
 
     playText(() => {
@@ -73,6 +72,17 @@ function startGame() {
         );
     },
         null, 'title');
+
+    playText(() => {
+        showBottomChoices(
+            [
+                { label: 'New game', onClick: `stopAudio(); redirect('pages/home.html')` },
+                { label: 'Credits', onCLick: '' },
+            ],
+            true,
+        );
+    },
+        null, 'subtitle');
     playAudio('resources/audio/intro.mp3', true, 5);
 }
 window.startGame = startGame;
