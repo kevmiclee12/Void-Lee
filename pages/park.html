@@ -21,9 +21,10 @@
         import * as script from "../script.js"
 
         window.onload = function () {
-
             fadeInOverlay();
             buildSidebar();
+            playAudio('../resources/audio/story/park.mp3', true, 10);
+
             createNarrative(
                 `You are in an empty park. In the distance, a childrens' play structure. Behind the play structure sits an empty public pool in yellow and light blue. Behind you, a soccer field, basketball court, and extensive skatepark. Behind you, a huge snowpile.`
             );

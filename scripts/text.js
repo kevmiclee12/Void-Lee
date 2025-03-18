@@ -358,7 +358,7 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
     story.appendChild(bounceText);
 
     if (playSound) {
-        const audio = new Audio(`../resources/audio/${avatarType}.mp3`);
+        const audio = new Audio(`../resources/audio/characters/${avatarType}.mp3`);
         setTimeout(function () {
             audio.play();
         }, 800);

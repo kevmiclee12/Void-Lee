@@ -5,13 +5,16 @@ let audioPath;
 export function playAudio(audioUrl, loop, fadeDuration) {
 
     if (audioUrl != audioPath) {
+        console.log('playing the audio with loop: ', loop)
         audio = new Audio(audioUrl);
         audioPath = audioUrl;
 
         if (loop) {
             audio.addEventListener("loadedmetadata", function () {
                 const duration = audio.duration;
+                console.log('setting the loop duration to ', duration)
                 setInterval(() => {
+                    console.log('doing the loop');
                     audio.currentTime = 0;
                 }, duration * 1000);
             });
@@ -67,7 +70,9 @@ export function checkAudio() {
 
     const resumeAudio = (savedAudio?.includes('faeries') && url.includes('faeries')) ||
         (savedAudio?.includes('party') && url.includes('party')) ||
-        (savedAudio?.includes('hypno') && url.includes('hypno'))
+        (savedAudio?.includes('hypno') && url.includes('hypno')) ||
+        (savedAudio?.includes('park') && url.includes('park')) ||
+        (savedAudio?.includes('neighborhood') && url.includes('neighborhood'))
 
     if (resumeAudio) {
         playAudio(savedAudio, true, null);

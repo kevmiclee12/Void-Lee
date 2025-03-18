@@ -10,6 +10,8 @@ export const SQUIRREL = "../resources/images/avatars/squirrel.png"
 export const CRAIG = "../resources/images/avatars/craig.png"
 export const PLAYER = "../resources/images/avatars/player.png"
 export const SPRAY_PAINT_GANG = "../resources/images/avatars/spray-paint-gang.png"
+export const YETH_HOUND = "../resources/images/avatars/yeth-hound.png"
+export const MOON_DOG = "../resources/images/avatars/moon=dog.png"
 
 
 
