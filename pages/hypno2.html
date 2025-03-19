@@ -19,7 +19,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -29,7 +29,7 @@
             playText(onEnd => {
                 showBottomChoices([{ label: 'Open your eyes.', onClick: `redirect('hypno3.html')` }]);
             })
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

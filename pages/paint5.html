@@ -21,7 +21,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -31,7 +31,7 @@
             playText(onEnd => {
                 showBottomChoices({ label: 'Stop drawing.', onClick: `redirect('zombie.html')` })
             }, [`redirect('paint6.html');`]);
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

@@ -50,7 +50,7 @@
     <script type="module">
         import * as script from "./script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             showCustomAlert(`By clicking the button below, you indicate <br>your desire to play <b>codename: Void Leeba</b>`);
         }
     </script>

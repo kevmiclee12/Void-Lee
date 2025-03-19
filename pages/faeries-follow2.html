@@ -35,7 +35,7 @@
             });
         }
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -55,7 +55,7 @@
                     });
                 });
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

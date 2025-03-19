@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             localStorage.setItem('aspect', 'delinquent');
@@ -30,7 +30,7 @@
 3. Nearby a CDC government building, a great place to tag presents itself, a sign high above the street, but concealed from easy view. 
 4. As you and the gang make a landscape mural of the park on the back of the sign, you and the group notice a disturbance from your vantage point inside the CDC first floor windows.
 5. A horrible little goblin is dancing through the halls, and burst out of a door, dancing along, traipsing about, and galavanting. It looks pretty healthy for a goblin. You and the gang are transfixed as behind the goblin, people in labcoasts burst out of the same door, clutching at their chests, and blowing chunks between the cars in the parking lot.`)
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

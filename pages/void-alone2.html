@@ -19,7 +19,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             showBottomChoices([
@@ -28,7 +28,7 @@
                 { label: 'Energy ought to be expended.', onClick: `increaseStat('athletics', 1); redirect('void-alone3.html?choice=ath')` },
                 { label: 'The awkward moment is the right moment for humor.', onClick: `increaseStat('shitheadedness', 1); redirect('void-alone3.html?choice=sh')` }
             ]);
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

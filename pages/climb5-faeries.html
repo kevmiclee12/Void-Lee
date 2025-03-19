@@ -19,7 +19,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -58,8 +58,8 @@
                                     showBottomChoices([
                                         { label: 'Inspect the hongatar.', onClick: `redirect('climb5-faeries1.html?choice=hongatar')` },
                                         {
-                                            label: 'Inspect the squirrel.
-                                        ', onClick: `redirect('climb5 - faeries1.html ? choice = squirrel')` }
+                                            label: 'Inspect the squirrel.', onClick: `redirect('climb5 - faeries1.html ? choice = squirrel')`
+                                        }
                                     ]);
                                 });
                             });
@@ -67,7 +67,7 @@
                     }, [`toggleSidebar('id', 'hongatar', event);`]);
                 }, true);
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

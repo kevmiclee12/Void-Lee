@@ -35,7 +35,7 @@
             showBottomChoices(choices.slice(0, 3))
         }
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
@@ -44,7 +44,7 @@
             playText(onEnd => {
                 showBottomChoices(choices);
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
@@ -33,7 +33,7 @@
                     { label: 'Walk toward the pipe.', onClick: `redirect('park-listen4.html?choice=pipe')` },
                 ]);
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

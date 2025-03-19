@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
@@ -32,7 +32,7 @@
                     { label: 'Defend yourself.', onClick: `increaseStat('will', 1); redirect('black-dog-yeth.html')` }
                 ]);
             });
-        }
+        })
 
         //TODO: Describe the playground with the swirly slide. This same playground exists in everyone's subconcious. and the dog sleeping under the slide
 

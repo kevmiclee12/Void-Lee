@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
@@ -30,7 +30,7 @@
                 //TODO: play ohm sound
                 showBottomChoices([{ label: '<span>Your mind quiets as you </span>listen.', onClick: `redirect('park-listen1.html')` }]);
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

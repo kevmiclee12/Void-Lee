@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createDialog('long', 'spray-paint-gang', `Didn't peg you for one of those "crime doesn't pay" types.`, onClick => {
@@ -30,7 +30,7 @@
                     { label: 'Go back to the park.', onClick: `redirect('park.html')` },
                 ])
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

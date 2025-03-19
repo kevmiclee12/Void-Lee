@@ -19,7 +19,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -32,7 +32,7 @@
                     { label: 'Stop drawing.', onClick: `redirect('zombie.html')` }
                 ]);
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

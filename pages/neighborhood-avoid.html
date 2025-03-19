@@ -22,14 +22,14 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
                 `You pull out your phone and open a doom scrolling dating app. Swipe left, up, down, right. Face after face after face. Pictures of faces. Self-descriptions, half-cocked jokes, desperation, aloofness.^^You are alone, scrolling past the idea of company while you are by yourself on a path in a park. {So is everyone else.}`
             );
             playText(null, `redirect('neighborhood-avoid1.html')`);
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

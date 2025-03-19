@@ -19,14 +19,14 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createDialog('long', 'drunk1', 'And you never looked up before either, huh?', onClick => {
                 shiftDialog('long');
                 showBottomChoices([{ label: 'Open your mouth to reply.', onClick: `redirect('park-wish-done.html')` }]);
             }, true);
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

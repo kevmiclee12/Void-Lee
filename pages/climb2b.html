@@ -19,7 +19,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
@@ -31,7 +31,7 @@
                     { label: '<span>This was a bad idea. </span>Shimmy back down before you get hurt.', onClick: `redirect('climb-give-up.html')` }
                 ]);
             }, [`toggleSidebar('id', 'squirrel', event)`]);
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

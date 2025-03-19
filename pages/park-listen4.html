@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -61,7 +61,7 @@
                     })
                 }
             });
-        }
+        })
 
         window.continueAwah = function () {
             hideBottomChoices();

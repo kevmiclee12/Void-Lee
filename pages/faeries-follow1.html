@@ -47,7 +47,7 @@
                 }
             }
 
-            window.onload = function () {
+            window.addEventListener("pageshow", () => {
                 fadeInOverlay();
                 buildSidebar();
                 const params = new URLSearchParams(window.location.search);
@@ -127,7 +127,7 @@
                         });
                     });
                 }, [`toggleSidebar('id', 'hongatar', event)`]);
-            }
+            })
 
         </script>
         <link rel="stylesheet" href="../styles/styles.css">

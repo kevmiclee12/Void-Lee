@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -36,7 +36,7 @@
                 ^^The empty bed and the blank page remind you of fresh snow, a bright day, the smell of morning mud. Poets saunter. Plastic bags and paper boxes are blown around by the wind. Kids play: throwing and kicking, snorting and rolicking. Actually, you wish you could {Go to the park}.`,
             );
             playText(onEnd => { }, choices);
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

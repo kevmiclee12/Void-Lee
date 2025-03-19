@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
@@ -33,7 +33,7 @@
                     { label: 'Take a running step toward it, and fly through the air feet-first in a two-legged drop kick.', onClick: `increaseStat('athletics', 1); redirect('black-dog-yeth-kick.html?choice=dropkick')` }
                 ]);
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

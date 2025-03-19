@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -34,7 +34,7 @@
             playText(onEnd => {
                 showBottomChoices([{ label: '<span>You start to </span>feel bad.', onClick: `redirect('black-dog-yeth-kick-regret.html')` }]);
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

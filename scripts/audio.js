@@ -1,22 +1,27 @@
 const activeAudios = [];
 let audio;
 let audioPath;
+let intervalId;
+let intervalTime = 0;
+
+function updateInterval() {
+    clearInterval(intervalId);
+    intervalTime = audio.duration - audio.currentTime;
+    intervalId = setInterval(() => {
+        audio.currentTime = 0;
+        updateInterval();
+    }, intervalTime * 1000);
+}
 
 export function playAudio(audioUrl, loop, fadeDuration) {
 
     if (audioUrl != audioPath) {
-        console.log('playing the audio with loop: ', loop)
         audio = new Audio(audioUrl);
         audioPath = audioUrl;
 
         if (loop) {
             audio.addEventListener("loadedmetadata", function () {
-                const duration = audio.duration;
-                console.log('setting the loop duration to ', duration)
-                setInterval(() => {
-                    console.log('doing the loop');
-                    audio.currentTime = 0;
-                }, duration * 1000);
+                updateInterval();
             });
         }
 

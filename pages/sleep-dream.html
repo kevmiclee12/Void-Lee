@@ -22,7 +22,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             const showItem = checkItems('pine needles');
@@ -36,7 +36,7 @@
             playText(onEnd => {
                 showBottomChoices([{ label: 'Admire the trees.', onClick: `redirect('sleep-dream1.html')` }]);
             }, [`addItem('pine needles')`]);
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

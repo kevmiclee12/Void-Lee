@@ -19,7 +19,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -32,7 +32,7 @@
                 showBottomChoices([{ label: `<span>Nah, nevermind. </span>I'm going to sleep.`, onClick: `redirect('sleep-dream.html?fromPaint=true')` }]);
             }, choices,
             );
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

@@ -45,7 +45,7 @@
             }, true);
         }
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
@@ -77,7 +77,7 @@
                 }, true);
                 ;
             });
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

@@ -20,7 +20,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
             createNarrative(
@@ -28,7 +28,7 @@
             );
             playText(onEnd => {
             }, [`redirect('party.html');`]);
-        }
+        })
 
     </script>
     <link rel="stylesheet" href="../styles/styles.css">

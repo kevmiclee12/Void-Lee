@@ -14,12 +14,9 @@ export function closeCustomAlert(callback) {
 export function showSnackbar(message, duration = 4000, callBack) {
     const alertBox = document.getElementById("custom-alert");
     const messageBox = document.createElement("p");
-    console.log('message: ', message);
     messageBox.innerHTML = message;
 
     alertBox.appendChild(messageBox)
-
-    console.log('mbox: ', messageBox)
 
     alertBox.classList.add("show");
 

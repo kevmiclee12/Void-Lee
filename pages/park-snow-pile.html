@@ -19,7 +19,7 @@
     <script type="module">
         import * as script from "../script.js"
 
-        window.onload = function () {
+        window.addEventListener("pageshow", () => {
             fadeInOverlay();
             buildSidebar();
 
@@ -30,7 +30,7 @@
                     { label: '<span>Watch for a minute, then back out, and </span> head back to the park.', onClick: `redirect('park.html')` },
                 ]);
             }, [`talkToMarbleKid()`, `talkToSledKids()`]);
-        }
+        })
 
         window.talkToMarbleKid = function () {
             hideBottomChoices();
