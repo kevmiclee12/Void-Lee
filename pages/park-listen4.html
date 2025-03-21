@@ -58,7 +58,7 @@
                         dismissDialog(null, true);
                         shiftDialog('long');
                         showBottomChoices([{ label: '...', onClick: `continueAwah()` }])
-                    })
+                    }, true)
                 }
             });
         })
@@ -67,7 +67,7 @@
             hideBottomChoices();
             dismissDialog('long');
             dismissDialog(null, true);
-            createDialog('long', 'awah', `Nice to meet you, ...! This is a Deep Listening class. The instructor Biff is great. We are supposed to walk around the field and listen to anything we can. Want to join us? Biff said we should invite anyone we meet.`)
+            createDialog('long', 'awah', `Nice to meet you, ...! This is a Deep Listening class. The instructor Biff is great. We are supposed to walk around the field and listen to anything we can. Want to join us? Biff said we should invite anyone we meet.`, onClick => { }, true)
         }
 
     </script>

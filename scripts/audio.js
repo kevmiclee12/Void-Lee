@@ -8,12 +8,13 @@ function updateInterval() {
     clearInterval(intervalId);
     intervalTime = audio.duration - audio.currentTime;
     intervalId = setInterval(() => {
+        console.log('play from start')
         audio.currentTime = 0;
         updateInterval();
     }, intervalTime * 1000);
 }
 
-export function playAudio(audioUrl, loop, fadeDuration) {
+export function playAudio(audioUrl, loop, fadeDuration, volume) {
 
     if (audioUrl != audioPath) {
         audio = new Audio(audioUrl);
@@ -23,6 +24,10 @@ export function playAudio(audioUrl, loop, fadeDuration) {
             audio.addEventListener("loadedmetadata", function () {
                 updateInterval();
             });
+        }
+
+        if (volume) {
+            audio.volume = volume;
         }
 
         if (fadeDuration) {

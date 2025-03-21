@@ -40,7 +40,7 @@
                         createDialog('long', winner, `HA, EAT IT!`, onClick => {
                             shiftDialog('long');
                             showBottomChoices([{ label: 'Open your mouth to reply.', onClick: `redirect('park-wish-done.html')` }]);
-                        }, true);
+                        });
                     });
                 });
             }, true);
