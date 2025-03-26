@@ -28,8 +28,8 @@
             );
             playText(onEnd => {
                 showBottomChoices([
-                    { label: '<span>Wait... does this mean I will </span>fall asleep forever?', onClick: `redirect('hypno.html')` },
-                    { label: `<span>No, you don't believe it. </span>You try not to think about that.`, onClick: `redirect('nohypno.html')` }
+                    { label: '<span>Wait... will I </span>fall asleep forever?', onClick: `redirect('nohypno.html')` },
+                    { label: `<span>No, that's silly. </span>Don't entertain that worry.`, onClick: `redirect('hypno.html')` }
                 ]);
             });
         })
