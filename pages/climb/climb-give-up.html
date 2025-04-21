@@ -33,9 +33,9 @@
                     playText(onEnd => {
                         createDialog('long', 'squirrel', `PUTOAT! PUTOAT!`, onClick => {
                             redirect('sleep/tree-chase.html?choice=climb');
-                        });
+                        }, true);
                     });
-                });
+                }, true);
             }, [`toggleSidebar('id', 'squirrel', event)`]
             );
         })

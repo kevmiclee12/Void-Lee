@@ -61,7 +61,18 @@
             const hasFilter = filter && filter != ''
 
             createNarrative(
-                `${filter == 'nap' ? `You're able to wake up from the dream within the dream, but you're still dreaming. You are back where you started.^^` : hasFilter ? 'You find your way back to where you started.^^' : ''}Trees! Grand, huge, awe-inspiring trees! The crisp, beautiful pine scent cuts through the pervading damp of the forest. ${noSquirrel ? '' : 'There are squirrels and spiders scurrying and spindling. {Try to catch one}. '}Above, the pines' trunks creak. Their creaky columns bend into the sky. You gaze at the trees, taking them in like a worshipper at the shrine. The woody deities are set in bas-relief against the backdrop of clear sky.${noFaeries ? '' : `^^A group of {pine faeries} emerge from the knot of a nearby tree. They circle around you, teasing you, plucking your eyelashes and spitting in your nostril holes. They swirl away off to your left.^{Follow them}.`}^^Dad-gum forest faeries. Yep, if you had you an ax, you'd {start chopping} down all these trees, right this second. If you don't, someone else surely will. A place like this? Prime real estate. Goodbye paradise, hello parking lot!${noNap ? '' : `^^Forget the faeries, forget the trees, forget the parking lot... look at that brain-colored moss over there! Mmm, awww.... you wanna curl up and {take a nap}. {Pick up a handful of pine needles.}`}`,
+                `${filter == 'nap' ? `You're able to wake up from the dream within the dream, but you're still dreaming. You are back ` +
+                    `where you started.^^` : hasFilter ? 'You find your way back to where you started.^^' : ''}` +
+                `Trees! Grand, huge, awe-inspiring trees! The crisp, beautiful pine scent cuts through the pervading damp of the forest. ` +
+                `${noSquirrel ? '' : 'There are squirrels and spiders scurrying and spindling. {Try to catch one}. '}` +
+                `Above, the pines' trunks creak. Their creaky columns bend into the sky. You gaze at the trees, taking them in like a worshipper ` +
+                `at the shrine. The woody deities are set in bas-relief against the backdrop of clear sky.` +
+                `${noFaeries ? '' : `^^A group of {pine faeries} emerge from the knot of a nearby tree. They circle around you, teasing you, ` +
+                    `plucking your eyelashes and spitting in your nostril holes. They swirl away off to your left.^{Follow them}.`}` +
+                `^^Dad-gum forest faeries. Yep, if you had you an ax, you'd {start chopping} down all these trees, right this second. If you don't, ` +
+                `someone else surely will. A place like this? Prime real estate. Goodbye paradise, hello parking lot!` +
+                `${noNap ? '' : `^^Forget the faeries, forget the trees, forget the parking lot... look at that brain-colored moss over there! ` +
+                    `Mmm, awww.... you wanna curl up and {take a nap}.^^{Pick up a handful of pine needles.}`}`,
             );
             playText(onEnd => {
             }, choices);

@@ -36,11 +36,12 @@
                 `^^Looking down, you see a single-headed carbon-fiber ax in your left hand. Heh. Hefty!` +
                 `^^You spit into each of your palms and aiming at the nearest tree, you get a good look at its bark. ` +
                 `The brown armor is thick and full of a maze of paths, following the pine's vertical growth. ` +
-                `You position the ax over your left shoulder, and closing one eye, take a swing at a healthy angle to hit the tree.`
+                `You position the ax over your left shoulder, and closing one eye, take a swing at a healthy angle to hit the tree.` +
+                `^^{Pick up a handful of pine needles.}`
             );
             playText(onEnd => {
                 showBottomChoices([{ label: 'THUNK', onClick: `skillRoll('athletics', () => redirect('sleep/tree-chase.html?choice=chop-success'), () => redirect('sleep/tree-chase.html?choice=chop-fail'))` }]);
-            });
+            }, [`addItem('pine needles')`]);
         })
 
     </script>
