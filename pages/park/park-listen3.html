@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `Your reverie is interrupted when you overhear a group that is walking together, led by an instructor. The instructor says, "Now, spread out across the park, and follow your ears. Remember I told you, the ancient Elypgians thought of the feet as ears, and the ears as the seat of consciousness. So be gentle on those dogs." You see the group span out into the field. One stops to listen to a tree strump. One stops to listen to a pipe sticking out of the ground, spewing steam. The instructor walks slowly toward you, and seems to walk slower and slower as they approach you. It becomes kind of strange, the person seems to want to talk to you, but is a little too far away. Nevertheless, (he?) tries making eye contact with you the entire time.`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Walk toward the instructor.', onClick: `redirect('park/park-listen4.html?choice=instructor')` },
+                    { label: 'Walk toward the stump.', onClick: `redirect('park/park-listen4.html?choice=stump')` },
+                    { label: 'Walk toward the pipe.', onClick: `redirect('park/park-listen4.html?choice=pipe')` },
+                ]);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

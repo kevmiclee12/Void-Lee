@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+
+            let text = ``;
+
+            switch (choice) {
+                case 'instructor':
+                    text = `You walk up to the instructor, who does not stop moving, but seems to be moving <i>very</i> slowly. ` +
+                        `They turn to face you. A sunny expression and welcoming demeanor greet you. Biff whispers as loud as they can.`
+                    break;
+                case 'stump':
+                    text = `You walk up to the stump. You see flies buzzing all around it, landing in pools of rainbow-looking liquid ` +
+                        `that cover a good portion of the stump's surface. The sound of the buzzing doesn't bother you much. You tilt ` +
+                        `your head toward the stump like the other student did, and as you get closer, the buzzing seems to make a song ` +
+                        `in the gentle breeze. You get so close that you notice that the flies are vomiting up the liquid...and then ` +
+                        `drinking it back up. Are they eating the stump??^^A person walks up to you, female-presenting, and listens with you, ` +
+                        `wrinkling her nose, her eyes sparkle with amusement.` +
+                        `^^You look down at a name tag. It says "Aya, She/They".`
+                    break;
+                case 'pipe':
+                    text = `You walk up to the pipe. It makes a soft whooshing sound. The steam gets into your nostrils. It has no odor, ` +
+                        `but feels warm and damp, and tickles you.` +
+                        `^^A person walks up to you, female-presenting, and listens with you, wrinkling her nose, her eyes sparkle with amusement.` +
+                        `^^You look down at a name tag. It says "Aya, She/They".`;
+                    break;
+            }
+
+
+
+            createNarrative(text);
+            playText(onEnd => {
+                if (choice == 'instructor') {
+                    createDialog('long', 'biff', `Hey there! I'm Biff. I'm leading a class right now, but I love walk-ins. Want to join us?`, onClick => {
+                        dismissDialog('long');
+                        dismissDialog(null, true);
+                        createNarrative(
+                            `Biff makes a goofy smile, and keeps slowly walking, but begins to contort their body in strange ways.` +
+                            `^^You can't help but smile at Biff, who is really hamming it up.`
+                        );
+                        playText(onEnd => {
+                            showBottomChoices([
+                                { label: 'Agree to join.', onClick: `agreeToJoin()` },
+                                { label: '<span>This is weird... </span>Leave.', onClick: `redirect('park/park-wish-done.html')` }
+                            ])
+                        });
+                    });
+                } else {
+                    createDialog(
+                        'long',
+                        'aya',
+                        `<i>(whisper)</i>^Nice to meet you! This is a Deep Listening class. The instructor Biff is great. We are supposed ` +
+                        `to walk around the field and listen to anything we can. Want to join us? Biff said we should invite anyone we meet.`, onClick => {
+                            dismissDialog(null, true);
+                            dismissDialog('long');
+                            createNarrative(
+                                `You can't help but smile at Aya, who is so sweet. You agree to join.`
+                            );
+                            playText();
+                        }, true)
+                }
+            });
+        })
+
+        window.agreeToJoin = function () {
+            dismissDialog(null, true);
+            hideBottomChoices();
+            dismissDialog('long');
+            createDialog(
+                'long',
+                'biff',
+                `Great! We're all walking in this field as slowly as possible, listening to the world like it's a symphony.`)
+        }
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

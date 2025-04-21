@@ -1,16 +1,22 @@
 import { showPhoneAlert } from "./alerts.js";
 
-export function redirect(url) {
+export function redirect(url, isAbsolute) {
+    if (isAbsolute === undefined) {
+        isAbsolute = true;
+    }
     saveAudioState();
 
-    const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
-    const newPassageCount = passageCount + 1;
-    localStorage.setItem("passageCount", newPassageCount);
+    const history = JSON.parse(localStorage.getItem("history")) || [];
+
+    if (!history.includes(url)) {
+        const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
+        const newPassageCount = passageCount + 1;
+        localStorage.setItem("passageCount", newPassageCount);
+    }
 
     fadeOutOverlay();
-    window.location.href = url;
+    window.location.href = `${isAbsolute ? '/pages/' : ''}${url}`;
     trackHistory(url);
-
     //TODO: every redirect increases the 'time' that has passed. 
 }
 
@@ -55,8 +61,11 @@ export function fadeInOverlay() {
     checkAudio();
 
     const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
+    const history = JSON.parse(localStorage.getItem("history")) || [];
+    const page = window.location.href;
+    const alreadyVisited = history.filter(e => page.includes(e)).length > 0;
 
-    if (passageCount > 0 && passageCount % 3 == 0) {
+    if (passageCount > 0 && passageCount % 3 == 0 && !alreadyVisited) {
         const phoneItems = JSON.parse(localStorage.getItem('phoneItems'));
         const phoneItemId = Math.floor(passageCount / 3);
         const newPhoneContent = getPhoneContent(phoneItemId);

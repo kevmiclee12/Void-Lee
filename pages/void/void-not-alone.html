@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `You were worried that the void was alone. So sweet.` +
+                `^Look at you, all empathetic and virtuous, always helping out. Good on you, Voidlover!` +
+                `^^A question mark bubble appears on the page, popping the void. The appearance of the ? ` +
+                `triggers in you a cascade of thoughts that turn into a gridded web of ideas.` +
+                `^^...need to get bread and lube from the grocer, your skillshare with that twinkly eyed and ` +
+                `tilty-capped camera-machinist, the laundry in the dryer, the vape pen in your cup holder, ` +
+                `a movie about Winnipeg with all-Arabic signs, A Tale of Two Towns, the R.A. Petertore tomes, ` +
+                `the black-comedy fantasy-action series about that Unitarian Universalist minister...` +
+                `^^The web grows more and more complex. The connections between nodes multiply. A warm chaos builds. ` +
+                `All of a sudden, the web explodes outwards, hurdling at light speed, getting smaller and smaller on the blank page.` +
+                `And then {a set of questions appears on the page}.`
+            );
+            playText(onEnd => {
+            }, [`redirect('void/void-not-alone1.html')`]);
+        });
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

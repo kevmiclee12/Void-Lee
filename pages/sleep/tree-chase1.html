@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div class="alert-overlay" id="customAlert" style="display: none;">
+        <div class="alert-box">
+            <p class="alert-message" id="alertMessage"></p>
+            <button class="alert-close-btn"
+                onclick="closeCustomAlert(() => {playText(); createDialog('long', 'player'); showBottomChoices([], true)})">OK</button>
+        </div>
+    </div>
+    <div id="red-flash" class="flash"></div>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+            <div id="delayedMessage"
+                style="bottom: 5vw; left: 35vw; position: absolute; visibility:hidden; display: flex; flex-direction:column; align-items: center">
+                <div id="container">
+                    <div id="target"></div>
+                    <div id="line"></div>
+                </div>
+                <button id="stopBtn" style="left: 35vw">Dodge!</button>
+            </div>
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import * as script from "../../script.js"
+        const items = JSON.parse(localStorage.getItem("items")) ?? [];
+
+        let text = '';
+
+        if (items.length < 4) {
+            text = 'You feel unencumbered and are able to move nimbly.'
+        } else if (items.length < 7) {
+            text = 'You feel somewhat burdened by the weight of your bag. Your agility is limited.'
+        } else {
+            text = 'Why did you pick up so much stuff? You can barely move to save your life.'
+        }
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(text);
+            showCustomAlert(`Stop the needle in the shaded space to dodge the trees!`)
+
+        });
+
+        const line = document.getElementById('line');
+        const target = document.getElementById('target');
+        const container = document.getElementById('container');
+        const stopBtn = document.getElementById('stopBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const itemMultiplier = items.length * 2;
+
+        let count = 1;
+        let dodgeCount = 0;
+        let hitCount = 0;
+
+        let direction = 1;
+        let position = 0;
+        let animation;
+
+        function animateLine() {
+            animation = requestAnimationFrame(animateLine);
+            position += direction * itemMultiplier * count;
+
+            if (position >= container.clientWidth || position <= 0) {
+                direction *= -1;
+            }
+
+            line.style.left = position + 'px';
+        }
+
+        animateLine();
+
+        stopBtn.addEventListener('click', () => {
+            cancelAnimationFrame(animation);
+
+
+            const lineX = line.offsetLeft;
+            const targetStart = target.offsetLeft;
+            const targetEnd = targetStart + target.offsetWidth;
+
+            if (lineX >= targetStart && lineX <= targetEnd) {
+                dodgeCount++;
+                showSnackbar('Nice! You dodged a tree.');
+                if (dodgeCount == 3) {
+                    setTimeout(() => {
+                        redirect('sleep/tree-chase2.html?choice=leap');
+                    }, 1000)
+                }
+
+            } else {
+                triggerFlash();
+                hitCount++;
+                showSnackbar('Ouch! You got hit by a tree.');
+                if (hitCount == 3) {
+                    setTimeout(() => {
+                        redirect('sleep/tree-chase2.html?choice=sink');
+                    }, 1000)
+                }
+            }
+            count += 0.5;
+
+            setTimeout(() => {
+                target.style.width = `${12 / count}vw`;
+                moveTargetRandomly();
+                animateLine();
+            }, 5000)
+        });
+
+        function moveTargetRandomly() {
+            const target = document.getElementById('target');
+            const container = document.getElementById('container');
+
+            const containerWidth = container.offsetWidth;
+            const targetWidth = target.offsetWidth;
+
+            const maxLeft = containerWidth - targetWidth;
+            const randomLeft = Math.random() * maxLeft;
+
+            target.style.position = 'absolute';
+            target.style.left = `${randomLeft}px`;
+        }
+
+
+        function triggerFlash() {
+            const flash = document.getElementById('red-flash');
+            flash.style.animation = 'flashEffect 0.3s ease-out';
+
+            flash.addEventListener('animationend', () => {
+                flash.style.animation = '';
+            }, { once: true });
+        }
+
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+    <link rel="stylesheet" href="../../styles/gauge.css">
+
+</body>
+
+</html>
+<!-- 
+//TODO:
+The trees
+"Release the spores!"
+-->

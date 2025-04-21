@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.acornCheck = function () {
+            dismissDialog(null, true);
+            hideBottomChoices();
+            createNarrative(`But it's \`so tantalizing!\``);
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'YOLO! Eat the eggcorn.', onClick: `redirect('faeries/faeries-pre-game.html')` },
+                    { label: `<span>No. Seriously. </span>I'm not eating it.`, onClick: `redirect('sleep/sleep-dream1.html?filter=squirrel')` }
+                ]);
+            });
+        }
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            createNarrative(
+                `The eggcorn's skin is a luscious, lacquered brown. It has a neat little cap and a fine pointy bottom. In fact, you've never found an eggcorn to be so... tantalizing. Definitely something odd about these eggcorns.`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'YOLO! Eat the eggcorn.', onClick: `redirect('faeries/faeries-pre-game.html')` },
+                    { label: 'On second thought...', onClick: `acornCheck()` }
+                ]);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

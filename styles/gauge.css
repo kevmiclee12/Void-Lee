@@ -1,0 +1,30 @@
+#container {
+    position: relative;
+    width: 25vw;
+    height: 5vw;
+    border: 2px solid #333;
+    margin: 40px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#target {
+    /* position: absolute;
+    top: 0; */
+    /* left: 45%; */
+    width: 8vw;
+    height: 100%;
+    background-color: rgba(0, 200, 0, 0.3);
+    pointer-events: none;
+}
+
+#line {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: red;
+}

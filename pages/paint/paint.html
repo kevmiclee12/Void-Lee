@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const choices = [`redirect('void/void.html')`, `redirect('paint/paint1.html')`, `redirect('sleep/sleep-dream.html?fromPaint=true')`];
+
+            createNarrative(
+                `You sit down at the desk and open to a fresh page of the pad.` +
+                `^You look down onto the off-white paper. A void to fill. Dimensionless.` +
+                `^The desire to form and create something in that void. It pulls you, amuses you, scares you. ` +
+                `You feel like proving your stoicism, resisting the urge to make marks. Go {into the Void}.` +
+                `^^You can feel the spirit rising in you, and the thrill of channeling that spirit! ` +
+                `Feelings with no where to go are like idle hands...they animate. Or, no, do they become animate hands!? ` +
+                `Nonononono! You pick up the paintbrush, smoosh some acrylic paint into the palette and^{paint with your heart}.` +
+                `^^Nah, nevermind, I'm {going to sleep}.`
+            );
+            playText(onEnd => {
+                showBottomChoices([]);
+            }, choices,
+            );
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

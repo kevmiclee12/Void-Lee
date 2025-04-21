@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const isTreeChopper = params.get('isTreeChopper') == 'true';
+            const choice = params.get('choice');
+            const isTreeMurderer = localStorage.getItem('aspect') == 'tree murderer';
+            const choices = [];
+
+
+            let text = '';
+
+            if (choice == 'sink') {
+                text = `You feel yourself starting to sink. You try to run but you can't move your legs, like in a bad dream. ` +
+                    `You remember that you're dreaming and realize that's exactly what this is. A bad dream.` +
+                    `^^The trees are closing in on you now and there is nothing you can do.` +
+                    `^^WHACK!^THOOMB!!^CRACK!!!` +
+                    `^^You're mangled in a barrage of falling trees. {All your bones are broken.}`
+                choices.push(`redirect('sleep/tree-chase3.html')`)
+            } else {
+                text = `It suddenly occurs to you that your legs feel unprecedentedly supple. Like those little rubber caps you ` +
+                    `used to get from the toy dispensers at the front of the grocery store. You'd put a quarter in and you'd get a ` +
+                    `round clear plastic capsule with one of these colorful little rubber caps inside. You turn the cap inside-out, ` +
+                    `set it down and...` +
+                    `^^FWOOM!!! You're leaping and bounding through the air, {springing off the pine needles} like a tree frog on a trampoline.`
+                choices.push(`redirect('sleep/tree-chase3.html')`)
+            }
+
+
+
+            // if sink they start to sink, and the trees all hit them, breaking all their bones. The Leakrave/Leakparty forms around their broken body, and someone pours dream beer in their mouth.
+            // if leap, they are able to use the pine needles like a trampoline and vault up over the canopy. A bird grabs them and they see the entire countryside, a rocket with arms grabs the bird and takes both of you into space, then back into the stratosphere, then the rocket aims for the forest floor, creating a huge explosion, and the player and bird are all exploded and charred, but then their body combines with the bird, and a Leak Party is formed on the footprint of the blast.
+
+
+            // if (isTreeChopper) {
+            //     text = `Trees talking about the player being a dangerous murderer.`
+            // } else if (count > 1) {
+            //     text = 
+            //     choices.push(`redirect('sleep/tree-chase2.html?choice=sink')`)
+            // } else {
+            //     text = 
+            //     choices.push(`redirect('sleep/tree-chase2.html?choice=leap')`)
+            // }
+
+            createNarrative(text);
+            playText(onEnd => { }, choices);
+        });
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

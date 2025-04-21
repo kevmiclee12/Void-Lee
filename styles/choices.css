@@ -31,7 +31,7 @@
     color: #B56D3C;
 }
 
-#delayedMessage {
+.intro-choices {
     background-color: rgba(220, 225, 225, 0.6);
     border-radius: 8px;
     padding: 16px;

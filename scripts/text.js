@@ -6,7 +6,7 @@ let timeoutFns = [];
 
 function getPlayTextSpeed(id) {
     if (id == 'title') {
-        return 0.5;
+        return 0.25;
     } else if (id == 'subtitle') {
         return 0.15;
     }
@@ -249,8 +249,10 @@ export function showBottomChoices(choices, isHome, isRight) {
         dialogBoxWrapper.id = 'choices';
         dialogBox.style.whiteSpace = 'normal';
 
-        dialogBoxWrapper.appendChild(dialogBox);
-        story.appendChild(dialogBoxWrapper);
+        if (choices && choices.length > 0) {
+            dialogBoxWrapper.appendChild(dialogBox);
+            story.appendChild(dialogBoxWrapper);
+        }
 
         story.appendChild(avatar);
     }
@@ -265,6 +267,42 @@ export function hideBottomChoices() {
     avatars.forEach(el => el.remove());
 }
 
+
+export function createText(value) {
+    const text = document.createElement('p');
+    text.id = `title`;
+    text.classList.add('dialog-text');
+    text.classList.add('movable-text');
+    value = value.replace(/\n/g, ' ');
+    text.setAttribute('data-text', value);
+
+    const bounceText = document.createElement('p');
+    bounceText.id = `title`;
+    bounceText.classList.add('dialog-text-bounce');
+    bounceText.classList.add('movable-text');
+    bounceText.setAttribute('data-text', value);
+
+    const story = document.getElementById('story');
+
+    text.style.animation = 'wobble 2.0s infinite';
+    text.style.opacity = 1;
+    text.style.left = '10vw';
+    text.style.top = `0vw`;
+    text.style.bottom = 'auto';
+    text.style.backgroundColor = `transparent`;
+    text.style.outline = `0px`;
+    text.style.color = 'white';
+
+    bounceText.style.animation = 'dialog-shift 3.5s infinite, wobble 2.0s infinite';
+    bounceText.style.opacity = 1;
+    bounceText.style.left = '10vw';
+    bounceText.style.top = `0vw`
+    bounceText.style.bottom = 'auto';
+    bounceText.style.color = 'white';
+
+    story.appendChild(text);
+    story.appendChild(bounceText);
+}
 
 
 let narrativeCount = 0;
@@ -315,50 +353,59 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
         avatar.classList.add('dialog-avatar');
     }
 
-    const text = document.createElement('p');
-    text.id = dialogType;
-    text.classList.add('dialog-text');
-    text.classList.add('movable-text');
-    text.setAttribute('data-text', `~${avatarData['name']}~^^${dialogText}`);
+    if (dialogText) {
 
-    const bounceText = document.createElement('p');
-    bounceText.id = dialogType;
-    bounceText.classList.add('dialog-text-bounce');
-    bounceText.classList.add('movable-text');
-    bounceText.setAttribute('data-text', dialogText);
+        const text = document.createElement('p');
+        text.id = dialogType;
+        text.classList.add('dialog-text');
+        text.classList.add('movable-text');
+        text.setAttribute('data-text', `~${avatarData['name']}~^^${dialogText}`);
 
-    const story = document.getElementById('story');
+        const bounceText = document.createElement('p');
+        bounceText.id = dialogType;
+        bounceText.classList.add('dialog-text-bounce');
+        bounceText.classList.add('movable-text');
+        bounceText.setAttribute('data-text', dialogText);
+
+        const story = document.getElementById('story');
 
 
-    const dialogData = DIALOG_BOX_MAP[dialogType];
-    // dialogBox.src = dialogData.src
-    dialogBox.classList.add(dialogData.class);
-    dialogBox.classList.add('movable');
-    dialogBox.style.cursor = 'pointer';
+        const dialogData = DIALOG_BOX_MAP[dialogType];
+        // dialogBox.src = dialogData.src
+        dialogBox.classList.add(dialogData.class);
+        dialogBox.classList.add('movable');
+        dialogBox.style.cursor = 'pointer';
 
-    dialogBoxWrapper.id = dialogType;
-    dialogBoxWrapper.style.cursor = 'pointer';
-    dialogBoxWrapper.style.display = 'inline-block';
-    dialogBoxWrapper.style.width = '100%'
-    dialogBoxWrapper.classList.add('movable');
-    dialogBoxWrapper.style.pointerEvents = 'none';
-    dialogBoxWrapper.onclick = function (event) {
-        event.stopPropagation();
-        onClick();
-    };
-    dialogBoxWrapper.appendChild(dialogBox);
-    story.appendChild(dialogBoxWrapper);
 
+        dialogBoxWrapper.id = dialogType;
+        dialogBoxWrapper.style.cursor = 'pointer';
+        dialogBoxWrapper.style.display = 'inline-block';
+        dialogBoxWrapper.style.width = '100%'
+        dialogBoxWrapper.classList.add('movable');
+        dialogBoxWrapper.style.pointerEvents = 'none';
+        dialogBoxWrapper.onclick = function (event) {
+            event.stopPropagation();
+            onClick();
+        };
+        dialogBoxWrapper.appendChild(dialogBox);
+        story.appendChild(dialogBoxWrapper);
+
+        if (avatarType == 'drunk2') {
+            text.style.marginLeft = '7vw'
+            bounceText.style.marginLeft = '7vw'
+        }
+        story.appendChild(text);
+        story.appendChild(bounceText);
+
+    }
 
 
     if (avatarType != 'none') {
         story.appendChild(avatar);
     }
-    story.appendChild(text);
-    story.appendChild(bounceText);
 
     if (playSound) {
-        const audio = new Audio(`../resources/audio/characters/${avatarType}.mp3`);
+        const audio = new Audio(`../../resources/audio/characters/${avatarType}.mp3`);
         setTimeout(function () {
             audio.play();
         }, 800);
@@ -370,7 +417,11 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
 let rightAlignUserAvatar = false;
 
 export function dismissDialog(id, textOnly) {
-    const removeItems = [...document.querySelectorAll(`#${id ?? `main${narrativeCount - 1}`}`), ...document.querySelectorAll(`#dialog`)];
+    const removeItems = [
+        ...document.querySelectorAll(`#${id ?? `main${narrativeCount - 1}`}`),
+        ...document.querySelectorAll(`#dialog`),
+        ...document.querySelectorAll(`#title`)
+    ];
 
     if (!textOnly) {
         removeItems.push(...document.querySelectorAll(`#avatar`))
@@ -387,5 +438,13 @@ export function shiftDialog(id) {
     rightAlignUserAvatar = true;
 }
 
-const sinkPassages = ['climb', 'sleep-dream.', 'sleep-dream1.', 'swing-it', 'tree-chase', 'faeries-']
+const sinkPassages = ['climb', 'sleep/sleep-dream.', 'sleep/sleep-dream1.', 'sleep/swing-it', 'sleep/tree-chase', 'faeries/faeries-'];
+
+
+export function fadeOutText(id) {
+    const els = document.querySelectorAll(`#title`)
+    els.forEach((el) => {
+        el.style.animation = `fadeOutEffect 5s forwards`;
+    });
+}
 

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../../resources/images/backgrounds/new-game.png);"
+            id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            playAudio('../../resources/audio/story/park.mp3', true, 10);
+
+            createNarrative(
+                `You are in the park across from the {workshop}. In the distance, a childrens' play structure. ` +
+                `Behind the play structure sits an empty public pool in yellow and light blue. ` +
+                `Behind you, a soccer field, basketball court, and extensive skatepark. To your side, a huge snow pile.`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Wish there were more people here.', onClick: `redirect('park/park-wish.html')` }, //TODO: this does something to the stats or aspect
+                    { label: 'Still yourself and listen to the sounds.', onClick: `redirect('park/park-listen.html')` },
+                    { label: 'Leave the park to enter the neighborhood.', onClick: `redirect('neighborhood/neighborhood.html')` },
+                    { label: 'Play on the snowpile.', onClick: `redirect('park/park-snow-pile.html')` }
+                ]);
+            }, [`redirect('workshop/workshop.html')`]);
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

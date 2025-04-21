@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            showBottomChoices([
+                { label: 'Folks often mistake theft for inspiration.', onClick: `increaseStat('bluemagic', 1); redirect('void/void-alone3.html?choice=bm')` },
+                { label: 'If you learn your mind, your mind will learn you.', onClick: `increaseStat('will', 1); redirect('void/void-alone3.html?choice=w')` },
+                { label: 'Energy ought to be expended.', onClick: `increaseStat('athletics', 1); redirect('void/void-alone3.html?choice=ath')` },
+                { label: 'The awkward moment is the right moment for humor.', onClick: `increaseStat('shitheadedness', 1); redirect('void/void-alone3.html?choice=sh')` }
+            ]);
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

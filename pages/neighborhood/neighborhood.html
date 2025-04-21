@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            playAudio('../../resources/audio/story/neighborhood.mp3', true, 10);
+
+
+            createNarrative(
+                `Further down past the skate park, and some desolate fences, a bridge crosses over, making an underpass. ` +
+                `Random cars and trucks sit under the shelter of the bridge. A group of colorful people stand next to a grey ` +
+                `tractor trailer truck and a yellow push-up muscle car talking animatedly. They give off a fun but edgy vibe, and seem welcoming.`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Walk right up to them.', onClick: `redirect('neighborhood/neighborhood-approach.html')` },
+                    { label: 'Cut right behind the skatepark to avoid them.', onClick: `redirect('neighborhood/neighborhood-avoid.html')` },
+                    { label: 'Go in the other direction into a residential neighborhood.', onClick: `redirect('neighborhood/neighborhood-res.html')` },
+                    { label: 'Return to the park.', onClick: `redirect('park/park.html')` }
+                ]);
+            })
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

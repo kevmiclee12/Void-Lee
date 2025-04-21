@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `You draw in detail in the next panel a 1/2/3/4 character atop the windsail beest. With big eyes, and cartoonish swagger, you draw them looking around the back.^^The figure finds a heart-shaped box on the back. You draw a close-up of it, it looks like a tiny treasure chest that you draw with a pink-marker aura so that it seems to be glowing.^^You draw your character opening up the box, and finding controls inside: a joystick, and three buttons of different colors.^^What should the last panel be?`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Draw them pushing the joystick forward, angling toward another beest, pushing the red button.', onClick: `redirect('paint/paint8.html?choice=red')` },
+                    { label: 'Draw them pushing the joystick toward the ocean, pressing the green button.', onClick: `redirect('paint/paint8.html?choice=green')` },
+                    { label: 'Draw them pushing the black button.', onClick: `redirect('paint/paint8.html?choice=black')` },
+                    { label: 'Stop drawing.', onClick: `redirect('zombie.html')` }
+                ]);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

@@ -8,7 +8,6 @@ function updateInterval() {
     clearInterval(intervalId);
     intervalTime = audio.duration - audio.currentTime;
     intervalId = setInterval(() => {
-        console.log('play from start')
         audio.currentTime = 0;
         updateInterval();
     }, intervalTime * 1000);

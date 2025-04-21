@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+
+            let text = '';
+
+            switch (choice) {
+                case 'hongatar':
+                    text = `Yep. They're definitely unconscious, but they're breathing regularly.`;
+                    break;
+                case 'squirrel':
+                    text = `Poor little fella. It's actually snoring softly with eggcorn crumbs on its furry chest.`
+            }
+
+            createNarrative(
+                text + ` You notice eggcorns scattered about near where all the hongatar lay, just like the one you saw the squirrel eat. You see an uneaten one by your foot. {Inspect the eggcorn.}`
+            );
+            playText(onEnd => {
+            }, [`redirect('climb/climb5-faeries2.html')`]);
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

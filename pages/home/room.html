@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const choices = [
+                `redirect('sleep/sleep.html')`,
+                `redirect('paint/paint.html')`,
+                `redirect('park/park.html')`,
+                `redirect('workshop/workshop.html')`,
+                `redirect('city/city.html')`,
+            ];
+
+
+
+            createNarrative(
+                `You trudge up the light green carpeted narrow stairs to your room. Your room is festooned with posters, orderly piles of sorted odds and ends, and trinkets. ` +
+                `Your bed may be a full, but its puffy yellow comforter looks inviting. {A nap sounds nice}.` +
+                `^^A notebook sits on a little desk, a stiff chair next to it. Drawing utensils rest here. {Settle into the chair to make something}.` +
+                `^^The empty bed and the blank page remind you of fresh snow, a bright day, the smell of morning mud. ` +
+                `Poets saunter. Plastic bags and paper boxes are blown around by the wind. Kids playing, throwing and kicking, ` +
+                `snorting and rolicking. Wait, you want to {go to the park}.` +
+                `^^What about going to the {workshop}?` +
+                `^^I'd rather {see the City} today.`,
+            );
+            playText(onEnd => { }, choices);
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

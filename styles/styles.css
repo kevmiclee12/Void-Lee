@@ -33,7 +33,7 @@ a {
 
 
 
-/* .flash {
+.flash {
     position: fixed;
     top: 0;
     width: 100%;
@@ -41,7 +41,7 @@ a {
     z-index: 9999;
     opacity: 0;
     pointer-events: none;
-    animation: flashEffect 1s forwards;
+    background-color: red;
 }
 
 @keyframes flashEffect {
@@ -56,7 +56,7 @@ a {
     100% {
         opacity: 0;
     }
-} */
+}
 
 .transient-message-text {
     font-size: 2rem;
@@ -196,4 +196,16 @@ a {
 .sidebar-title {
     font-size: 18px;
     font-weight: bold;
+}
+
+.sidebar-item {
+    cursor: pointer;
+}
+
+.sidebar-item:hover {
+    color: #B56D3C;
+}
+
+.sidebar-item.selected {
+    color: #B56D3C;
 }

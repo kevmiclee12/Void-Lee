@@ -40,18 +40,23 @@ function checkSinkStatus() {
 }
 
 export function removeItem(name, overrideId) {
-    const newItems = JSON.parse(localStorage.getItem("items"));
+    const items = JSON.parse(localStorage.getItem("items"));
 
-    const index = newItems.indexOf(name);
+    const index = items.indexOf(name);
     if (index !== -1) {
-        newItems.splice(index, 1);
-        localStorage.setItem("items", JSON.stringify(newItems));
+        items.splice(index, 1);
+        localStorage.setItem("items", JSON.stringify(items));
     }
 
     showSnackbar(`-1 <strong>${name}</strong>`)
 }
 
 export function checkItems(value) {
-    const newItems = JSON.parse(localStorage.getItem("items"));
-    return !newItems.includes(value);
+    const items = JSON.parse(localStorage.getItem("items"));
+    return items.includes(value);
+}
+
+export function getItemCount(value) {
+    const items = JSON.parse(localStorage.getItem("items"));
+    return items.filter(e => e == value).length;
 }

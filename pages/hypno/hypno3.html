@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `You had fallen asleep on some dream moss, but you open your eyes to find yourself in a dressing room with a script in your hands, practicing lines for a play:
+                ^^"What a good boy am I, so far from being an ant."^"What a good boy... am I! So... \`far\` from being an ant!"^"What a good boy am I, so far... from \`being\` an ant."^...^"Builder of the gods, put an orange-soda fountain in my bedroom!"^"Builder... \`of the gods\`, put an orange-soda fountain in... \`my bedroom\`!"^"BUILDER OF THE GODS... PUT AN ORANGE-SODA FOUNTAIN IN MY BEDROOM!"^...^"Where's my wife? I miss her."^"Where's my... \`wife?\` I miss her!"^"Where's \`my\` wife? \`I miiiiiss herrrrrrr\`!!!"`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Keep practicing.', onClick: `redirect('hypno/hypno3a.html')` },
+                    { label: 'Finish.', onClick: `redirect('hypno/hypno4.html')` }
+                ]);
+            })
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+            const choices = [];
+
+            let text = '';
+
+            switch (choice) {
+                case 'bm':
+                    text = `You can feel them crawling up your legs!` +
+                        `^^Your legs stretch longer and longer, longer and longer, as the lice crawl up and up, ` +
+                        `and up and up. Your lunch sits on the table, remnants of white cod with hollandaise sauce, ` +
+                        `cracker breadcrumbs, a squished slice of yellow lemon, a smear of boxed mashed potatoes. ` +
+                        `You are now so tall you cannot reach your lunch.`
+                    choices.push(
+                        { label: 'Cry openly', onClick: `redirect('void/void-not-alone3-bm.html')` },
+                        { label: 'Stifle back the tears', onClick: `redirect('void/void-not-alone3-bm.html')` });
+                    break;
+                case 'w':
+                    text = `And that's about the time she quoted The Old Man and the Sea.` +
+                        `^^She said, "Nothing needs to make sense, as long as your hands are gripping the rope of life."` +
+                        `^^That reminds you! Your adage was...`
+                    choices.push(
+                        { label: `"Sometimes survival is the only moral choice."<span> ...wasn't it?</span>`, onClick: `redirect('void/void-not-alone3-w.html')` },
+                        { label: `<span>No wait it was, </span>"It is not because things are difficult that we do not dare, it is because we do not dare that they are difficult"`, onClick: `redirect('void/void-not-alone3-w.html')` }
+                    );
+                    break;
+                case 'ath':
+                    text = `Because Dad's a major player in the pieface scene. He signs to a reservation, ` +
+                        `looks and gets seen. He's gonna house a pie...he's gonna house a pie. And you start ` +
+                        `to think back to the last time you smelled a pie...what flavor was it?`
+                    choices.push(
+                        { label: 'Pecan.', onClick: `redirect('void/void-not-alone3-ath.html')` },
+                        { label: `<span>No, no... it was </span>key lime.`, onClick: `redirect('void/void-not-alone3-ath.html')` });
+                    break;
+                case 'sh':
+                    text = `Your sinuses are viral. Your hams are moldy. You mugged your niece. ` +
+                        `You thought she looked familiar. And now you seek for the hamster to spin its wheel ` +
+                        `in exchange for your memories. The hamster gives you two options...`
+                    choices.push(
+                        { label: 'Give him your soul.', onClick: `redirect('void/void-not-alone3-sh.html?choice=soul')` },
+                        { label: `Sacrifice your inner child.`, onClick: `redirect('void/void-not-alone3-sh.html?choice=inner child')` });
+                    break;
+                default:
+                    break;
+            }
+
+            createNarrative(text);
+            playText(onEnd => {
+                showBottomChoices(choices)
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

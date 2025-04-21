@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+
+            let text = ``
+
+            switch (choice) {
+                case 'where':
+                    text = `The squirrel has no reply. You rememeber someone telling you: "Travel is about the gorgeous feeling of teetering in the unknown." You suppose this is one of those times.`;
+                    break;
+                case 'what':
+                    text = `The squirrel has no reply. You rememeber someone telling you: "It's not a question, but a lesson learned in time." You suppose this is one of those times.`;
+                    break;
+                case 'why':
+                    text = `You remember someone telling you: "Peculiar travel suggestions are dancing lessons from god." You suppose this is one of those times.`
+            }
+
+            createNarrative(text + `^^All the while the chanting is growing louder. You're sure it's voices now. It sounds like they are chanting, "We're going to a party! We're going to a party!" From time to time, the squirrel turns around, egging you on.`);
+            playText(onEnd => {
+                createDialog('long', 'squirrel', 'Puolue! Puolue!', onClick => {
+                    dismissDialog('long');
+                    dismissDialog(null, true);
+                    createNarrative(
+                        `You arrive at a clearing. The {pine faeries} you saw earlier are all laying about on the ground, apparently unconscious.^^The squirrel is darting here and there, sniffing the hongatar and chittering excitedly.`
+                    );
+                    playText(onEnd => {
+                        createDialog('long', 'squirrel', 'Puolue! Puolue!', onClick => {
+                            dismissDialog('long');
+                            dismissDialog(null, true);
+                            createNarrative(`The squirrel finds an eggcorn and begins to nibble it. Suddenly, its whiskers twitch a few times and it swoons until it falls to ground unconcsious, just like the hongatar.`);
+                            playText(onEnd => {
+                                createDialog('long', 'squirrel', 'Pu...o..lue.... Puo.....', onClick => {
+                                    dismissDialog('long');
+                                    showBottomChoices([
+                                        { label: 'Inspect the hongatar.', onClick: `redirect('climb/climb5-faeries1.html?choice=hongatar')` },
+                                        {
+                                            label: 'Inspect the squirrel.', onClick: `redirect('climb/climb5 - faeries1.html ? choice = squirrel')`
+                                        }
+                                    ]);
+                                });
+                            });
+                        }, true);
+                    }, [`toggleSidebar('id', 'hongatar', event);`]);
+                }, true);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

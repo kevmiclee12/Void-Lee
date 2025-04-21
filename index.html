@@ -34,9 +34,9 @@
             top: 34vw;
             position: absolute;" data-text="An intro to the Leakyverse">
             </p>
-            <div class="fade" id="delayedMessage"
+            <div class="fade intro-choices" id="delayedMessage"
                 style="visibility:hidden; position: absolute; left: 50vw; top: 40vw; flex-direction: column; display: flex;">
-                <a class="choice-button" onClick="stopAudio(); redirect('pages/home.html')">
+                <a class="choice-button" onClick="stopAudio(); redirect('pages/intro.html', false)">
                     New game
                 </a>
                 <div style="height: 8px"></div>
@@ -58,7 +58,7 @@
     <link rel="stylesheet" href="styles/alert.css">
     <link rel="stylesheet" href="styles/choices.css">
     <link rel="stylesheet" href="styles/button.css">
-    <link rel="stylesheet" href="../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
 </body>
 
 </html>

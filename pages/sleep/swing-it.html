@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            const hasAxe = checkItems('axe');
+
+            if (!hasAxe) {
+                addItem('axe');
+            }
+
+            createNarrative(
+                `You have chosen to swing a dream ax at a dream tree.` +
+                `^^Looking down, you see a single-headed carbon-fiber ax in your left hand. Heh. Hefty!` +
+                `^^You spit into each of your palms and aiming at the nearest tree, you get a good look at its bark. ` +
+                `The brown armor is thick and full of a maze of paths, following the pine's vertical growth. ` +
+                `You position the ax over your left shoulder, and closing one eye, take a swing at a healthy angle to hit the tree.`
+            );
+            playText(onEnd => {
+                showBottomChoices([{ label: 'THUNK', onClick: `skillRoll('athletics', () => redirect('sleep/tree-chase.html?choice=chop-success'), () => redirect('sleep/tree-chase.html?choice=chop-fail'))` }]);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

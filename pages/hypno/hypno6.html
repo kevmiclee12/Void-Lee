@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        //TODO: skill roll - will?
+
+        window.awakeCheck = function () {
+            hideBottomChoices();
+            dismissDialog(null, true);
+            dismissDialog('long');
+            createDialog('long', 'buzz', 'But \`the show must go on\`!', onClick => {
+                shiftDialog('long');
+                showBottomChoices([
+                    { label: `"I said no."`, onClick: `redirect('sleep/sleep-dream1.html?filter=nap')` },
+                    { label: `"You're right. The show must go on!"`, onClick: `ready()` }
+                ]);
+            });
+        }
+
+        window.ready = function () {
+            hideBottomChoices();
+            dismissDialog(null, true);
+            dismissDialog('long');
+            createDialog('long', 'buzz', 'Great! I knew you were right for the job. Now remember everything I taught you.', onClick => {
+                dismissDialog('long');
+                createNarrative(`With that, the stage door shuts.^^It's dark, and doesn't really seem like a stage at all. As your eyes adjust and the scene takes shape, it seems eerily similar to the forest from your original dream.^^You hear voices approaching. Quick! {Act like a keg!}`);
+                playText(null, [`redirect('party/party-keg.html');`]);
+            }, true);
+        }
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `You walk out onto a steel catwalk. You see an infinite maze of these catwalks in every direction, and figures in an endless array of wild and impossbile costumes of all shapes and sizes.`
+            );
+            playText(onEnd => {
+                createDialog('long', 'buzz', `Busy, busy! Memespace is bumpin tonight! That's why we had to bring in you eh... erm.. \`amateurs\`.`, onClick => {
+                    dismissDialog(null, true);
+                    dismissDialog('long');
+                    createNarrative(`He says \`amateur\` like he is trying to pronounce it in the language from which the word is originally derived, without actually knowing which language.`);
+                    playText(onEnd => {
+                        createDialog('long', 'buzz', `Here we are! Stage 2B, Leak Party. I'll let you take it from here. Break a leg! Figuratively, of course. If you were to actually break your leg... I knew we were forgetting something! The waiver, I have it here somewhere.`, onClick => {
+                            dismissDialog(null, true);
+                            dismissDialog('long');
+                            createNarrative(`He pats his pockets and looks around beseechingly, presumably for someone to blame. A mechanical voice drawls from inside Stage 2B, "They're ready for you, boss."`);
+                            playText(onEnd => {
+                                createDialog('long', 'buzz', `No matter! It will have to do. \`The show must go on!\` But absolutely NO leg breaking, or any bones while we're on the subject.`, onClick => {
+                                    shiftDialog('long');
+                                    showBottomChoices([
+                                        { label: `<span>"I'm not doing this!" </span>Will yourself awake.`, onClick: `awakeCheck()` },
+                                        { label: "I'm ready.", onClick: `ready()` }
+                                    ]);
+                                }, true);
+                                ;
+                            });
+                        }, true);
+
+                    });
+                }, true);
+                ;
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

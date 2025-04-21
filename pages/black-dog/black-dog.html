@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `Your attention shifts to the field as the distant lights of the highway pull your attention, like shooting stars.` +
+                `^^Below your gaze, you slowly notice that a form is hunched across the field from you. Like a dark and burly bush, ` +
+                `you can't make out its features. You are sure that was not there a minute ago.`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Go closer.', onClick: `redirect('black-dog/black-dog1.html')` },
+                    { label: 'Back away.', onClick: `redirect('black-dog/black-dog1.html')` }
+                ]);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

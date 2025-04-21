@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            const hasMushroom = checkItems('mushroom');
+
+            const choices = [`addItem('mushroom')`, `redirect('sleep/tree-chase.html?choice=dream')`];
+
+            createNarrative(
+                `...^^The concept of dreaming twice is so scary! What if you don't wake up? ` +
+                `^^Too late, you fell asleep anyway. Radiating anxiety, your raw nerves attack you.` +
+                `^^After a spiral of overthinking, you notice that you are hugging a brightly colored mushroom. ` +
+                `You can tell because your face is right up against it and your arms are surrounding it. ` +
+                `The mushroom smells like a marshmallow pencil, sad carnivals and tests. Its flesh is soft, like a rotting orange. ` +
+                `You recoil. What a gross mushroom! What a cruddy day! You feel off.^^You hear yourself say aloud, "Eugh! What a wash."` +
+                `^^You lean back for a while just admiring the mushroom's disgustingness, worrying that you'll never wake up again.` +
+                `${!hasMushroom ? `^^{Grab up a handful of the mushroom's flesh.}` : ''}${!hasMushroom ? '^^' : ''}You begin to hear a faint thudding ` +
+                `noise like the labored heartbeat of some distant goliath. Oh no. Your dreaming was weak, filled with worry. ` +
+                `A foreboding sense of doom cuts forces you to {awaken} back into the first dream.`
+            );
+            playText(onEnd => {
+            }, choices);
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

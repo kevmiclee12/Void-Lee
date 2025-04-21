@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `Misery is okay! It loves. Misery loves company.` +
+                `^The void cannot have company. It isn't <i>really there</i>. It is the embodiment of Mu, the non-being of all things. ` +
+                `When looked at closely, things have nothing in them. You can magnify skin until you see ` +
+                `there are voids between even the building blocks of life. In the little bags of water that ` +
+                `make us up there is information with no use. There are third eyes that do not see. ` +
+                `The only living forever for us is in death. Death and the void are not the same, however. ` +
+                `If you are dead, you are somewhere. If you are dead, it means you once walked this Earf. ` +
+                `The dead live on in others' minds. Absence is <i>more</i> than the void. The void is nothing, nowhere. ` +
+                `There is no misery in the Void.` +
+                `^^Is the Void alone?`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: `Not anymore!`, onClick: `redirect('void/void-not-alone.html')` },
+                    { label: `The Void will always be alone...`, onClick: `redirect('void/void-alone.html')` },
+                    { label: `Whatever.`, onClick: `toggleSidebar('id', 'whatever', event)` },
+                ]);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

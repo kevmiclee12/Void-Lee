@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(`The {hongatar} puff up, proud.`)
+            playText(onEnd => {
+                createDialog('long', 'faerie1', `Humans have decimated the snail forest. We hongatar are nobly trying to replant them one snail shell at a time.`, onClick => {
+                    shiftDialog('long');
+                    showBottomChoices([
+                        { label: `"You're lying. I saw you eating the snails!"`, onClick: `redirect('faeries/faeries-follow1.html?choice=accuse')` },
+                        { label: `"Your dedication to the ecosystem is so inspiring. If only we humans were so thoughtful and so brave."`, onClick: `redirect('faeries/faeries-follow1.html?choice=flatter')` },
+                        { label: `"That's the stupidest thing I've ever heard."`, onClick: `redirect('faeries/faeries-follow1.html?choice=insult')` }
+                    ]);
+                }, true);
+            }, [`toggleSidebar('id', 'hongatar', event)`]);
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

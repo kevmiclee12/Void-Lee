@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" id="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        const choices = [
+            { label: 'Go out.', onClick: `redirect('home/home1.html')` },
+            { label: 'Go to your room.', onClick: `redirect('home/room.html')` },
+            { label: '<span>You can do anything! </span>Look at your phone.', onClick: `toggleSidebar('phone', null, event); clearPhoneChoice();` }
+        ];
+
+        window.clearPhoneChoice = function () {
+            hideBottomChoices();
+            showBottomChoices(choices.slice(0, 2))
+        }
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `Your rented room shares its house with roommates, who are at work. Daylight intrudes through the blinds of the living room window and is cast onto the ceiling in stripes. ` +
+                `The view out your window shows a lawn, a small tree speckled with red berries, and a quiet road with cars parked along its length.` +
+                `^^You could go out and explore the city or park. Or you could go to your workshop. Also, no one is home. You might enjoy some quiet time in your room.`
+            );
+            playText(onEnd => {
+                showBottomChoices(choices);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `You keep shimmying up the trunk, past the first branch. Your arms and legs are giving out. The {squirrel} hasn't moved. The way it watches you, vacillating between tepid curiosity and utter indifference, suggests the thought of you as a threat could not be further from its mind.`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Push yourself even harder.', onClick: `redirect('climb/climb3.html')` },
+                    { label: '<span>This was a bad idea. </span>Shimmy back down before you get hurt.', onClick: `redirect('climb/climb-give-up.html')` }
+                ]);
+            }, [`toggleSidebar('id', 'squirrel', event)`]);
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

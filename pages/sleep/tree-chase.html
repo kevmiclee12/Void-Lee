@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+
+
+    <script type="module">
+        import * as script from "../../script.js"
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+
+            let text = '';
+
+            const other = `As the dull sound resounds, it is joined by a chorus of snapping, cracking, creaking. Soft at first, the din grows louder and louder.` +
+                `^^A tree slams as it splinters and crashes into the ground behind you, making you jump. Another tree falls, narrowly missing ` +
+                `your shoulder. A tree that wasn't even there before begins to fall directly overhead. You dive out of the way at the last moment.` +
+                `^^The trees are chasing you!` +
+                `^^You {run} forward through the forest.` +
+                `^^{Pick up a handful of pine needles.}`
+            let isTreeChopper = false;
+
+            switch (choice) {
+                case 'dream':
+                    text = `The thuds you were hearing turned out to be very real. Well, for a dream... especially considering you were dreaming twice.^^`
+                    break;
+                case 'climb':
+                    text = `As you swat at the pesky vermin you lose your grip and fall backwards like a defeated villain in slow-motion, finally hitting the ground with a thud. `
+                    break;
+                case 'chop-success':
+                    text = `You slice through the tree with one fell swoop. Wow! Your parking lot dreams just might come true!` +
+                        `^^The huge tree creaks ominously as it starts to fall. Just as you are about to yell, "Timber!", you hear strange ` +
+                        `noises from the depths of the forest. The tree hits the ground with a dull, lifeless thud. `
+                    isTreeChopper = true;
+                    localStorage.setItem('aspect', 'tree murderer');
+                    break;
+                case 'chop-fail':
+                    removeItem('axe');
+                    text = `The axe bounces off the tree and flies out of your hands. Not even a dent. Lame! Looks like you won't get your parking lot after all. `
+                    isTreeChopper = true;
+                    localStorage.setItem('aspect', 'tree murderer');
+                    break;
+            }
+
+            createNarrative(
+                `${text} ${other}`
+            );
+            playText(onEnd => {
+            }, [`redirect('sleep/tree-chase1.html?isTreeChopper=${isTreeChopper}')`, `addItem('pine needles')`]);
+        });
+
+
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

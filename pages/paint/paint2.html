@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `You draw the wind blowing in gusts, pulling the sail. You imagine it tastes salty, like dead birds.^^On the next page, you draw the long-legged creature moving in earth-shaking steps, pulled by its sails with the pace of the wind. You draw a small figure near the base of the beest on the beach. The spider-sail-beest towers over the small featureless figure. ^^You draw the coast receeding into the distance, along which there are many such beests. They recede past the curve of the coast, shrouded in mist and seagulls, each covered in dirt and seaweed, and dripping water..^^You admire the immense mass of your nearest beast. Like a child, you stare in unselfconscious awe of the thing. For you it is colored by no relatable experience. Lost in awe, you forget that you are the one drawing the beach.`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Pull out your phone.', onClick: `redirect('paint/paint3.html')` },
+                    { label: 'Stop drawing.', onClick: `redirect('zombie.html')` }
+                ]);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

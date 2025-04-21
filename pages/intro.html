@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div class="story" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            createText(`I left the home I'd come to know`);
+            playText(onEnd => {
+            }, null, 'title');
+            setTimeout(() => {
+                fadeOutText('title');
+                setTimeout(() => {
+                    dismissDialog(null, true);
+                    createText('Stayed alive to find a way to grow');
+                    playText(null, null, 'title');
+                    setTimeout(() => {
+                        fadeOutText('title');
+                        setTimeout(() => {
+                            redirect('home/home.html');
+                        }, 5000);
+                    }, 8000);
+                }, 5000);
+            }, 8000);
+        });
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

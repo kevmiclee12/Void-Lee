@@ -1,5 +1,5 @@
 import { BAG_ICON, STATS_ICON, PHONE_ICON, ID_ICON } from "./icons.js";
-import { dismissPhoneAlert } from "./alerts.js";
+import { dismissPhoneAlert, showSnackbar } from "./alerts.js";
 
 
 export function buildSidebar() {
@@ -65,22 +65,168 @@ export function toggleSidebar(value, dictPage, event) {
 
 function buildItems() {
     const sidebar = document.getElementById('sidebar');
+    sidebar.innerHTML = '';
 
-    const title = `<p class="sidebar-title">ITEMS</p>`
+    const title = document.createElement("p");
+    title.className = "sidebar-title";
+    title.innerText = "ITEMS";
+    sidebar.appendChild(title);
 
     const items = JSON.parse(localStorage.getItem("items"))
     const countMap = items.reduce((acc, item) => {
         acc[item] = (acc[item] || 0) + 1;
         return acc;
     }, {});
-    const result = Object.entries(countMap).map(([item, count]) => `x${count} ${item}`);
-    const itemsList = `<p>${result.join('<br>')}</p>`;
+    Object.entries(countMap).map(([item, count]) => {
+        const div = document.createElement("div");
+        div.className = "sidebar-item";
+        div.textContent = `x${count} ${item}`;
 
-    const clearButton = `<button onclick="clearItems()">Empty Bag</button>`
+        div.addEventListener("click", () => selectItem(item));
 
-    const closeBtn = `<button onclick="toggleSidebar('bag', null, event)">Close Bag</button>`
+        sidebar.appendChild(div);
+        const br = document.createElement("br");
+        sidebar.appendChild(br);
+    });
 
-    sidebar.innerHTML = title + itemsList + clearButton + closeBtn
+    const halfWidth = sidebar.offsetWidth / 2;
+
+    const closeBtn = document.createElement("button");
+    closeBtn.style.width = `${halfWidth - 32}px`;
+    closeBtn.addEventListener("click", (event) => toggleSidebar('bag', null, event))
+    closeBtn.innerText = 'Close Bag';
+
+    sidebar.appendChild(closeBtn);
+
+    const alert = document.createElement('div');
+    alert.id = 'custom-alert';
+    alert.className = 'snackbar';
+    alert.innerHTML = `<p id="alert-message"></p>`;
+    sidebar.appendChild(alert);
+}
+
+function selectItem(value) {
+
+    const divsWithClass = Array.from(document.querySelectorAll('div.sidebar-item'));
+    let itemDiv;
+    divsWithClass.forEach((div) => {
+        if (div.textContent.replace(/^x\d+\s+/, '') === value) {
+            div.classList.add('selected');
+            itemDiv = div;
+        } else {
+            div.classList.remove('selected');
+        }
+    });
+
+
+    const sidebar = document.getElementById('sidebar');
+    let canUse = true;
+    let body = document.getElementById('itemDesc-p')
+    let newBody = false;
+    if (!body) {
+        body = document.createElement('p');
+        body.id = 'itemDesc-p';
+        newBody = true;
+    }
+
+    let itemDesc = document.getElementById('itemDesc')
+    if (!itemDesc) {
+        itemDesc = document.createElement('div');
+        itemDesc.id = 'itemDesc';
+    }
+
+    let useItemText = '';
+
+    switch (value) {
+        //TODO: check if usable
+        case `Gurpy's dragon ring`:
+            body.innerText = `The dragon is made of stainless steel with ruby red eyes, and in its claws, it holds a swirling planet of turquoise.`;
+            if (newBody) {
+                itemDesc.appendChild(body);
+            }
+            useItemText = 'You slip your dragon ring on, it always makes you feel connected to the grandpa you never met.';
+            break;
+        case `Mormor's patched coat`:
+            body.innerText = `There is an intricately-hooked patch on its back that shows four images: an ancient windmill, an historic longship, a modern wind turbine, and a lobster boat.`;
+            if (newBody) {
+                itemDesc.appendChild(body);
+            }
+            useItemText = 'You put on the coat. Smells like mormor.';
+
+            break;
+    }
+
+
+
+
+    let buttonRow = document.getElementById('itemDesc-btnRow');
+    const halfWidth = sidebar.offsetWidth / 2;
+
+    if (!buttonRow) {
+        buttonRow = document.createElement('div');
+        buttonRow.id = 'itemDesc-btnRow';
+        const useBtn = document.createElement('button');
+        useBtn.id = 'itemDesc-btn-use';
+        useBtn.style.width = `${halfWidth - 32}px`;
+        useBtn.style.marginRight = `8px`;
+        useBtn.innerText = 'Use';
+
+        useBtn.addEventListener("click", (event) => {
+            if (canUse) {
+                showSnackbar(useItemText, 8000);
+            } else {
+                showSnackbar('Cannot use this item now.');
+            }
+        });
+
+        const doneBtn = document.createElement('button');
+        doneBtn.id = 'itemDesc-btn-done';
+        doneBtn.style.width = `${halfWidth - 32}px`;
+        doneBtn.innerText = 'Done';
+        doneBtn.addEventListener("click", (event) => {
+            const container = document.getElementById("itemDesc");
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            itemDiv.classList.remove('selected');
+        });
+
+        buttonRow.appendChild(useBtn);
+        buttonRow.appendChild(doneBtn);
+        itemDesc.appendChild(buttonRow);
+    } else {
+        const useBtn = document.getElementById('itemDesc-btn-use');
+        useBtn.addEventListener("click", (event) => {
+            if (canUse) {
+                showSnackbar(useItemText, 8000);
+            } else {
+                showSnackbar('Cannot use this item now.');
+            }
+        })
+
+        const doneBtn = document.getElementById('itemDesc-btn-done');
+        doneBtn.addEventListener("click", (event) => {
+            const container = document.getElementById("itemDesc");
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            itemDiv.classList.remove('selected');
+        });
+    }
+
+    let divider = document.getElementById('itemDesc-divider');
+    if (!divider) {
+        divider = document.createElement('div');
+        divider.id = 'itemDesc-divider';
+        divider.style.marginTop = `16px`;
+        divider.innerText = '- - - - - - - - - - - - - - - - - - - - - - - -';
+    }
+
+    if (newBody) {
+        sidebar.appendChild(divider);
+        sidebar.appendChild(itemDesc);
+    }
+
 }
 
 function clearItems() {

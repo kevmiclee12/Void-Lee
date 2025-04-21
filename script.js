@@ -1,7 +1,7 @@
 import { increaseStat, skillRoll } from "./scripts/stats.js"
-import { addItem, removeItem, checkItems } from "./scripts/items.js"
+import { addItem, removeItem, checkItems, getItemCount } from "./scripts/items.js"
 import { redirect, fadeInOverlay, clearChoice, invert } from "./scripts/page.js"
-import { finishText, showBottomChoices, hideBottomChoices, createNarrative, createDialog, dismissDialog, shiftDialog, playText } from "./scripts/text.js"
+import { finishText, showBottomChoices, hideBottomChoices, createNarrative, createDialog, dismissDialog, shiftDialog, playText, createText, fadeOutText } from "./scripts/text.js"
 import { playAudio, stopAudio, checkAudio, saveAudioState } from "./scripts/audio.js"
 import { buildSidebar, toggleSidebar } from "./scripts/sidebar.js"
 import { showCustomAlert, closeCustomAlert, showSnackbar } from "./scripts/alerts.js"
@@ -12,6 +12,7 @@ window.increaseStat = increaseStat;
 window.removeItem = removeItem;
 window.checkItems = checkItems;
 window.addItem = addItem;
+window.getItemCount = getItemCount;
 
 window.redirect = redirect;
 window.fadeInOverlay = fadeInOverlay;
@@ -26,6 +27,8 @@ window.createDialog = createDialog;
 window.dismissDialog = dismissDialog;
 window.shiftDialog = shiftDialog;
 window.playText = playText;
+window.createText = createText;
+window.fadeOutText = fadeOutText;
 
 window.playAudio = playAudio;
 window.stopAudio = stopAudio;
@@ -49,7 +52,7 @@ function startGame() {
         bluemagic: 0,
         will: 0
     }));
-    localStorage.setItem("items", JSON.stringify([]));
+    localStorage.setItem("items", JSON.stringify([`Gurpy's dragon ring`, `Mormor's patched coat`]));
     localStorage.setItem("history", JSON.stringify([]));
     localStorage.setItem("openedDict", JSON.stringify(false));
     localStorage.setItem("dictPages", JSON.stringify([]));
@@ -65,8 +68,8 @@ function startGame() {
     playText(() => {
         showBottomChoices(
             [
-                { label: 'New game', onClick: `stopAudio(); redirect('pages/home.html')` },
-                { label: 'Credits', onCLick: '' },
+                { label: 'New game', onClick: `stopAudio(); redirect('pages/intro.html', false)` },
+                { label: 'Credits', onClick: '' },
             ],
             true,
         );
@@ -76,8 +79,8 @@ function startGame() {
     playText(() => {
         showBottomChoices(
             [
-                { label: 'New game', onClick: `stopAudio(); redirect('pages/home.html')` },
-                { label: 'Credits', onCLick: '' },
+                { label: 'New game', onClick: `stopAudio(); redirect('pages/intro.html', false)` },
+                { label: 'Credits', onClick: '' },
             ],
             true,
         );

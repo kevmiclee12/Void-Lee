@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `The {squirrel} is right. You could never expect to be compete with its arboreal superiority. Better to slide back down the tree before you get hurt.`
+            );
+            playText(onEnd => {
+                createDialog('long', 'squirrel', `Putoat! Putoat!`, onClick => {
+                    dismissDialog(null, true);
+                    dismissDialog('long');
+                    createNarrative(`Dang squirrel! It's becoming aggressive, jumping on and off your head and yanking your hair.`);
+                    playText(onEnd => {
+                        createDialog('long', 'squirrel', `PUTOAT! PUTOAT!`, onClick => {
+                            redirect('sleep/tree-chase.html?choice=climb');
+                        });
+                    });
+                });
+            }, [`toggleSidebar('id', 'squirrel', event)`]
+            );
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+
+</body>
+
+</html>

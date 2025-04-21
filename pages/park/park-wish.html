@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(`You wished, but there aren't. But this park is rather pretty...and there's a huge snowpile that looks pretty cool to play on...and a neighborhood beyond, maybe it would be fun to find someone to talk to.`);
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: 'Still yourself and listen to the park.', onClick: `redirect('park/park-wish1.html')` },
+                    { label: 'Find some people to chat with in the neighborhood.', onClick: `redirect('neighborhood/neighborhood.html')` },
+                    { label: 'Play on the snowpile.', onClick: `redirect('park/park-snow-pile.html')` }
+
+                ]);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

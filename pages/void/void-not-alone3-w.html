@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+
+            createNarrative(
+                `Yes! That was it! You love collecting sayings like that, reflecting upon your life in the light they cast.` + `
+                ^^You see a clean, well-lit living room coalesce. It's you in the seat of the couch, crunching on gluten-free cheese puffs. `+
+                `You're laughing. You glance outside, and see someone doing kickflips on the pavement. You bought that skateboard. ` +
+                `Shouldn't you...?`
+            );
+            playText(onEnd => {
+                showBottomChoices([
+                    { label: `Get out there an' show 'em!`, onClick: `redirect('void/void-not-alone3-w-1.html')` },
+                    {
+                        label: `<span>It can't be helped, </span>stay inside and weep.`, onClick: `redirect('void/void-not-alone3-w-1.html')`
+                    }
+                ])
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

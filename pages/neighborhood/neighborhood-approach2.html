@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `You start talkin real fast. You just wanted to break social norms for a second! You thought they looked cool is all! You are not a cop, you don't know any cops, and please can they stop recording?`
+            );
+            playText(onEnd => {
+                createDialog('long', 'spray-paint-gang', `Brooooooooo! Check out that UNDERPASS! You should tag it.`, onClick => {
+                    dismissDialog('long');
+                    dismissDialog(null, true);
+                    createNarrative(
+                        `You stand there holding two spray paint cans, thinking about their request. This has all happened so fast. They seem to respect your boldness, and now they have escalated the relationship faster than a trust fall. They tell you that if you join, you can keep the spraycans. They urge you to do your tag on the underpass wall.`
+                    );
+                    playText(onEnd => {
+                        createDialog('long', 'spray-paint-gang', 'TAG IT! TAG IT!', onClick => {
+                            shiftDialog('long');
+                            showBottomChoices([
+                                { label: 'Tag the wall.', onClick: `redirect('neighborhood/neighborhood-approach-tag.html')` },
+                                { label: 'Flee.', onClick: `redirect('neighborhood/neighborhood-approach-flee.html')` }
+                            ]);
+                        }, true);
+                    });
+                }, true);
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

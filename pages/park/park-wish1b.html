@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            const params = new URLSearchParams(window.location.search);
+            const choice = params.get('choice');
+            const winner = choice == 'sun' ? 'drunk1' : 'drunk2';
+            const winnerTitle = choice == 'sun' ? 'DRUNK #1' : 'DRUNK #2';
+            const loser = choice == 'sun' ? 'drunk2' : 'drunk1';
+            const loserTitle = choice == 'sun' ? 'DRUNK #2' : 'DRUNK #1';
+
+            createDialog('long', winner, `THANK YOU!!`, onClick => {
+                dismissDialog('long');
+                createDialog('long', loser, `..........`, onClick => {
+                    dismissDialog('long');
+                    createNarrative(
+                        `The one celebrates to the other.`
+                    );
+                    playText(onEnd => {
+                        createDialog('long', winner, `HA, EAT IT!`, onClick => {
+                            shiftDialog('long');
+                            showBottomChoices([{ label: 'Open your mouth to reply.', onClick: `redirect('park/park-wish-done.html')` }]);
+                        });
+                    });
+                });
+            }, true);
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>
