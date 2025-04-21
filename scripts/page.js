@@ -15,7 +15,9 @@ export function redirect(url, isAbsolute) {
     }
 
     fadeOutOverlay();
-    window.location.href = `${isAbsolute ? '/pages/' : ''}${url}`;
+    const basePath = window.location.hostname === '127.0.0.1' ? '' : '/Void-Lee';
+
+    window.location.href = `${basePath}/pages/${url}`;
     trackHistory(url);
     //TODO: every redirect increases the 'time' that has passed. 
 }

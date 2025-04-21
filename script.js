@@ -68,7 +68,7 @@ function startGame() {
     playText(() => {
         showBottomChoices(
             [
-                { label: 'New game', onClick: `stopAudio(); redirect('pages/intro.html', false)` },
+                { label: 'New game', onClick: `stopAudio(); redirect('intro.html')` },
                 { label: 'Credits', onClick: '' },
             ],
             true,
@@ -79,7 +79,7 @@ function startGame() {
     playText(() => {
         showBottomChoices(
             [
-                { label: 'New game', onClick: `stopAudio(); redirect('pages/intro.html', false)` },
+                { label: 'New game', onClick: `stopAudio(); redirect('intro.html')` },
                 { label: 'Credits', onClick: '' },
             ],
             true,
