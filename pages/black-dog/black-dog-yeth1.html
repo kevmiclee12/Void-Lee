@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div class="alert-overlay" id="customAlert" style="display: none;">
+        <div class="alert-box">
+            <p class="alert-message" id="alertMessage"></p>
+            <button class="alert-close-btn"
+                onclick="closeCustomAlert(() => {playText();; createDialog('long', 'yeth-hound');  shiftDialog();  showBottomChoices([]); showBottomChoices([], true)});">OK</button>
+        </div>
+    </div>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+            <div id="delayedMessage"
+                style="bottom: 5vw; left: 45vw ; position: absolute; visibility:hidden; display: flex; flex-direction:column; align-items: center">
+                <div id="container" class='vertical'>
+                    <div id="fill"></div>
+                    <div id="line"></div>
+                </div>
+                <button id="stopBtn" class='alert-close-btn' style="left: 35vw">Gabmit!</button>
+            </div>
+        </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
+    </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            showCustomAlert(`Stop the needle closer to the top to perform a more successful gambit!`)
+        });
+
+        localStorage.setItem('aspect', 'dog kicker');
+
+        const stopBtn = document.getElementById('stopBtn');
+        const line = document.getElementById('line');
+        const fill = document.getElementById('fill');
+        const container = document.getElementById('container');
+        const game = document.getElementById('delayedMessage');
+
+        let containerHeight = container.offsetHeight;
+        let y = 0;
+        let direction = 1;
+        let speed = 25;
+        let animation;
+        let text = '';
+
+        function animateLine() {
+
+            y += speed * direction;
+
+            if (y >= containerHeight) {
+                y = containerHeight;
+                direction = -1;
+            } else if (y <= 0) {
+                y = 0;
+                direction = 1;
+            }
+
+            line.style.bottom = y + 'px';
+            fill.style.height = y + 'px';
+
+            animation = requestAnimationFrame(animateLine);
+        }
+
+        animateLine();
+
+        stopBtn.addEventListener('click', () => {
+            cancelAnimationFrame(animation);
+
+
+            const fillY = fill.offsetHeight;
+            const containerHeight = container.offsetHeight;
+
+            const intensity = (fillY / containerHeight) * 100;
+
+
+
+            if (intensity > 75) {
+                text = `You take a running step toward it and fly through the air feet-first in a two-legged drop kick. The redblack dog yelps, and then snarls.` +
+                    `It looks right into your eyes. You start to {feel bad}.`
+            } else if (intensity > 50) {
+                text = `With malicious fury, you wind your leg up to your chest and perform a wanton one-footed stomp. You stomp right down onto its face. It squeals, and snarls.` +
+                    `It looks right into your eyes. You start to {feel bad}.`
+            } else {
+                text = `You close your eyes and kick out quickly where you think its face is. Your hear its panting as your leg furtively kicks out. ` +
+                    `You hit nothing. But strangely, you hear it depart. You open your eyes.` +
+                    `^^Seeing the human-like dog scamper away, you wonder if it was wrong to judge it so quickly. You start to {feel bad}.`
+            }
+
+
+            setTimeout(() => {
+                createNarrative(text);
+                hideBottomChoices();
+                game.style.display = 'none';
+                playText(onEnd => { }, [`redirect('black-dog/black-dog-yeth-regret.html')`]);
+            }, 1000)
+        });
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+    <link rel="stylesheet" href="../../styles/gauge.css">
+</body>
+
+</html>

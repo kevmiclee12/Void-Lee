@@ -12,19 +12,21 @@
 }
 
 #target {
-    /* position: absolute;
-    top: 0; */
-    /* left: 45%; */
     width: 8vw;
     height: 100%;
     background-color: rgba(0, 200, 0, 0.3);
     pointer-events: none;
 }
 
-#line {
+#container.vertical {
+    width: 5vw;
+    height: 25vw;
+}
+
+#fill {
     position: absolute;
-    top: 0;
-    width: 2px;
-    height: 100%;
-    background-color: red;
+    bottom: 0;
+    width: 100%;
+    background-color: #00FF33;
+    height: 0;
 }

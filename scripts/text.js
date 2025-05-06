@@ -209,7 +209,7 @@ function insertLineBreaks(element, maxWidth) {
     }
 }
 
-export function showBottomChoices(choices, isHome, isRight) {
+export function showBottomChoices(choices, isHome, leftMargin) {
     if (isHome) {
         const delayedMessage = document.getElementById('delayedMessage');
         if (delayedMessage) {
@@ -248,6 +248,10 @@ export function showBottomChoices(choices, isHome, isRight) {
         dialogBox.classList.add('dialog-text');
         dialogBoxWrapper.id = 'choices';
         dialogBox.style.whiteSpace = 'normal';
+        if(leftMargin) {
+            console.log('adding margin: ', leftMargin)
+            dialogBox.style.marginLeft = `${leftMargin}px`
+        }
 
         if (choices && choices.length > 0) {
             dialogBoxWrapper.appendChild(dialogBox);
@@ -344,7 +348,6 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
     const dialogBoxWrapper = document.createElement('div')
     const dialogBox = document.createElement('div');
     const avatar = document.createElement('img');
-
 
     const avatarData = AVATAR_MAP[avatarType];
     if (avatarData['image']) {

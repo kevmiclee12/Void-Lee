@@ -15,6 +15,8 @@ function updateInterval() {
 
 export function playAudio(audioUrl, loop, fadeDuration, volume) {
 
+    console.log(audioUrl);
+
     if (audioUrl != audioPath) {
         audio = new Audio(audioUrl);
         audioPath = audioUrl;

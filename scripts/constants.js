@@ -86,5 +86,10 @@ export const AVATAR_MAP = {
     },
     'sledKids': {
         'name': 'SLED KIDS'
-    }
+    },
+    'yeth-hound': {
+        'image': YETH_HOUND,
+        'name': 'REDBLACK DOG'
+    },
+    
 }

@@ -47,7 +47,7 @@ export function showPhoneAlert(message) {
     const alertBox = document.getElementById("phone-alert");
     alertBox.innerHTML = `
     <div style="width: 432px">
-        <p style="font-weight: bold">Meme Screen News Alert</p>
+        <p style="font-weight: bold">POETLAND NEWS</p>
         <p>${message}</p>
     </div>`;
 

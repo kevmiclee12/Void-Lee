@@ -9,6 +9,7 @@ export function buildSidebar() {
     const sidebarOptions = document.getElementById("sidebar-options");
 
     const phoneItems = JSON.parse(localStorage.getItem('phoneItems'));
+    console.log(phoneItems);
     const unreadPhoneItems = phoneItems.filter(e => !e.isRead);
 
     const innerHTML = `
@@ -265,7 +266,9 @@ function buildPhone() {
     }));
     localStorage.setItem('phoneItems', JSON.stringify(newPhoneItems))
 
-    const body = phoneItems.map(e => e.content).join('<br>');
+
+
+    const body =`<ul>${phoneItems.map(e => `<li>${e.content}</li>`).join('<br>')}</ul>`;
 
     const sidebar = document.getElementById('sidebar');
 

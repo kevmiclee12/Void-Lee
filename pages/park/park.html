@@ -27,14 +27,14 @@
             playAudio('../../resources/audio/story/park.mp3', true, 10);
 
             createNarrative(
-                `You are in the park across from the {workshop}. In the distance, a childrens' play structure. ` +
+                `You are in the park across from the {workshop}. In the distance, a children's play structure. ` +
                 `Behind the play structure sits an empty public pool in yellow and light blue. ` +
                 `Behind you, a soccer field, basketball court, and extensive skatepark. To your side, a huge snow pile.`
             );
             playText(onEnd => {
                 showBottomChoices([
-                    { label: 'Wish there were more people here.', onClick: `redirect('park/park-wish.html')` }, //TODO: this does something to the stats or aspect
-                    { label: 'Still yourself and listen to the sounds.', onClick: `redirect('park/park-listen.html')` },
+                    // { label: 'Wish there were more people here.', onClick: `redirect('park/park-wish.html')` }, //TODO: this does something to the stats or aspect
+                    { label: 'Still yourself and listen to the sounds.', onClick: `redirect('park/park-wish1.html')` },
                     { label: 'Leave the park to enter the neighborhood.', onClick: `redirect('neighborhood/neighborhood.html')` },
                     { label: 'Play on the snowpile.', onClick: `redirect('park/park-snow-pile.html')` }
                 ]);

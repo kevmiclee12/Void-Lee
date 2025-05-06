@@ -8,7 +8,7 @@ export function redirect(url, isAbsolute) {
 
     const history = JSON.parse(localStorage.getItem("history")) || [];
 
-    if (!history.includes(url)) {
+    if (!history.includes(url) && !url.includes('intro')) {
         const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
         const newPassageCount = passageCount + 1;
         localStorage.setItem("passageCount", newPassageCount);
@@ -25,32 +25,25 @@ export function redirect(url, isAbsolute) {
 function getPhoneContent(id) {
     switch (id) {
         case 1:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
+            return `New CDC director: Byron Leakschild.`
         case 2:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
+            return `CDC director declares sweeping staff cuts.`
         case 3:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
+            return `"Too many scientists, political bias, living off citizens.", Leakschild says.`
         case 4:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
+            return `"Too many maintenance workers and technicians." No one is safe from Leakschild's cuts.`
         case 5:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
-        default:
-            return null;
-    }
-}
-
-function getPhoneAlertMessage(id) {
-    switch (id) {
-        case 1:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
-        case 2:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
-        case 3:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
-        case 4:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
-        case 5:
-            return `HEALTHIEST GOBLIN HEADLINE ${id}`
+            return `"Infectious disease labs overstaffed", staff cuts imminent. Concerns for safety and protocol loom.`
+        case 6: 
+            return `CDC director finds 15 employees all whose job it is to maintain watch and status of world's healthiest goblin, "waste of taxpayer money".`
+        case 7: 
+            return `World's healthiest goblin escapes when the one employee left to maintain facility falls asleep. Leakschild blames "Shleepy Shoshana".`
+        case 8: 
+            return `Escaped goblin now believed to carry a single deadly disease per reports.`
+        case 9: 
+            return `Block your windows, quarantine in your homes, don't let the disease spread.`
+        case 10: 
+            return `Army deployed to contain outbreak. Shelter in palce.`
         default:
             return null;
     }
@@ -65,7 +58,7 @@ export function fadeInOverlay() {
     const passageCount = Number(localStorage.getItem("passageCount") ?? '0');
     const history = JSON.parse(localStorage.getItem("history")) || [];
     const page = window.location.href;
-    const alreadyVisited = history.filter(e => page.includes(e)).length > 0;
+    const alreadyVisited = history.filter(e => page.includes(e)).length > 1;
 
     if (passageCount > 0 && passageCount % 3 == 0 && !alreadyVisited) {
         const phoneItems = JSON.parse(localStorage.getItem('phoneItems'));
@@ -76,7 +69,7 @@ export function fadeInOverlay() {
             localStorage.setItem('phoneItems', JSON.stringify(phoneItems));
         }
 
-        const alertMessage = getPhoneAlertMessage(phoneItemId);
+        const alertMessage = getPhoneContent(phoneItemId);
         showPhoneAlert(alertMessage);
     }
 }

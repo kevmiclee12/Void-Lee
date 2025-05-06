@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="../../resources/images/avatars/mud-man.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Lee</title>
+</head>
+
+<body>
+    <div id="overlay" onClick="finishText()">
+        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
+            <p id="alert-message"></p>
+        </div>
+        <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
+        </div>
+    </div>
+
+    <script type="module">
+        import * as script from "../../script.js"
+
+        window.addEventListener("pageshow", () => {
+            fadeInOverlay();
+            buildSidebar();
+            createNarrative(
+                `As the Redblack dog approaches, you observe with rising nausea that it has a humanlike face but with dog flesh, ` +
+                `and full dark eyes. The dog snarls, and it sounds like a hungry snarl. As it closes the distance to you, you see ` +
+                `that its hair is caught in snarls too. Ungroomed...^^The human-faced dog circles you, growling, barking, with ` +
+                `human-like lips that reveal its strong jaw and saliva-wet teeth. The redblack dog lunges at your ankles, its teeth ` +
+                `snapping around your heels as you leap back.`
+            );
+            playText(onEnd => {
+                createDialog('long', 'yeth-hound', `<i>Grrrrrr</i>`, onClick => {
+                    dismissDialog(null, true);
+                    shiftDialog('long');
+                    showBottomChoices([
+                        { label: 'Good puppy.', onClick: `increaseStat('bluemagic', 1); redirect('black-dog/black-dog-moon.html')` },
+                        { label: 'Defend yourself.', onClick: `increaseStat('will', 1); redirect('black-dog/black-dog-yeth.html')` }
+                    ], false, 32);
+                });
+
+            });
+        })
+
+    </script>
+    <link rel="stylesheet" href="../../styles/styles.css">
+    <link rel="stylesheet" href="../../styles/button.css">
+    <link rel="stylesheet" href="../../styles/dialog.css">
+    <link rel="stylesheet" href="../../styles/choices.css">
+    <link rel="stylesheet" href="../../styles/alert.css">
+</body>
+
+</html>

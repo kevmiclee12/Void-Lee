@@ -1,0 +1,16 @@
+{
+    "editor.tabSize": 2,
+    "editor.autoIndent": "full",
+    "eslint.notebooks.rules.customizations": [],
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.fixAll.eslint": "explicit"
+    },
+    "eslint.validate": [
+        "javascript",
+        "typescript",
+    ],
+    "editor.formatOnSave": true,
+    "eslint.format.enable": true,
+    "files.eol": "\n",
+}
