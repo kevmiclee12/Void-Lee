@@ -43,7 +43,6 @@ export function showSnackbar(message, duration = 4000, callBack) {
 }
 
 export function showPhoneAlert(message) {
-    //TODO: play phone alert sound
     const alertBox = document.getElementById("phone-alert");
     alertBox.innerHTML = `
     <div style="width: 432px">

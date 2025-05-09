@@ -9,9 +9,7 @@
 
 <body>
     <div id="overlay" onClick="finishText()">
-        <div id="phone-alert" class="phone-alert" onClick="toggleSidebar('phone');">
-            <p id="alert-message"></p>
-        </div>
+
         <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
         </div>
     </div>
@@ -28,8 +26,6 @@
                 `redirect('sleep/sleep.html')`,
                 `redirect('paint/paint.html')`,
                 `redirect('park/park.html')`,
-                `redirect('workshop/workshop.html')`,
-                `redirect('city/city.html')`,
             ];
 
 
@@ -40,9 +36,7 @@
                 `^^A notebook sits on a little desk, a stiff chair next to it. Drawing utensils rest here. {Settle into the chair to make something}.` +
                 `^^The empty bed and the blank page remind you of fresh snow, a bright day, the smell of morning mud. ` +
                 `Poets saunter. Plastic bags and paper boxes are blown around by the wind. Kids playing, throwing and kicking, ` +
-                `snorting and rolicking. Wait, you want to {go to the park}.` +
-                `^^What about going to the {workshop}?` +
-                `^^I'd rather {see the City} today.`,
+                `snorting and rolicking. Wait, you want to {go to the park}.`
             );
             playText(onEnd => { }, choices);
         })

@@ -70,7 +70,7 @@ export function fadeInOverlay() {
         }
 
         const alertMessage = getPhoneContent(phoneItemId);
-        showPhoneAlert(alertMessage);
+      //TODO: play phone alert sound
     }
 }
 

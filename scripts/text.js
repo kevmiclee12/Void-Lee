@@ -224,9 +224,14 @@ export function showBottomChoices(choices, isHome, leftMargin) {
         avatar.src = avatarData['image'];
         avatar.id = 'avatar';
         avatar.classList.add('dialog-avatar');
+        avatar.style.width = '30vw'
+        avatar.style.height = 'auto';
         if (rightAlignUserAvatar) {
             avatar.style.left = '70vw';
             avatar.style.transform = 'scaleX(-1)';
+        } else {
+            avatar.style.left = '-6vw';
+
         }
 
         choices.forEach((choice, index) => {
@@ -401,7 +406,6 @@ export function createDialog(dialogType, avatarType, dialogText, onClick, playSo
         story.appendChild(bounceText);
 
     }
-
 
     if (avatarType != 'none') {
         story.appendChild(avatar);

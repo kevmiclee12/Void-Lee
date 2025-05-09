@@ -1,7 +1,7 @@
 import { BAG_ICON, STATS_ICON, PHONE_ICON, ID_ICON } from "./icons.js";
 import { dismissPhoneAlert, showSnackbar } from "./alerts.js";
 
-
+//TODO: Make scrollable!
 export function buildSidebar() {
     const story = document.getElementById('story');
     const openedDict = JSON.parse(localStorage.getItem("openedDict"));
