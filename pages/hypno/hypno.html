@@ -25,7 +25,23 @@
             playAudio('../../resources/audio/story/hypno/hypno.mp3', true, 10);
 
             createNarrative(
-                `Completely serene, without a worry in your mind, you fall asleep in your dream. You breathe in.^^A new dream! You notice that you are hugging a brightly colored mushroom! You can tell because your face is right up against it and your arms are embracing it. The mushroom smells like a marshmallow pencil, graphite and sugar. Its flesh is soft, yet springy. What a special mushroom! What a special day! You feel content.^^You hear yourself say aloud, "Wow! What a colorful mushroom."^^You lean back for a while just admiring the mushroom's shape.${showItem ? `^^{Grab up a handful of the mushroom's flesh.}` : ''}${showItem ? '^^' : ''}^^Looking up from the shroom, a hilly landscape sprawls out before you, expanding into a void panorama, filling every corner of the emptiness as you inhale deeper. Day, night, day, night. Seasons cycle and time dutifully carves the terrain with imperceptible changes.^^You've never had a dream like this before. Usually it's packing, or missing busses.^^Sttlements form. Clusters of huts dot the hillsides. Farms appear in patchwork sewn around the huts.^^You begin to exhale and as you do, the huts morph into vinyl-sided cookie-cutter houses. Spidery networks of highways fan out and spread upon the landscape like mycelia exploring a forest floor.^^A hill flattens here, a plain rises into a mountain there. The houses multiply and spread out along the roads, and from their coverage, large buildings and the grey of steel and asphalt overtakes the vegetative green. The stars in the night sky become less, the clarity of day is obscured by haze. The quiet is consumed by an ever-surmounting hum.^^{Breathe in.}`,
+                `Completely serene, without a worry in your mind, you fall asleep in your dream. You breathe in.` +
+                `^^A new dream! You notice that you are hugging a brightly colored mushroom! You can tell because ` +
+                `your face is right up against it and your arms are embracing it. The mushroom smells like a marshmallow ` +
+                `pencil, graphite and sugar. Its flesh is soft, yet springy. What a special mushroom! What a special day! ` +
+                `You feel content.^^You hear yourself say aloud, "Wow! What a colorful mushroom."` +
+                `^^You lean back for a while just admiring the mushroom's shape.${showItem ?
+                    `^^{Grab up a handful of the mushroom's flesh.}` : ''}${showItem ? '^^' : ''}` +
+                `^^Looking up from the shroom, a hilly landscape sprawls out before you, expanding into a void panorama, ` +
+                `filling every corner of the emptiness as you inhale deeper. Day, night, day, night. Seasons cycle and time dutifully ` +
+                `carves the terrain with imperceptible changes.^^You've never had a dream like this before. Usually it's packing, ` +
+                `or missing busses.^^Settlements form. Clusters of huts dot the hillsides. Farms appear in patchwork sewn around the huts.` +
+                `^^You begin to exhale and as you do, the huts morph into vinyl-sided cookie-cutter houses. Spidery networks of highways ` +
+                `fan out and spread upon the landscape like mycelia exploring a forest floor.` +
+                `^^A hill flattens here, a plain rises into a mountain there. The houses multiply and spread out along the roads, and from ` +
+                `their coverage, large buildings and the grey of steel and asphalt overtakes the vegetative green. The stars in the night ` +
+                `sky become less, the clarity of day is obscured by haze. The quiet is consumed by an ever-surmounting hum.` +
+                `^^{Breathe in.}`,
             );
             playText(onEnd => {
 

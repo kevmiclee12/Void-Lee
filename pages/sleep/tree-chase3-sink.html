@@ -10,30 +10,35 @@
 <body>
     <div id="overlay" onClick="finishText()">
 
-
         <div class="story" style="background-image: url(../../resources/images/backgrounds/new-game.png);" id="story">
         </div>
+        <div id="custom-alert" class="snackbar">
+            <p id="alert-message"></p>
+        </div>
     </div>
-
 
     <script type="module">
         import * as script from "../../script.js"
 
         window.addEventListener("pageshow", () => {
-            playAudio('../../resources/audio/story/party.mp3', true, 20);
             fadeInOverlay();
-            invert();
             buildSidebar();
-            createNarrative(`You're the life of the party. You're the Keg.`);
+            createNarrative(
+                `As you lay there motionless, in a mangled heap, conciousness slipping, what appears to be one of the faeries ` +
+                `from before enters your vision.`
+            );
             playText(onEnd => {
-                createDialog('long', 'faerie1', `WOOOOOOOTTT!`, onClick => {
+                createDialog('long', 'faerie1', 'Oh little pölkkypää... What you tried to do to the trees was not nice! I guess you learned your lesson though. Rest now.', onClick => {
+                    dismissDialog(null, true);
                     dismissDialog('long');
-                    createDialog('long', 'squirrel', 'JOOOOOOOO!', onClick => {
-
-                    }, true);
-                }, true);
+                    createNarrative(
+                        `The faerie has something round and shiny in its hand, which it inserts into your mouth. ` +
+                        `You have no choice but to {swallow it}.`
+                    );
+                    playText(onEnd => { }, [`redirect('faeries/faeries-pre-game.html')`])
+                });
             });
-        })
+        });
 
     </script>
     <link rel="stylesheet" href="../../styles/styles.css">
@@ -41,6 +46,7 @@
     <link rel="stylesheet" href="../../styles/dialog.css">
     <link rel="stylesheet" href="../../styles/choices.css">
     <link rel="stylesheet" href="../../styles/alert.css">
+
 </body>
 
 </html>

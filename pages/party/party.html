@@ -23,8 +23,15 @@
             invert();
             fadeInOverlay();
             buildSidebar();
+
+            const params = new URLSearchParams(window.location.search);
+            const isKeg = params.get('keg');
+
+
             createNarrative(
-                `When you come to, you're still in the clearing, but it all seems \`different\`. The squirrel and hongatar are all here, but perfectly conscious. There is upbeat music, merry-making and of course, a keg!`
+                isKeg ? `You're the life of the party. You're the Keg.` :
+                    `When you come to, you're still in the clearing, but it all seems \`different\`. ` +
+                    `The squirrel and hongatar are all here, but perfectly conscious. There is upbeat music, merry-making and of course, a keg!`
             );
             playText(onEnd => {
                 createDialog('long', 'faerie1', `WOOOOOOOTTT!`, onClick => {

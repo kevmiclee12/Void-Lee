@@ -24,12 +24,15 @@
             createDialog('long', 'drunk1', `Oh dang! A skatepark! Cool! Bye!`, onClick => {
                 dismissDialog('long');
                 createNarrative(
-                    `They run past you to the skatepark.^^As they lope off, you turn around and lean against a tree.`
+                    `They run past you to the skatepark. As they lope off, you turn around and lean against a tree.` +
+                    `^^Your attention shifts to the field as the distant lights of the highway pull your attention, like shooting stars.` +
+                    `^^Below your gaze, you think you can see a form is hunched across the field from you. Like a dark and burly bush, ` +
+                    `you can't make out its features. You are sure that was not there a minute ago.`
                 );
                 playText(onEnd => {
                     showBottomChoices([
-                        { label: 'Open your ears.', onClick: `redirect('park/park-listen.html')` },
-                        { label: 'Stare off into space.', onClick: `redirect('black-dog/black-dog.html')` }
+                        { label: 'Go closer.', onClick: `redirect('black-dog/black-dog1.html')` },
+                        { label: 'Back away.', onClick: `redirect('black-dog/black-dog1.html')` }
                     ]);
                 })
             });

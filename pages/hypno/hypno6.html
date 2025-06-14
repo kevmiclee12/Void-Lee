@@ -38,8 +38,10 @@
             dismissDialog('long');
             createDialog('long', 'buzz', 'Great! I knew you were right for the job. Now remember everything I taught you.', onClick => {
                 dismissDialog('long');
-                createNarrative(`With that, the stage door shuts.^^It's dark, and doesn't really seem like a stage at all. As your eyes adjust and the scene takes shape, it seems eerily similar to the forest from your original dream.^^You hear voices approaching. Quick! {Act like a keg!}`);
-                playText(null, [`redirect('party/party-keg.html');`]);
+                createNarrative(`With that, the stage door shuts.^^It's dark, and doesn't really seem like a stage at all. ` +
+                    `As your eyes adjust and the scene takes shape, it seems eerily similar to the forest from your original dream.` +
+                    `^^You hear voices approaching. Quick! {Act like a keg!}`);
+                playText(null, [`redirect('party/party.html?keg=true');`]);
             }, true);
         }
 
@@ -47,7 +49,8 @@
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `You walk out onto a steel catwalk. You see an infinite maze of these catwalks in every direction, and figures in an endless array of wild and impossbile costumes of all shapes and sizes.`
+                `You walk out onto a steel catwalk. You see an infinite maze of these catwalks in every direction, ` +
+                `and figures in an endless array of wild and impossbile costumes of all shapes and sizes.`
             );
             playText(onEnd => {
                 createDialog('long', 'buzz', `Busy, busy! Memespace is bumpin tonight! That's why we had to bring in you eh... erm.. \`amateurs\`.`, onClick => {

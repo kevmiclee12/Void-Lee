@@ -22,14 +22,11 @@
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `Your attention shifts to the field as the distant lights of the highway pull your attention, like shooting stars.` +
-                `^^Below your gaze, you think you can see a form is hunched across the field from you. Like a dark and burly bush, ` +
-                `you can't make out its features. You are sure that was not there a minute ago.`
+
             );
             playText(onEnd => {
                 showBottomChoices([
-                    { label: 'Go closer.', onClick: `redirect('black-dog/black-dog1.html')` },
-                    { label: 'Back away.', onClick: `redirect('black-dog/black-dog1.html')` }
+
                 ]);
             });
         })

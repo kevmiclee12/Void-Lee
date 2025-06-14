@@ -21,7 +21,8 @@
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `"Indras before me? What are you talking about?"^"Indras...\`before\`...\`me\`? What... are you talking about!"^"Indras before... \`me\`? What are you \`talking\` about?"`
+                `"Indras before me? What are you talking about?"^"Indras...\`before\`...\`me\`? What... are you talking about!"` +
+                `^"Indras before... \`me\`? What are you \`talking\` about?"`
             );
             playText(onEnd => {
                 showBottomChoices([

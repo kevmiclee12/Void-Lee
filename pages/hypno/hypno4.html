@@ -21,7 +21,8 @@
             fadeInOverlay();
             buildSidebar();
             createNarrative(
-                `You hear one knock at the door before it swings open. A large fellow bustles in importantly, his smile entreating you.^^With a gusto that feels suspiciously contrived, he addresses you.`
+                `You hear one knock at the door before it swings open. A large fellow bustles in importantly, ` +
+                `his smile entreating you.^^With a gusto that feels suspiciously contrived, he addresses you.`
             );
             playText(onEnd => {
                 createDialog('long', 'buzz', `You're not ready? Don't worry, you'll be fine.^\`The show must go on\`!`,
@@ -30,7 +31,7 @@
                         shiftDialog('long');
                         showBottomChoices([
                             { label: `"I don't think I'm cut out for this."`, onClick: `redirect('hypno/hypno5.html?lines=true')` },
-                            { label: `"I need more time to go over my lines!"`, onClick: `redirect('hypno/hypno5.html?lines=true')` },
+                            { label: `"I need more time to go over my lines!"`, onClick: `redirect('hypno/hypno3a.html')` },
                             { label: `"I got this!"`, onClick: `increaseStat('will', 1); redirect('hypno/hypno5.html')` }
                         ]);
                     },

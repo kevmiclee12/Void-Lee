@@ -24,11 +24,14 @@
             const lines = params.get('lines');
 
 
-            createDialog('long', 'buzz', `${lines ? `Don't be ridiculous. Your part doesn't even have any lines.` : `Great, great. They're waiting for you out there.`} Quickly, put this on.`,
+            createDialog('long', 'buzz', `${lines ? `Don't be ridiculous. Your part doesn't even have any lines.` :
+                `Great, great. They're waiting for you out there.`} Quickly, put this on.`,
                 onClick => {
                     dismissDialog('long');
                     createNarrative(
-                        `He shoves a costume at you and turns away with a huff. You feel obliged to put it on quickly. No sooner than your head slips through the top of the costume is the large man ushering you out the door. You barely catch a glimpse of yourself in the dressing room mirror.^^You're a... {keg}?`
+                        `He shoves a costume at you and turns away with a huff. You feel obliged to put it on quickly. ` +
+                        `No sooner than your head slips through the top of the costume is the large man ushering you out ` +
+                        `the door. You barely catch a glimpse of yourself in the dressing room mirror.^^You're a... {keg}?`
                     );
                     playText(null, [`redirect('hypno/hypno6.html')`]);
                 },

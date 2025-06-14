@@ -27,7 +27,9 @@
             const hasMoss = checkItems('brain moss');
 
             createNarrative(
-                `It's so serene and beautiful here. It would be funny if you could go to sleep again when you are already dreaming. You pick a spot to nap on the brain moss, sinking into it, supple and cozy.${!hasMoss ? '^^{Pick up a handful of brain moss.}' : ''}`,
+                `It's so serene and beautiful here. It would be funny if you could go to sleep again when you ` +
+                `are already dreaming. You pick a spot to nap on the brain moss, sinking into it, supple and cozy.` +
+                `${!hasMoss ? '^^{Pick up a handful of brain moss.}' : ''}`,
             );
             playText(onEnd => {
                 showBottomChoices([
